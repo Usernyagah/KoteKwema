@@ -1,0 +1,101 @@
+import { Mail, MapPin, Phone } from "lucide-react";
+import { Button } from "@/components/ui/button";
+
+const Contact = () => {
+  return (
+    <section id="contact" className="py-24 px-6 lg:px-12 bg-secondary/30">
+      <div className="container mx-auto">
+        <div className="grid lg:grid-cols-2 gap-16">
+          <div className="space-y-8 animate-fade-up">
+            <div>
+              <h2 className="text-4xl md:text-5xl font-light tracking-tight mb-4">
+                Start a Conversation
+              </h2>
+              <p className="text-lg text-muted-foreground font-light">
+                Let's discuss how we can bring your vision to life
+              </p>
+            </div>
+
+            <div className="space-y-6">
+              <div className="flex items-start gap-4">
+                <MapPin className="h-5 w-5 mt-1 text-muted-foreground" />
+                <div>
+                  <p className="font-light mb-1">Location</p>
+                  <p className="text-muted-foreground text-sm font-light">
+                    123 Architecture Lane
+                    <br />
+                    New York, NY 10001
+                  </p>
+                </div>
+              </div>
+
+              <div className="flex items-start gap-4">
+                <Phone className="h-5 w-5 mt-1 text-muted-foreground" />
+                <div>
+                  <p className="font-light mb-1">Phone</p>
+                  <p className="text-muted-foreground text-sm font-light">+1 (555) 123-4567</p>
+                </div>
+              </div>
+
+              <div className="flex items-start gap-4">
+                <Mail className="h-5 w-5 mt-1 text-muted-foreground" />
+                <div>
+                  <p className="font-light mb-1">Email</p>
+                  <p className="text-muted-foreground text-sm font-light">
+                    contact@architecture.com
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="animate-fade-in">
+            <form className="space-y-6">
+              <div className="space-y-2">
+                <label htmlFor="name" className="text-sm font-light">
+                  Name
+                </label>
+                <input
+                  type="text"
+                  id="name"
+                  className="w-full px-4 py-3 bg-background border border-border focus:border-foreground/50 focus:outline-none transition-colors duration-200"
+                  placeholder="Your name"
+                />
+              </div>
+
+              <div className="space-y-2">
+                <label htmlFor="email" className="text-sm font-light">
+                  Email
+                </label>
+                <input
+                  type="email"
+                  id="email"
+                  className="w-full px-4 py-3 bg-background border border-border focus:border-foreground/50 focus:outline-none transition-colors duration-200"
+                  placeholder="your@email.com"
+                />
+              </div>
+
+              <div className="space-y-2">
+                <label htmlFor="message" className="text-sm font-light">
+                  Message
+                </label>
+                <textarea
+                  id="message"
+                  rows={6}
+                  className="w-full px-4 py-3 bg-background border border-border focus:border-foreground/50 focus:outline-none transition-colors duration-200 resize-none"
+                  placeholder="Tell us about your project"
+                />
+              </div>
+
+              <Button className="w-full bg-primary text-primary-foreground hover:bg-accent transition-colors duration-200">
+                Send Message
+              </Button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+};
+
+export default Contact;
