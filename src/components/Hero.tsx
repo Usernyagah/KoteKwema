@@ -1,4 +1,4 @@
-import { ArrowDown } from "lucide-react";
+import { ArrowDown, PlayCircle } from "lucide-react";
 import heroImage from "@/assets/hero-architecture.jpg";
 
 const Hero = () => {
@@ -25,13 +25,26 @@ const Hero = () => {
           Award-winning architecture firm creating innovative and sustainable designs
         </p>
 
-        {/* Scroll Indicator */}
+        {/* Scroll Indicator - Right Side */}
         <a
           href="#projects"
-          className="absolute bottom-12 left-1/2 transform -translate-x-1/2 animate-bounce"
+          className="absolute bottom-12 right-12 animate-bounce"
         >
           <ArrowDown className="h-6 w-6 text-white" />
         </a>
+
+        {/* Video Circle Icons - Bottom Left */}
+        <div className="absolute bottom-12 left-12 flex gap-4">
+          {[1, 2, 3].map((i) => (
+            <button
+              key={i}
+              className="group relative"
+              aria-label={`Play video ${i}`}
+            >
+              <PlayCircle className="h-8 w-8 text-white/70 hover:text-white transition-colors" />
+            </button>
+          ))}
+        </div>
       </div>
     </section>
   );
