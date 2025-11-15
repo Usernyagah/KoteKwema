@@ -4,12 +4,23 @@ import heroImage from "@/assets/hero-architecture.jpg";
 
 const Hero = () => {
   const [activeVideo, setActiveVideo] = useState<number | null>(null);
+  const [playingVideo, setPlayingVideo] = useState<number | null>(null);
 
   const architectureVideos = [
-    "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4",
-    "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4",
-    "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerJoyrides.mp4",
+    "https://videos.pexels.com/video-files/3129671/3129671-uhd_2560_1440_25fps.mp4",
+    "https://videos.pexels.com/video-files/3130284/3130284-uhd_2560_1440_30fps.mp4",
+    "https://videos.pexels.com/video-files/4834092/4834092-uhd_2560_1440_25fps.mp4",
   ];
+
+  const handleVideoClick = (index: number) => {
+    setActiveVideo(index);
+    setPlayingVideo(index);
+  };
+
+  const handleCloseVideo = () => {
+    setActiveVideo(null);
+    setPlayingVideo(null);
+  };
 
   return (
     <section className="relative h-screen w-full overflow-hidden">
@@ -47,11 +58,20 @@ const Hero = () => {
           {[0, 1, 2].map((i) => (
             <button
               key={i}
-              onClick={() => setActiveVideo(i)}
+              onClick={() => handleVideoClick(i)}
               className="group relative"
               aria-label={`Play video ${i + 1}`}
             >
-              <PlayCircle className="h-8 w-8 text-white/70 hover:text-white transition-colors" />
+              <PlayCircle 
+                className={`h-8 w-8 transition-all ${
+                  playingVideo === i 
+                    ? "text-accent scale-110" 
+                    : "text-white/70 hover:text-white"
+                }`} 
+              />
+              {playingVideo === i && (
+                <div className="absolute inset-0 rounded-full border-2 border-accent animate-ping" />
+              )}
             </button>
           ))}
         </div>
@@ -61,7 +81,7 @@ const Hero = () => {
       {activeVideo !== null && (
         <div
           className="fixed inset-0 bg-black/90 z-50 flex items-center justify-center p-4"
-          onClick={() => setActiveVideo(null)}
+          onClick={handleCloseVideo}
         >
           <div className="relative w-full max-w-4xl aspect-video">
             <video
@@ -70,9 +90,10 @@ const Hero = () => {
               autoPlay
               className="w-full h-full"
               onClick={(e) => e.stopPropagation()}
+              onEnded={handleCloseVideo}
             />
             <button
-              onClick={() => setActiveVideo(null)}
+              onClick={handleCloseVideo}
               className="absolute -top-10 right-0 text-white hover:text-accent transition-colors"
               aria-label="Close video"
             >
