@@ -3,6 +3,7 @@ import { Menu, Search } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import SearchOverlay from "./SearchOverlay";
 import MenuOverlay from "./MenuOverlay";
+import logo from "@/assets/logo.jpg";
 
 const Navigation = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -38,8 +39,12 @@ const Navigation = () => {
       >
         <div className="container mx-auto px-6 lg:px-12">
           <div className="flex items-center justify-between h-20">
-            <a href="#" className="text-2xl font-light tracking-wider text-foreground">
-              Architecture
+            <a href="#" className="flex items-center gap-3">
+              <img src={logo} alt="Kote Kwema" className="h-12 w-auto" />
+              <div className="flex flex-col">
+                <span className="text-xl font-light tracking-wider text-foreground">KOTE KWEMA</span>
+                <span className="text-xs text-muted-foreground">With Love for Nature</span>
+              </div>
             </a>
 
             {/* Desktop Icons */}
