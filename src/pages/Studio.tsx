@@ -20,16 +20,16 @@ const StudioPage = () => {
               className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
             />
             <div className="absolute bottom-0 left-0 p-6">
-              <span className="text-white text-2xl font-light">About</span>
+              <span className="text-white text-2xl font-bold">About</span>
             </div>
           </a>
 
           {/* Top Right - Dark Grey Text Box */}
           <div className="col-span-1 bg-[#333333] p-8 lg:p-12 flex flex-col justify-center">
-            <p className="text-[#D0D0D0] text-lg font-light leading-relaxed mb-6">
+            <p className="text-[#D0D0D0] text-lg font-bold leading-relaxed mb-6">
               We are a global studio for sustainable architecture, urbanism, engineering and design, established in 1967.
             </p>
-            <p className="text-[#D0D0D0] text-xl font-light">
+            <p className="text-[#D0D0D0] text-xl font-bold">
               Kote Kwema
             </p>
           </div>
@@ -42,7 +42,7 @@ const StudioPage = () => {
               className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
             />
             <div className="absolute bottom-0 left-0 p-6">
-              <span className="text-white text-xl font-light">Life at Kote Kwema</span>
+              <span className="text-white text-xl font-bold">Life at Kote Kwema</span>
             </div>
           </a>
 
@@ -53,7 +53,7 @@ const StudioPage = () => {
               className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
             />
             <div className="absolute bottom-0 left-0 p-6">
-              <span className="text-white text-xl font-light">Vacancies</span>
+              <span className="text-white text-xl font-bold">Vacancies</span>
             </div>
           </a>
 
@@ -64,7 +64,7 @@ const StudioPage = () => {
               className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
             />
             <div className="absolute bottom-0 left-0 p-6">
-              <span className="text-white text-xl font-light">Equity, Diversity and Inclusion</span>
+              <span className="text-white text-xl font-bold">Equity, Diversity and Inclusion</span>
             </div>
           </a>
 
@@ -76,7 +76,7 @@ const StudioPage = () => {
               className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
             />
             <div className="absolute bottom-0 left-0 p-6">
-              <span className="text-white text-xl font-light">Corporate Social Responsibility</span>
+              <span className="text-white text-xl font-bold">Corporate Social Responsibility</span>
             </div>
           </a>
 
@@ -87,7 +87,7 @@ const StudioPage = () => {
               className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
             />
             <div className="absolute bottom-0 left-0 p-6">
-              <span className="text-white text-xl font-light">Global studios</span>
+              <span className="text-white text-xl font-bold">Global studios</span>
             </div>
           </a>
 
@@ -98,7 +98,7 @@ const StudioPage = () => {
               className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
             />
             <div className="absolute bottom-0 left-0 p-6">
-              <span className="text-white text-xl font-light">Studio</span>
+              <span className="text-white text-xl font-bold">Studio</span>
             </div>
           </a>
         </div>

@@ -25,7 +25,7 @@ const Expertise = () => {
       <div className="pt-20 pb-8">
         <div className="pl-6 lg:pl-12 pr-6 lg:pr-12">
           <div className="mb-8">
-            <h2 className="text-4xl md:text-5xl font-light tracking-tight text-[#D0D0D0]">
+            <h2 className="text-4xl md:text-5xl font-bold tracking-tight text-white">
               Expertise
             </h2>
           </div>
@@ -39,7 +39,7 @@ const Expertise = () => {
                 className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
               />
               <div className="absolute bottom-0 left-0 p-6">
-                <span className="text-white text-xl font-light">Engineering</span>
+                <span className="text-white text-xl font-bold">Engineering</span>
               </div>
             </a>
             {/* Technology and Research - 1/4 width */}
@@ -50,7 +50,7 @@ const Expertise = () => {
                 className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
               />
               <div className="absolute bottom-0 left-0 p-6">
-                <span className="text-white text-xl font-light">Technology and Research</span>
+                <span className="text-white text-xl font-bold">Technology and Research</span>
               </div>
             </a>
           </div>
@@ -69,7 +69,7 @@ const Expertise = () => {
               className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
             />
             <div className="absolute bottom-0 left-0 p-6">
-              <span className="text-white text-xl font-light">{area.title}</span>
+              <span className="text-white text-xl font-bold">{area.title}</span>
             </div>
           </a>
         ))}

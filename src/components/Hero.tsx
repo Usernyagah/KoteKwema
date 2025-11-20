@@ -226,10 +226,10 @@ const Hero = () => {
       {/* News Overlay - Bottom Left */}
       <div className="absolute bottom-0 left-0 p-6 lg:p-12 max-w-2xl z-10">
         <div className="space-y-2">
-          <span className="text-xs text-white/80 font-light tracking-wide uppercase">
+          <span className="text-xs text-white font-bold tracking-wide uppercase">
             {slides[currentSlide].category}
           </span>
-          <h2 className="text-base md:text-lg lg:text-xl font-light text-white leading-tight">
+          <h2 className="text-base md:text-lg lg:text-xl font-bold text-white leading-tight">
             {slides[currentSlide].title}
           </h2>
         </div>

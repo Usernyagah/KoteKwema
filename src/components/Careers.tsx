@@ -5,10 +5,10 @@ const Careers = () => {
   return (
     <div>
       <div className="mb-8">
-        <h2 className="text-4xl md:text-5xl font-light tracking-tight mb-4">
+        <h2 className="text-4xl md:text-5xl font-bold tracking-tight mb-4 text-white">
           Careers
         </h2>
-        <p className="text-lg text-muted-foreground font-light">
+        <p className="text-lg text-white font-bold">
           Join our global studio and be part of creating sustainable architecture that makes a difference.
         </p>
       </div>
@@ -23,8 +23,8 @@ const Careers = () => {
             />
           </div>
           <div>
-            <h3 className="text-2xl font-light mb-4">Vacancies</h3>
-            <p className="text-muted-foreground mb-6">
+            <h3 className="text-2xl font-bold mb-4 text-white">Vacancies</h3>
+            <p className="text-white mb-6 font-bold">
               We are always looking for talented individuals who share our passion for innovative design and sustainable architecture. Explore current opportunities across our global studios.
             </p>
           </div>
@@ -39,15 +39,15 @@ const Careers = () => {
             />
           </div>
           <div className="md:order-1">
-            <h3 className="text-2xl font-light mb-4">Life at Kote Kwema</h3>
-            <p className="text-muted-foreground mb-6">
+            <h3 className="text-2xl font-bold mb-4 text-white">Life at Kote Kwema</h3>
+            <p className="text-white mb-6 font-bold">
               Working with us means being part of a collaborative, creative environment where your ideas can shape the future of architecture. We value innovation, sustainability, and design excellence.
             </p>
           </div>
         </div>
 
         <div className="pt-8">
-          <button className="px-8 py-3 border border-border hover:border-foreground transition-colors duration-200 font-light tracking-wide">
+          <button className="px-8 py-3 border border-white hover:border-white/80 transition-colors duration-200 font-bold tracking-wide text-white">
             View Open Positions
           </button>
         </div>

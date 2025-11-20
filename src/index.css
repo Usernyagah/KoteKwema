@@ -6,6 +6,37 @@
 All colors MUST be HSL.
 */
 
+/* Rotis Font Family */
+/* If you have Rotis font files, place them in /public/fonts/ and uncomment these */
+/*
+@font-face {
+  font-family: 'Rotis Sans Serif';
+  src: url('/fonts/RotisSansSerif-Regular.woff2') format('woff2'),
+       url('/fonts/RotisSansSerif-Regular.woff') format('woff');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Rotis Sans Serif';
+  src: url('/fonts/RotisSansSerif-Light.woff2') format('woff2'),
+       url('/fonts/RotisSansSerif-Light.woff') format('woff');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Rotis Sans Serif';
+  src: url('/fonts/RotisSansSerif-Bold.woff2') format('woff2'),
+       url('/fonts/RotisSansSerif-Bold.woff') format('woff');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+*/
+
 @layer base {
   :root {
     /* Kote Kwema theme colors extracted from logo */
@@ -104,6 +135,7 @@ All colors MUST be HSL.
   }
 
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-white font-bold;
+    font-family: 'Rotis Sans Serif', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   }
 }

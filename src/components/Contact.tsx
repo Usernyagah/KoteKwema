@@ -6,10 +6,10 @@ const Contact = () => {
   return (
     <div>
       <div className="mb-8">
-        <h2 className="text-4xl md:text-5xl font-light tracking-tight mb-4">
+        <h2 className="text-4xl md:text-5xl font-bold tracking-tight mb-4 text-white">
           Start a Conversation
         </h2>
-        <p className="text-lg text-muted-foreground font-light">
+        <p className="text-lg text-white font-bold">
           Let's discuss how we can bring your vision to life
         </p>
       </div>
@@ -24,10 +24,10 @@ const Contact = () => {
 
       <div className="space-y-6 mb-8">
         <div className="flex items-start gap-4">
-          <MapPin className="h-5 w-5 mt-1 text-muted-foreground" />
+          <MapPin className="h-5 w-5 mt-1 text-white" />
           <div>
-            <p className="font-light mb-1">Location</p>
-            <p className="text-muted-foreground text-sm font-light">
+            <p className="font-bold mb-1 text-white">Location</p>
+            <p className="text-white text-sm font-bold">
               123 Architecture Lane
               <br />
               New York, NY 10001
@@ -36,18 +36,18 @@ const Contact = () => {
         </div>
 
         <div className="flex items-start gap-4">
-          <Phone className="h-5 w-5 mt-1 text-muted-foreground" />
+          <Phone className="h-5 w-5 mt-1 text-white" />
           <div>
-            <p className="font-light mb-1">Phone</p>
-            <p className="text-muted-foreground text-sm font-light">+1 (555) 123-4567</p>
+            <p className="font-bold mb-1 text-white">Phone</p>
+            <p className="text-white text-sm font-bold">+1 (555) 123-4567</p>
           </div>
         </div>
 
         <div className="flex items-start gap-4">
-          <Mail className="h-5 w-5 mt-1 text-muted-foreground" />
+          <Mail className="h-5 w-5 mt-1 text-white" />
           <div>
-            <p className="font-light mb-1">Email</p>
-            <p className="text-muted-foreground text-sm font-light">
+            <p className="font-bold mb-1 text-white">Email</p>
+            <p className="text-white text-sm font-bold">
               contact@architecture.com
             </p>
           </div>
@@ -56,37 +56,37 @@ const Contact = () => {
 
       <form className="space-y-6">
         <div className="space-y-2">
-          <label htmlFor="name" className="text-sm font-light">
+          <label htmlFor="name" className="text-sm font-bold text-white">
             Name
           </label>
           <input
             type="text"
             id="name"
-            className="w-full px-4 py-3 bg-background border border-border focus:border-foreground/50 focus:outline-none transition-colors duration-200"
+            className="w-full px-4 py-3 bg-background border border-border focus:border-foreground/50 focus:outline-none transition-colors duration-200 text-white font-bold placeholder-white/50"
             placeholder="Your name"
           />
         </div>
 
         <div className="space-y-2">
-          <label htmlFor="email" className="text-sm font-light">
+          <label htmlFor="email" className="text-sm font-bold text-white">
             Email
           </label>
           <input
             type="email"
             id="email"
-            className="w-full px-4 py-3 bg-background border border-border focus:border-foreground/50 focus:outline-none transition-colors duration-200"
+            className="w-full px-4 py-3 bg-background border border-border focus:border-foreground/50 focus:outline-none transition-colors duration-200 text-white font-bold placeholder-white/50"
             placeholder="your@email.com"
           />
         </div>
 
         <div className="space-y-2">
-          <label htmlFor="message" className="text-sm font-light">
+          <label htmlFor="message" className="text-sm font-bold text-white">
             Message
           </label>
           <textarea
             id="message"
             rows={6}
-            className="w-full px-4 py-3 bg-background border border-border focus:border-foreground/50 focus:outline-none transition-colors duration-200 resize-none"
+            className="w-full px-4 py-3 bg-background border border-border focus:border-foreground/50 focus:outline-none transition-colors duration-200 resize-none text-white font-bold placeholder-white/50"
             placeholder="Tell us about your project"
           />
         </div>

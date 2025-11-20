@@ -7,13 +7,13 @@ const FeaturedProject = () => {
       <div className="container mx-auto">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           <div className="space-y-6 animate-fade-up">
-            <span className="text-sm tracking-widest text-muted-foreground uppercase">
+            <span className="text-sm tracking-widest text-white uppercase font-bold">
               Featured Project
             </span>
-            <h2 className="text-4xl md:text-5xl lg:text-6xl font-light tracking-tight">
+            <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-white">
               Corporate Headquarters
             </h2>
-            <p className="text-lg text-muted-foreground leading-relaxed font-light">
+            <p className="text-lg text-white leading-relaxed font-bold">
               A transformative workspace designed to foster collaboration and innovation. 
               This 50,000 square foot headquarters features sustainable materials, 
               natural lighting, and flexible spaces that adapt to modern work patterns.
@@ -21,7 +21,7 @@ const FeaturedProject = () => {
             <div className="pt-4">
               <a
                 href="#"
-                className="inline-flex items-center gap-2 text-sm tracking-wide hover:gap-4 transition-all duration-300"
+                className="inline-flex items-center gap-2 text-sm tracking-wide hover:gap-4 transition-all duration-300 text-white font-bold"
               >
                 View Project <ArrowRight className="h-4 w-4" />
               </a>

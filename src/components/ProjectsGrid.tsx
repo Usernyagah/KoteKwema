@@ -45,12 +45,12 @@ const ProjectsGrid = () => {
             </div>
             <div className="space-y-2">
               <div className="flex items-center justify-between">
-                <span className="text-xs tracking-widest text-muted-foreground uppercase">
+                <span className="text-xs tracking-widest text-white uppercase font-bold">
                   {project.category}
                 </span>
-                <span className="text-xs text-muted-foreground">{project.year}</span>
+                <span className="text-xs text-white font-bold">{project.year}</span>
               </div>
-              <h3 className="text-xl font-light group-hover:text-muted-foreground transition-colors duration-200">
+              <h3 className="text-xl font-bold text-white group-hover:text-white/80 transition-colors duration-200">
                 {project.title}
               </h3>
             </div>

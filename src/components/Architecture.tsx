@@ -6,7 +6,7 @@ const Architecture = () => {
       <div className="pt-20 pb-8">
         <div className="pl-6 lg:pl-12 pr-6 lg:pr-12">
           <div className="mb-8">
-            <h2 className="text-4xl md:text-5xl font-light tracking-tight text-[#D0D0D0]">
+            <h2 className="text-4xl md:text-5xl font-bold tracking-tight text-white">
               Architecture
             </h2>
           </div>
@@ -19,16 +19,16 @@ const Architecture = () => {
             className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
           />
           <div className="absolute bottom-0 left-0 p-6">
-            <span className="text-white text-2xl font-light">Architecture</span>
+            <span className="text-white text-2xl font-bold">Architecture</span>
           </div>
         </a>
 
         {/* Right - Dark Grey Text Box (1/4 width) */}
         <div className="md:col-span-1 bg-[#333333] p-8 lg:p-12 flex flex-col justify-center h-auto md:h-[500px] min-h-[250px]">
-          <p className="text-[#D0D0D0] text-lg font-light leading-relaxed mb-6">
+          <p className="text-[#D0D0D0] text-lg font-bold leading-relaxed mb-6">
             From the very beginning our practice was founded on a philosophy of innovation, sustainability and design. We continue to learn from the past and creatively embrace the challenges of the future, with a firm belief that good design makes a difference.
           </p>
-          <p className="text-[#D0D0D0] text-xl font-light">
+          <p className="text-[#D0D0D0] text-xl font-bold">
             Kote Kwema
           </p>
           </div>

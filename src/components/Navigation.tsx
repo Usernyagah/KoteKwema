@@ -50,8 +50,8 @@ const Navigation = () => {
           <a href="#" className="flex items-center gap-3 pl-6 lg:pl-12">
             <img src={logo} alt="Kote Kwema" className="h-12 w-auto" />
             <div className="flex flex-col">
-              <span className="text-xl font-light tracking-wider text-foreground">KOTE KWEMA</span>
-              <span className="text-xs text-muted-foreground">With Love for Nature</span>
+              <span className="text-xl font-bold tracking-wider text-white">KOTE KWEMA</span>
+              <span className="text-xs text-white font-bold">With Love for Nature</span>
             </div>
           </a>
 
@@ -64,7 +64,7 @@ const Navigation = () => {
               variant="ghost"
               size="icon"
               onClick={() => setIsSearchOpen(true)}
-              className="hover:bg-transparent text-foreground"
+              className="hover:bg-transparent text-white"
             >
               <Search className="h-5 w-5" />
             </Button>
@@ -73,7 +73,7 @@ const Navigation = () => {
               variant="ghost"
               size="icon"
               onClick={() => setIsMenuOpen(true)}
-              className="hover:bg-transparent text-foreground"
+              className="hover:bg-transparent text-white"
             >
               <MenuIcon className="h-5 w-5" />
             </Button>
