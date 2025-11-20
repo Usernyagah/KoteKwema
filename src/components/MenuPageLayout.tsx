@@ -35,16 +35,16 @@ const MenuPageLayout = ({ children, image = heroImage }: MenuPageLayoutProps) =>
         </div>
         
         {/* Right Half - Menu Items and Content */}
-        <div className="w-1/2 h-full bg-white overflow-y-auto flex">
+        <div className="w-1/2 h-full bg-card overflow-y-auto flex">
           {/* Menu Items List */}
-          <div className="w-1/3 border-r border-gray-200 p-6 lg:p-8">
+          <div className="w-1/3 border-r border-border p-6 lg:p-8">
             <nav>
               <ul className="space-y-1">
                 {menuLinks.map((link) => (
                   <li key={link.name}>
                     <Link
                       to={link.href}
-                      className="text-lg font-light text-gray-800 hover:text-gray-600 transition-colors duration-200 block py-2"
+                      className="text-lg font-light text-foreground hover:text-muted-foreground transition-colors duration-200 block py-2"
                     >
                       {link.name}
                     </Link>

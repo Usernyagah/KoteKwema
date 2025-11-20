@@ -6,9 +6,9 @@ import project4 from "@/assets/project-4.jpg";
 
 const Studio = () => {
   return (
-    <div>
+    <div className="bg-[#1A1A1A]">
       <div className="mb-16">
-        <h2 className="text-4xl md:text-5xl font-light tracking-tight mb-8">
+        <h2 className="text-4xl md:text-5xl font-light tracking-tight mb-8 text-[#D0D0D0]">
           Studio
         </h2>
       </div>
@@ -23,8 +23,8 @@ const Studio = () => {
             />
           </div>
           <div>
-            <h3 className="text-2xl font-light mb-4">About</h3>
-            <p className="text-muted-foreground mb-6">
+            <h3 className="text-2xl font-light mb-4 text-[#D0D0D0]">About</h3>
+            <p className="text-[#D0D0D0] mb-6">
               We are a global studio for sustainable architecture, urbanism, engineering and design, established in 1967.
             </p>
           </div>
@@ -39,8 +39,8 @@ const Studio = () => {
             />
           </div>
           <div className="md:order-1">
-            <h3 className="text-2xl font-light mb-4">Kote Kwema</h3>
-            <p className="text-muted-foreground mb-6">
+            <h3 className="text-2xl font-light mb-4 text-[#D0D0D0]">Kote Kwema</h3>
+            <p className="text-[#D0D0D0] mb-6">
               From the very beginning our practice was founded on a philosophy of innovation, sustainability and design. We continue to learn from the past and creatively embrace the challenges of the future, with a firm belief that good design makes a difference.
             </p>
           </div>
@@ -55,8 +55,8 @@ const Studio = () => {
             />
           </div>
           <div>
-            <h3 className="text-2xl font-light mb-4">Life at Kote Kwema</h3>
-            <p className="text-muted-foreground mb-6">
+            <h3 className="text-2xl font-light mb-4 text-[#D0D0D0]">Life at Kote Kwema</h3>
+            <p className="text-[#D0D0D0] mb-6">
               We are committed to creating an inclusive and inspiring work environment where talented individuals can thrive and contribute to our global mission of sustainable design.
             </p>
           </div>
@@ -71,8 +71,8 @@ const Studio = () => {
             />
           </div>
           <div className="md:order-1">
-            <h3 className="text-2xl font-light mb-4">Equity, Diversity and Inclusion</h3>
-            <p className="text-muted-foreground mb-6">
+            <h3 className="text-2xl font-light mb-4 text-[#D0D0D0]">Equity, Diversity and Inclusion</h3>
+            <p className="text-[#D0D0D0] mb-6">
               We believe that diverse perspectives strengthen our design process and enable us to create more meaningful and inclusive spaces for all.
             </p>
           </div>
@@ -87,8 +87,8 @@ const Studio = () => {
             />
           </div>
           <div>
-            <h3 className="text-2xl font-light mb-4">Corporate Social Responsibility</h3>
-            <p className="text-muted-foreground mb-6">
+            <h3 className="text-2xl font-light mb-4 text-[#D0D0D0]">Corporate Social Responsibility</h3>
+            <p className="text-[#D0D0D0] mb-6">
               Our commitment extends beyond architecture to making a positive impact on communities and the environment through responsible practices and partnerships.
             </p>
           </div>
@@ -103,8 +103,8 @@ const Studio = () => {
             />
           </div>
           <div className="md:order-1">
-            <h3 className="text-2xl font-light mb-4">Global studios</h3>
-            <p className="text-muted-foreground">
+            <h3 className="text-2xl font-light mb-4 text-[#D0D0D0]">Global studios</h3>
+            <p className="text-[#D0D0D0]">
               With studios around the world, we bring local expertise and global perspective to every project, ensuring our designs respond to their unique contexts and communities.
             </p>
           </div>

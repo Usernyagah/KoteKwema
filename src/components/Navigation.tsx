@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
-import { Menu, Search } from "lucide-react";
+import { Menu as MenuIcon, Search } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import SearchOverlay from "./SearchOverlay";
-import MenuOverlay from "./MenuOverlay";
+import Menu from "./Menu";
 import logo from "@/assets/logo.jpg";
 
 const Navigation = () => {
@@ -32,14 +32,14 @@ const Navigation = () => {
 
   return (
     <>
-      <nav className="fixed top-0 left-0 right-0 z-40 bg-black">
+      <nav className="fixed top-0 left-0 right-0 z-40 bg-[#1A1A1A]">
         <div className="flex items-center h-20">
           {/* Logo - Far Left with Fixed Padding */}
           <a href="#" className="flex items-center gap-3 pl-6 lg:pl-12">
             <img src={logo} alt="Kote Kwema" className="h-12 w-auto" />
             <div className="flex flex-col">
-              <span className="text-xl font-light tracking-wider text-white">KOTE KWEMA</span>
-              <span className="text-xs text-white/70">With Love for Nature</span>
+              <span className="text-xl font-light tracking-wider text-foreground">KOTE KWEMA</span>
+              <span className="text-xs text-muted-foreground">With Love for Nature</span>
             </div>
           </a>
 
@@ -52,7 +52,7 @@ const Navigation = () => {
               variant="ghost"
               size="icon"
               onClick={() => setIsSearchOpen(true)}
-              className="hover:bg-transparent text-white"
+              className="hover:bg-transparent text-foreground"
             >
               <Search className="h-5 w-5" />
             </Button>
@@ -61,22 +61,18 @@ const Navigation = () => {
               variant="ghost"
               size="icon"
               onClick={() => setIsMenuOpen(true)}
-              className="hover:bg-transparent text-white"
+              className="hover:bg-transparent text-foreground"
             >
-              <Menu className="h-5 w-5" />
+              <MenuIcon className="h-5 w-5" />
             </Button>
           </div>
         </div>
       </nav>
 
       <SearchOverlay isOpen={isSearchOpen} onClose={() => setIsSearchOpen(false)} />
-      <MenuOverlay 
+      <Menu 
         isOpen={isMenuOpen} 
         onClose={() => setIsMenuOpen(false)}
-        onSearchClick={() => {
-          setIsMenuOpen(false);
-          setIsSearchOpen(true);
-        }}
       />
     </>
   );

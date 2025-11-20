@@ -31,17 +31,17 @@ const MenuOverlay = ({ isOpen, onClose, onSearchClick }: MenuOverlayProps) => {
       />
       
       {/* Right Side Menu Panel */}
-      <div className="fixed right-0 top-0 h-full w-full md:w-[35%] lg:w-[30%] z-50 bg-white shadow-2xl transform transition-transform duration-300 ease-in-out">
+      <div className="fixed right-0 top-0 h-full w-full md:w-[35%] lg:w-[30%] z-50 bg-card shadow-2xl transform transition-transform duration-300 ease-in-out">
         <div className="h-full flex flex-col p-6 lg:p-8">
           {/* Header */}
           <div className="flex items-center justify-between mb-8">
-            <span className="text-sm text-gray-400 font-light">Menu</span>
+            <span className="text-sm text-muted-foreground font-light">Menu</span>
             <div className="flex items-center gap-3">
               <Button
                 variant="ghost"
                 size="icon"
                 onClick={onSearchClick}
-                className="hover:bg-transparent text-gray-600"
+                className="hover:bg-transparent text-foreground"
               >
                 <Search className="h-5 w-5" />
               </Button>
@@ -49,7 +49,7 @@ const MenuOverlay = ({ isOpen, onClose, onSearchClick }: MenuOverlayProps) => {
                 variant="ghost"
                 size="icon"
                 onClick={onClose}
-                className="hover:bg-gray-100 rounded-full bg-black text-white h-8 w-8"
+                className="hover:bg-muted rounded-full bg-foreground text-background h-8 w-8"
               >
                 <X className="h-4 w-4" />
               </Button>
@@ -68,7 +68,7 @@ const MenuOverlay = ({ isOpen, onClose, onSearchClick }: MenuOverlayProps) => {
                   <Link
                     to={link.href}
                     onClick={onClose}
-                    className="text-2xl md:text-3xl font-light text-gray-800 hover:text-gray-600 transition-colors duration-200 block py-2"
+                    className="text-2xl md:text-3xl font-light text-foreground hover:text-muted-foreground transition-colors duration-200 block py-2"
                   >
                     {link.name}
                   </Link>

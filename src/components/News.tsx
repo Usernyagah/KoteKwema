@@ -2,15 +2,15 @@ import heroImage from "@/assets/hero-architecture.jpg";
 
 const News = () => {
   return (
-    <div className="bg-gray-800">
+    <div className="bg-[#1A1A1A]">
       <div className="pt-20 pb-8">
         <div className="pl-6 lg:pl-12 pr-6 lg:pr-12">
           <div className="mb-8">
-            <h2 className="text-4xl md:text-5xl font-light tracking-tight text-white">
+            <h2 className="text-4xl md:text-5xl font-light tracking-tight text-[#D0D0D0]">
               News
             </h2>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-0">
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
         {/* Left - Large Image with "Latest news" overlay (3/4 width) */}
         <div className="md:col-span-3 relative h-[400px] md:h-[600px]">
           <img
@@ -24,19 +24,19 @@ const News = () => {
         </div>
 
         {/* Right - Subscription Form (1/4 width) */}
-        <div className="md:col-span-1 bg-gray-700 p-8 lg:p-12 flex flex-col justify-center h-auto md:h-[600px] min-h-[300px]">
-          <p className="text-white text-lg font-light leading-relaxed mb-8">
+        <div className="md:col-span-1 bg-[#333333] p-8 lg:p-12 flex flex-col justify-center h-auto md:h-[600px] min-h-[300px]">
+          <p className="text-[#D0D0D0] text-lg font-light leading-relaxed mb-8">
             Stay up to date with the latest Kote Kwema projects and news.
           </p>
           <form className="space-y-4">
             <input
               type="email"
               placeholder="Email address..."
-              className="w-full px-4 py-3 bg-gray-800 border border-gray-600 text-white placeholder-gray-400 rounded focus:outline-none focus:border-gray-500 transition-colors duration-200"
+              className="w-full px-4 py-3 bg-[#1A1A1A] border border-[#404040] text-[#D0D0D0] placeholder-[#808080] rounded focus:outline-none focus:border-[#D0D0D0] transition-colors duration-200"
             />
             <button
               type="submit"
-              className="w-full px-8 py-3 bg-white text-gray-800 rounded font-light tracking-wide hover:bg-gray-100 transition-colors duration-200"
+              className="w-full px-8 py-3 bg-[#D0D0D0] text-[#2A2A2A] rounded font-light tracking-wide hover:bg-white transition-colors duration-200"
             >
               Subscribe
             </button>

@@ -50,7 +50,7 @@ const ProjectsGrid = () => {
                 </span>
                 <span className="text-xs text-muted-foreground">{project.year}</span>
               </div>
-              <h3 className="text-xl font-light group-hover:text-gray-600 transition-colors duration-200">
+              <h3 className="text-xl font-light group-hover:text-muted-foreground transition-colors duration-200">
                 {project.title}
               </h3>
             </div>

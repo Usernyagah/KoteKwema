@@ -21,17 +21,17 @@ const expertiseAreas = [
 
 const Expertise = () => {
   return (
-    <div className="bg-gray-800">
+    <div className="bg-[#1A1A1A]">
       <div className="pt-20 pb-8">
         <div className="pl-6 lg:pl-12 pr-6 lg:pr-12">
           <div className="mb-8">
-            <h2 className="text-4xl md:text-5xl font-light tracking-tight text-white">
+            <h2 className="text-4xl md:text-5xl font-light tracking-tight text-[#D0D0D0]">
               Expertise
             </h2>
           </div>
           
           {/* Engineering - 3/4 width */}
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-0 mb-0">
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-4">
             <div className="md:col-span-3 relative h-[400px] md:h-[600px] group cursor-pointer">
               <img
                 src={heroImage}
@@ -56,7 +56,7 @@ const Expertise = () => {
           </div>
 
           {/* Rest of expertise areas - 3 column grid */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-0">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
         {expertiseAreas.map((area, index) => (
           <div
             key={`${area.title}-${index}`}

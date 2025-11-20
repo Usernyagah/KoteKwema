@@ -8,10 +8,10 @@ import project4 from "@/assets/project-4.jpg";
 
 const StudioPage = () => {
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen bg-[#1A1A1A]">
       <Navigation />
       <div className="pt-20">
-        <div className="grid grid-cols-3 gap-0">
+        <div className="grid grid-cols-3 gap-4">
           {/* Top Left - Large Image with "About" overlay (spans 2 columns, 2 rows) */}
           <div className="col-span-2 row-span-2 relative h-[600px]">
             <img
@@ -25,11 +25,11 @@ const StudioPage = () => {
           </div>
 
           {/* Top Right - Dark Grey Text Box */}
-          <div className="col-span-1 bg-gray-800 p-8 lg:p-12 flex flex-col justify-center">
-            <p className="text-white text-lg font-light leading-relaxed mb-6">
+          <div className="col-span-1 bg-[#333333] p-8 lg:p-12 flex flex-col justify-center">
+            <p className="text-[#D0D0D0] text-lg font-light leading-relaxed mb-6">
               We are a global studio for sustainable architecture, urbanism, engineering and design, established in 1967.
             </p>
-            <p className="text-white text-xl font-light">
+            <p className="text-[#D0D0D0] text-xl font-light">
               Kote Kwema
             </p>
           </div>

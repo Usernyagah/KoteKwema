@@ -16,14 +16,14 @@ const Index = () => {
     <div className="min-h-screen">
       <Navigation />
       <Hero />
-      <section id="studio" className="pt-20">
+      <section id="studio" className="pt-20 bg-[#1A1A1A]">
         <div className="pl-6 lg:pl-12 pr-6 lg:pr-12">
           <div className="mb-8">
-            <h2 className="text-4xl md:text-5xl font-light tracking-tight">Studio</h2>
+            <h2 className="text-4xl md:text-5xl font-light tracking-tight text-[#D0D0D0]">Studio</h2>
           </div>
           
           {/* First Row - Image (3/4) and Text (1/4) */}
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-0 mb-0">
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-4">
             {/* Image - 3/4 width */}
             <div className="md:col-span-3 relative h-[400px] md:h-[600px]">
               <img
@@ -37,18 +37,18 @@ const Index = () => {
             </div>
 
             {/* Text - 1/4 width */}
-            <div className="md:col-span-1 bg-gray-800 p-8 lg:p-12 flex flex-col justify-center h-[400px] md:h-[600px]">
-              <p className="text-white text-lg font-light leading-relaxed mb-6">
+            <div className="md:col-span-1 bg-[#333333] p-8 lg:p-12 flex flex-col justify-center h-[400px] md:h-[600px]">
+              <p className="text-[#D0D0D0] text-lg font-light leading-relaxed mb-6">
                 We are a global studio for sustainable architecture, urbanism, engineering and design, established in 1967.
               </p>
-              <p className="text-white text-xl font-light">
+              <p className="text-[#D0D0D0] text-xl font-light">
                 Kote Kwema
               </p>
             </div>
           </div>
 
           {/* Rest of the content - 3 column grid */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-0">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           {/* Middle Row - 3 images with text overlays */}
           <div className="col-span-1 relative h-[400px] group cursor-pointer">
             <img
