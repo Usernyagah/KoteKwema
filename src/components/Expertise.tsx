@@ -22,9 +22,9 @@ const expertiseAreas = [
 const Expertise = () => {
   return (
     <div className="bg-[#1A1A1A]">
-      <div className="pt-20 pb-8">
+      <div className="pt-12 pb-4">
         <div className="pl-6 lg:pl-12 pr-6 lg:pr-12">
-          <div className="mb-8">
+          <div className="mb-4">
             <h2 className="text-4xl md:text-5xl font-bold tracking-tight text-white">
               Expertise
             </h2>
@@ -32,7 +32,7 @@ const Expertise = () => {
           
           {/* Engineering - 3/4 width */}
           <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-4">
-            <a href="#" className="md:col-span-3 relative h-[300px] md:h-[450px] block group cursor-pointer">
+            <a href="#" className="md:col-span-3 relative h-[250px] md:h-[350px] block group cursor-pointer">
               <img
                 src={heroImage}
                 alt="Engineering"
@@ -43,7 +43,7 @@ const Expertise = () => {
               </div>
             </a>
             {/* Technology and Research - 1/4 width */}
-            <a href="#" className="md:col-span-1 relative h-[300px] md:h-[450px] block group cursor-pointer">
+            <a href="#" className="md:col-span-1 relative h-[250px] md:h-[350px] block group cursor-pointer">
               <img
                 src={project1}
                 alt="Technology and Research"
@@ -61,7 +61,7 @@ const Expertise = () => {
           <a
             key={`${area.title}-${index}`}
             href="#"
-            className="relative h-[300px] block group cursor-pointer"
+            className="relative h-[250px] block group cursor-pointer"
           >
             <img
               src={area.image}
