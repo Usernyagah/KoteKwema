@@ -32,47 +32,52 @@ const Navigation = () => {
 
   return (
     <>
-      <nav
-        className={`fixed top-0 left-0 right-0 z-40 transition-all duration-300 ${
-          isScrolled ? "bg-background/95 backdrop-blur-md border-b border-border" : "bg-transparent"
-        }`}
-      >
-        <div className="container mx-auto px-6 lg:px-12">
-          <div className="flex items-center justify-between h-20">
-            <a href="#" className="flex items-center gap-3">
-              <img src={logo} alt="Kote Kwema" className="h-12 w-auto" />
-              <div className="flex flex-col">
-                <span className="text-xl font-light tracking-wider text-foreground">KOTE KWEMA</span>
-                <span className="text-xs text-muted-foreground">With Love for Nature</span>
-              </div>
-            </a>
-
-            {/* Desktop Icons */}
-            <div className="flex items-center gap-6">
-              <Button
-                variant="ghost"
-                size="icon"
-                onClick={() => setIsSearchOpen(true)}
-                className="hover:bg-transparent"
-              >
-                <Search className="h-5 w-5" />
-              </Button>
-
-              <Button
-                variant="ghost"
-                size="icon"
-                onClick={() => setIsMenuOpen(true)}
-                className="hover:bg-transparent"
-              >
-                <Menu className="h-5 w-5" />
-              </Button>
+      <nav className="fixed top-0 left-0 right-0 z-40 bg-black">
+        <div className="flex items-center h-20">
+          {/* Logo - Far Left with Fixed Padding */}
+          <a href="#" className="flex items-center gap-3 pl-6 lg:pl-12">
+            <img src={logo} alt="Kote Kwema" className="h-12 w-auto" />
+            <div className="flex flex-col">
+              <span className="text-xl font-light tracking-wider text-white">KOTE KWEMA</span>
+              <span className="text-xs text-white/70">With Love for Nature</span>
             </div>
+          </a>
+
+          {/* Empty Flexible Space */}
+          <div className="flex-grow"></div>
+
+          {/* Icons - Far Right with Fixed Padding */}
+          <div className="flex items-center pr-6 lg:pr-12">
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={() => setIsSearchOpen(true)}
+              className="hover:bg-transparent text-white"
+            >
+              <Search className="h-5 w-5" />
+            </Button>
+
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={() => setIsMenuOpen(true)}
+              className="hover:bg-transparent text-white"
+            >
+              <Menu className="h-5 w-5" />
+            </Button>
           </div>
         </div>
       </nav>
 
       <SearchOverlay isOpen={isSearchOpen} onClose={() => setIsSearchOpen(false)} />
-      <MenuOverlay isOpen={isMenuOpen} onClose={() => setIsMenuOpen(false)} />
+      <MenuOverlay 
+        isOpen={isMenuOpen} 
+        onClose={() => setIsMenuOpen(false)}
+        onSearchClick={() => {
+          setIsMenuOpen(false);
+          setIsSearchOpen(true);
+        }}
+      />
     </>
   );
 };

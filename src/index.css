@@ -8,34 +8,37 @@ All colors MUST be HSL.
 
 @layer base {
   :root {
-    /* Nature-inspired palette from Kote Kwema logo */
-    --background: 40 30% 97%;
-    --foreground: 0 0% 10%;
+    /* Kote Kwema theme colors extracted from logo */
+    /* Dark Green (tree trunk): Primary color - rich, nature-inspired */
+    /* Light Green (foliage): Secondary accent - fresh, vibrant */
+    /* Light Beige/Pale Orange (architectural element): Warm accent */
+    --background: 0 0% 100%;
+    --foreground: 140 50% 15%;
 
-    --card: 40 25% 95%;
-    --card-foreground: 0 0% 10%;
+    --card: 0 0% 98%;
+    --card-foreground: 140 50% 15%;
 
-    --popover: 40 30% 98%;
-    --popover-foreground: 0 0% 10%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 140 50% 15%;
 
-    --primary: 38 45% 55%;
+    --primary: 140 50% 28%;
     --primary-foreground: 0 0% 98%;
 
-    --secondary: 40 20% 92%;
-    --secondary-foreground: 0 0% 10%;
+    --secondary: 140 40% 65%;
+    --secondary-foreground: 140 50% 15%;
 
-    --muted: 40 15% 90%;
-    --muted-foreground: 0 0% 45%;
+    --muted: 30 30% 88%;
+    --muted-foreground: 140 30% 40%;
 
-    --accent: 38 50% 60%;
-    --accent-foreground: 0 0% 10%;
+    --accent: 140 45% 35%;
+    --accent-foreground: 0 0% 98%;
 
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 98%;
 
-    --border: 40 15% 85%;
-    --input: 40 15% 88%;
-    --ring: 38 45% 55%;
+    --border: 140 20% 85%;
+    --input: 30 20% 92%;
+    --ring: 140 50% 28%;
 
     --radius: 0rem;
 

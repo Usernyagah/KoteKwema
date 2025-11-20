@@ -1,120 +1,136 @@
-import { ArrowDown, PlayCircle } from "lucide-react";
-import { useState } from "react";
+import { ArrowDown } from "lucide-react";
+import { useState, useRef, useEffect } from "react";
 import heroImage from "@/assets/hero-architecture.jpg";
 
 const Hero = () => {
-  const [activeVideo, setActiveVideo] = useState<number | null>(null);
-  const [playingVideo, setPlayingVideo] = useState<number | null>(null);
-
-  const architectureVideos = [
-    "https://videos.pexels.com/video-files/3129671/3129671-uhd_2560_1440_25fps.mp4",
-    "https://videos.pexels.com/video-files/3130284/3130284-uhd_2560_1440_30fps.mp4",
-    "https://videos.pexels.com/video-files/4834092/4834092-uhd_2560_1440_25fps.mp4",
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const [videoErrors, setVideoErrors] = useState<boolean[]>([]);
+  const videoRefs = useRef<(HTMLVideoElement | null)[]>([]);
+  
+  const slides = [
+    {
+      video: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
+      category: "News",
+      title: "Ceremony marks opening of Techo International Airport in Cambodia",
+    },
+    {
+      video: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4",
+      category: "News",
+      title: "New sustainable architecture project announced",
+    },
+    {
+      video: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4",
+      category: "News",
+      title: "Award recognition for excellence in design",
+    },
   ];
 
-  const handleVideoClick = (index: number) => {
-    setActiveVideo(index);
-    setPlayingVideo(index);
-  };
+  useEffect(() => {
+    // Play the current video and pause others
+    const timer = setTimeout(() => {
+      videoRefs.current.forEach((video, index) => {
+        if (video) {
+          if (index === currentSlide) {
+            video.play().catch((error) => {
+              console.log("Video autoplay prevented:", error);
+            });
+          } else {
+            video.pause();
+            video.currentTime = 0;
+          }
+        }
+      });
+    }, 100);
 
-  const handleCloseVideo = () => {
-    setActiveVideo(null);
-    setPlayingVideo(null);
-  };
+    return () => clearTimeout(timer);
+  }, [currentSlide]);
 
   return (
     <section className="relative h-screen w-full overflow-hidden">
-      {/* Hero Image */}
+      {/* Hero Videos */}
       <div className="absolute inset-0">
-        <img
-          src={heroImage}
-          alt="Modern Architecture"
-          className="w-full h-full object-cover animate-scale-in"
-        />
-        <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-black/60" />
-      </div>
-
-      {/* Content */}
-      <div className="relative h-full flex flex-col items-center justify-center text-center px-6">
-        <h1 className="text-5xl md:text-7xl lg:text-8xl font-light text-white mb-6 animate-fade-up tracking-tight">
-          Designing Spaces
-          <br />
-          <span className="font-extralight">For Tomorrow</span>
-        </h1>
-        <p className="text-lg md:text-xl text-white/90 max-w-2xl mb-8 animate-fade-in font-light tracking-wide">
-          Award-winning architecture firm creating innovative and sustainable designs
-        </p>
-
-        {/* Scroll Indicator - Right Center */}
-        <a
-          href="#projects"
-          className="absolute right-8 top-1/2 -translate-y-1/2 animate-bounce"
-        >
-          <ArrowDown className="h-6 w-6 text-white" />
-        </a>
-
-        {/* Video Circle Icons - Bottom Center */}
-        <div className="absolute bottom-12 left-1/2 -translate-x-1/2 flex gap-4">
-          {[0, 1, 2].map((i) => (
-            <button
-              key={i}
-              onClick={() => handleVideoClick(i)}
-              className="group relative"
-              aria-label={`Play video ${i + 1}`}
-            >
-              <PlayCircle 
-                className={`h-8 w-8 transition-all ${
-                  playingVideo === i 
-                    ? "text-accent scale-110" 
-                    : "text-white/70 hover:text-white"
-                }`} 
-              />
-              {playingVideo === i && (
-                <div className="absolute inset-0 rounded-full border-2 border-accent animate-ping" />
-              )}
-            </button>
-          ))}
-        </div>
-      </div>
-
-      {/* Video Modal */}
-      {activeVideo !== null && (
-        <div
-          className="fixed inset-0 bg-black/90 z-50 flex items-center justify-center p-4"
-          onClick={handleCloseVideo}
-        >
-          <div className="relative w-full max-w-4xl aspect-video">
-            <video
-              src={architectureVideos[activeVideo]}
-              controls
-              autoPlay
-              className="w-full h-full"
-              onClick={(e) => e.stopPropagation()}
-              onEnded={handleCloseVideo}
+        {slides.map((slide, index) => (
+          videoErrors[index] ? (
+            <img
+              key={`img-${index}`}
+              src={heroImage}
+              alt="Architecture"
+              className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-500 ${
+                index === currentSlide ? "opacity-100 z-0" : "opacity-0 z-[-1]"
+              }`}
             />
-            <button
-              onClick={handleCloseVideo}
-              className="absolute -top-10 right-0 text-white hover:text-accent transition-colors"
-              aria-label="Close video"
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              >
-                <line x1="18" y1="6" x2="6" y2="18"></line>
-                <line x1="6" y1="6" x2="18" y2="18"></line>
-              </svg>
-            </button>
-          </div>
+          ) : (
+            <video
+              key={`video-${index}`}
+              ref={(el) => {
+                if (el) {
+                  videoRefs.current[index] = el;
+                }
+              }}
+              src={slide.video}
+              className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-500 ${
+                index === currentSlide ? "opacity-100 z-0" : "opacity-0 z-[-1]"
+              }`}
+              loop
+              muted
+              playsInline
+              preload="auto"
+              onError={() => {
+                setVideoErrors((prev) => {
+                  const newErrors = [...prev];
+                  newErrors[index] = true;
+                  return newErrors;
+                });
+              }}
+              onLoadedData={() => {
+                if (index === currentSlide && videoRefs.current[index]) {
+                  videoRefs.current[index]?.play().catch(() => {
+                    // Autoplay prevented
+                  });
+                }
+              }}
+            />
+          )
+        ))}
+      </div>
+
+      {/* News Overlay - Bottom Left */}
+      <div className="absolute bottom-0 left-0 p-6 lg:p-12 max-w-2xl z-10">
+        <div className="space-y-2">
+          <span className="text-xs text-white/80 font-light tracking-wide uppercase">
+            {slides[currentSlide].category}
+          </span>
+          <h2 className="text-base md:text-lg lg:text-xl font-light text-white leading-tight">
+            {slides[currentSlide].title}
+          </h2>
         </div>
-      )}
+      </div>
+
+      {/* Navigation Dots - Bottom Center */}
+      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex gap-2 z-10">
+        {slides.map((_, index) => (
+          <button
+            key={index}
+            onClick={() => setCurrentSlide(index)}
+            className={`transition-all duration-300 ${
+              currentSlide === index
+                ? "w-2 h-2 bg-white rounded-full"
+                : "w-2 h-2 bg-white/50 rounded-full hover:bg-white/75"
+            }`}
+            aria-label={`Go to slide ${index + 1}`}
+          />
+        ))}
+      </div>
+
+      {/* Scroll Indicator - Right Side */}
+      <a
+        href="#studio"
+        className="absolute right-8 top-1/2 -translate-y-1/2 z-10 group"
+      >
+        <div className="w-12 h-20 bg-white/10 backdrop-blur-sm rounded-full flex items-center justify-center border border-white/20 hover:bg-white/20 transition-colors">
+          <ArrowDown className="h-5 w-5 text-white" />
+        </div>
+      </a>
     </section>
   );
 };

@@ -1,77 +1,84 @@
-import { X } from "lucide-react";
+import { X, Search } from "lucide-react";
+import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 
 interface MenuOverlayProps {
   isOpen: boolean;
   onClose: () => void;
+  onSearchClick?: () => void;
 }
 
 const menuLinks = [
-  { name: "Projects", href: "#projects" },
-  { name: "Expertise", href: "#expertise" },
-  { name: "About", href: "#about" },
-  { name: "News", href: "#news" },
-  { name: "Careers", href: "#careers" },
-  { name: "Contact", href: "#contact" },
+  { name: "Expertise", href: "/expertise" },
+  { name: "Projects", href: "/projects" },
+  { name: "Studio", href: "/studio" },
+  { name: "People", href: "/people" },
+  { name: "News", href: "/news" },
+  { name: "Insights", href: "/insights" },
+  { name: "Careers", href: "/careers" },
+  { name: "Contact", href: "/contact" },
 ];
 
-const MenuOverlay = ({ isOpen, onClose }: MenuOverlayProps) => {
+const MenuOverlay = ({ isOpen, onClose, onSearchClick }: MenuOverlayProps) => {
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-50 bg-background animate-fade-in">
-      <div className="container mx-auto px-6 lg:px-12 h-full flex flex-col">
-        <div className="flex items-center justify-between h-20">
-          <a href="#" className="text-2xl font-light tracking-wider text-foreground" onClick={onClose}>
-            Architecture
-          </a>
-          <Button
-            variant="ghost"
-            size="icon"
-            onClick={onClose}
-            className="hover:bg-transparent"
-          >
-            <X className="h-5 w-5" />
-          </Button>
-        </div>
+    <>
+      {/* Backdrop */}
+      <div 
+        className="fixed inset-0 z-50 bg-black/20 backdrop-blur-sm transition-opacity duration-300"
+        onClick={onClose}
+      />
+      
+      {/* Right Side Menu Panel */}
+      <div className="fixed right-0 top-0 h-full w-full md:w-[35%] lg:w-[30%] z-50 bg-white shadow-2xl transform transition-transform duration-300 ease-in-out">
+        <div className="h-full flex flex-col p-6 lg:p-8">
+          {/* Header */}
+          <div className="flex items-center justify-between mb-8">
+            <span className="text-sm text-gray-400 font-light">Menu</span>
+            <div className="flex items-center gap-3">
+              <Button
+                variant="ghost"
+                size="icon"
+                onClick={onSearchClick}
+                className="hover:bg-transparent text-gray-600"
+              >
+                <Search className="h-5 w-5" />
+              </Button>
+              <Button
+                variant="ghost"
+                size="icon"
+                onClick={onClose}
+                className="hover:bg-gray-100 rounded-full bg-black text-white h-8 w-8"
+              >
+                <X className="h-4 w-4" />
+              </Button>
+            </div>
+          </div>
 
-        <div className="flex-1 flex items-center">
-          <nav className="w-full">
-            <ul className="space-y-6">
+          {/* Navigation Links */}
+          <nav className="flex-1">
+            <ul className="space-y-1">
               {menuLinks.map((link, index) => (
                 <li
                   key={link.name}
                   className="animate-fade-up"
-                  style={{ animationDelay: `${index * 50}ms` }}
+                  style={{ animationDelay: `${index * 30}ms` }}
                 >
-                  <a
-                    href={link.href}
+                  <Link
+                    to={link.href}
                     onClick={onClose}
-                    className="text-5xl md:text-7xl lg:text-8xl font-light tracking-tight hover:text-muted-foreground transition-colors duration-300 block"
+                    className="text-2xl md:text-3xl font-light text-gray-800 hover:text-gray-600 transition-colors duration-200 block py-2"
                   >
                     {link.name}
-                  </a>
+                  </Link>
                 </li>
               ))}
             </ul>
           </nav>
         </div>
-
-        <div className="pb-12">
-          <div className="flex flex-wrap gap-8 text-sm text-muted-foreground">
-            <a href="#" className="hover:text-foreground transition-colors duration-200">
-              Instagram
-            </a>
-            <a href="#" className="hover:text-foreground transition-colors duration-200">
-              LinkedIn
-            </a>
-            <a href="#" className="hover:text-foreground transition-colors duration-200">
-              Twitter
-            </a>
-          </div>
-        </div>
       </div>
-    </div>
+    </>
   );
 };
 

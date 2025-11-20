@@ -1,9 +1,4 @@
 import Navigation from "@/components/Navigation";
-import Hero from "@/components/Hero";
-import Architecture from "@/components/Architecture";
-import Expertise from "@/components/Expertise";
-import News from "@/components/News";
-import Climate from "@/components/Climate";
 import Footer from "@/components/Footer";
 import heroImage from "@/assets/hero-architecture.jpg";
 import project1 from "@/assets/project-1.jpg";
@@ -11,44 +6,34 @@ import project2 from "@/assets/project-2.jpg";
 import project3 from "@/assets/project-3.jpg";
 import project4 from "@/assets/project-4.jpg";
 
-const Index = () => {
+const StudioPage = () => {
   return (
     <div className="min-h-screen">
       <Navigation />
-      <Hero />
-      <section id="studio" className="pt-20">
-        <div className="pl-6 lg:pl-12 pr-6 lg:pr-12">
-          <div className="mb-8">
-            <h2 className="text-4xl md:text-5xl font-light tracking-tight">Studio</h2>
-          </div>
-          
-          {/* First Row - Image (3/4) and Text (1/4) */}
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-0 mb-0">
-            {/* Image - 3/4 width */}
-            <div className="md:col-span-3 relative h-[400px] md:h-[600px]">
-              <img
-                src={heroImage}
-                alt="About"
-                className="w-full h-full object-cover"
-              />
-              <div className="absolute bottom-0 left-0 p-6">
-                <span className="text-white text-2xl font-light">About</span>
-              </div>
-            </div>
-
-            {/* Text - 1/4 width */}
-            <div className="md:col-span-1 bg-gray-800 p-8 lg:p-12 flex flex-col justify-center h-[400px] md:h-[600px]">
-              <p className="text-white text-lg font-light leading-relaxed mb-6">
-                We are a global studio for sustainable architecture, urbanism, engineering and design, established in 1967.
-              </p>
-              <p className="text-white text-xl font-light">
-                Kote Kwema
-              </p>
+      <div className="pt-20">
+        <div className="grid grid-cols-3 gap-0">
+          {/* Top Left - Large Image with "About" overlay (spans 2 columns, 2 rows) */}
+          <div className="col-span-2 row-span-2 relative h-[600px]">
+            <img
+              src={heroImage}
+              alt="About"
+              className="w-full h-full object-cover"
+            />
+            <div className="absolute bottom-0 left-0 p-6">
+              <span className="text-white text-2xl font-light">About</span>
             </div>
           </div>
 
-          {/* Rest of the content - 3 column grid */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-0">
+          {/* Top Right - Dark Grey Text Box */}
+          <div className="col-span-1 bg-gray-800 p-8 lg:p-12 flex flex-col justify-center">
+            <p className="text-white text-lg font-light leading-relaxed mb-6">
+              We are a global studio for sustainable architecture, urbanism, engineering and design, established in 1967.
+            </p>
+            <p className="text-white text-xl font-light">
+              Kote Kwema
+            </p>
+          </div>
+
           {/* Middle Row - 3 images with text overlays */}
           <div className="col-span-1 relative h-[400px] group cursor-pointer">
             <img
@@ -117,15 +102,10 @@ const Index = () => {
             </div>
           </div>
         </div>
-        </div>
-      </section>
-      <Architecture />
-      <Expertise />
-      <News />
-      <Climate />
+      </div>
       <Footer />
     </div>
   );
 };
 
-export default Index;
+export default StudioPage;
