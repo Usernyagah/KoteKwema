@@ -8,7 +8,7 @@ const Hero = () => {
   const [videoProgress, setVideoProgress] = useState<number[]>([0, 0, 0]);
   const videoRefs = useRef<(HTMLVideoElement | null)[]>([]);
   const progressTimerRef = useRef<NodeJS.Timeout | null>(null);
-  const VIDEO_DURATION = 30; // 30 seconds
+  const VIDEO_DURATION = 10; // 10 seconds
   
   const slides = [
     {
@@ -290,8 +290,21 @@ const Hero = () => {
         href="#studio"
         className="absolute right-8 top-1/2 -translate-y-1/2 z-10 group"
       >
-        <div className="w-12 h-20 bg-white/10 backdrop-blur-sm rounded-full flex items-center justify-center border border-white/20 hover:bg-white/20 transition-colors">
-          <ArrowDown className="h-5 w-5 text-white" />
+        <div className="w-12 h-28 bg-white/10 backdrop-blur-sm rounded-full flex items-center justify-center border border-white/20 hover:bg-white/20 transition-colors">
+          <svg 
+            className="h-16 w-6 text-white" 
+            viewBox="0 0 24 64" 
+            fill="none" 
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path 
+              d="M12 0L12 52M12 52L4 44M12 52L20 44" 
+              stroke="currentColor" 
+              strokeWidth="2" 
+              strokeLinecap="round" 
+              strokeLinejoin="round"
+            />
+          </svg>
         </div>
       </a>
     </section>
