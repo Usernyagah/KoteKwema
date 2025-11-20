@@ -32,7 +32,7 @@ const Expertise = () => {
           
           {/* Engineering - 3/4 width */}
           <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-4">
-            <div className="md:col-span-3 relative h-[300px] md:h-[450px] group cursor-pointer">
+            <a href="#" className="md:col-span-3 relative h-[300px] md:h-[450px] block group cursor-pointer">
               <img
                 src={heroImage}
                 alt="Engineering"
@@ -41,9 +41,9 @@ const Expertise = () => {
               <div className="absolute bottom-0 left-0 p-6">
                 <span className="text-white text-xl font-light">Engineering</span>
               </div>
-            </div>
+            </a>
             {/* Technology and Research - 1/4 width */}
-            <div className="md:col-span-1 relative h-[300px] md:h-[450px] group cursor-pointer">
+            <a href="#" className="md:col-span-1 relative h-[300px] md:h-[450px] block group cursor-pointer">
               <img
                 src={project1}
                 alt="Technology and Research"
@@ -52,15 +52,16 @@ const Expertise = () => {
               <div className="absolute bottom-0 left-0 p-6">
                 <span className="text-white text-xl font-light">Technology and Research</span>
               </div>
-            </div>
+            </a>
           </div>
 
           {/* Rest of expertise areas - 3 column grid */}
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
         {expertiseAreas.map((area, index) => (
-          <div
+          <a
             key={`${area.title}-${index}`}
-            className="relative h-[300px] group cursor-pointer"
+            href="#"
+            className="relative h-[300px] block group cursor-pointer"
           >
             <img
               src={area.image}
@@ -70,7 +71,7 @@ const Expertise = () => {
             <div className="absolute bottom-0 left-0 p-6">
               <span className="text-white text-xl font-light">{area.title}</span>
             </div>
-          </div>
+          </a>
         ))}
           </div>
         </div>
