@@ -32,7 +32,7 @@ const Expertise = () => {
           
           {/* Engineering - 3/4 width */}
           <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-4">
-            <div className="md:col-span-3 relative h-[400px] md:h-[600px] group cursor-pointer">
+            <div className="md:col-span-3 relative h-[300px] md:h-[450px] group cursor-pointer">
               <img
                 src={heroImage}
                 alt="Engineering"
@@ -43,7 +43,7 @@ const Expertise = () => {
               </div>
             </div>
             {/* Technology and Research - 1/4 width */}
-            <div className="md:col-span-1 relative h-[400px] md:h-[600px] group cursor-pointer">
+            <div className="md:col-span-1 relative h-[300px] md:h-[450px] group cursor-pointer">
               <img
                 src={project1}
                 alt="Technology and Research"
@@ -60,7 +60,7 @@ const Expertise = () => {
         {expertiseAreas.map((area, index) => (
           <div
             key={`${area.title}-${index}`}
-            className="relative h-[400px] group cursor-pointer"
+            className="relative h-[300px] group cursor-pointer"
           >
             <img
               src={area.image}

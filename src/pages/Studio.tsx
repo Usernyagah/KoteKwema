@@ -13,7 +13,7 @@ const StudioPage = () => {
       <div className="pt-20">
         <div className="grid grid-cols-3 gap-4">
           {/* Top Left - Large Image with "About" overlay (spans 2 columns, 2 rows) */}
-          <div className="col-span-2 row-span-2 relative h-[600px]">
+          <div className="col-span-2 row-span-2 relative h-[450px]">
             <img
               src={heroImage}
               alt="About"
@@ -35,7 +35,7 @@ const StudioPage = () => {
           </div>
 
           {/* Middle Row - 3 images with text overlays */}
-          <div className="col-span-1 relative h-[400px] group cursor-pointer">
+          <div className="col-span-1 relative h-[300px] group cursor-pointer">
             <img
               src={project1}
               alt="Life at Kote Kwema"
@@ -46,7 +46,7 @@ const StudioPage = () => {
             </div>
           </div>
 
-          <div className="col-span-1 relative h-[400px] group cursor-pointer">
+          <div className="col-span-1 relative h-[300px] group cursor-pointer">
             <img
               src={project2}
               alt="Vacancies"
@@ -57,7 +57,7 @@ const StudioPage = () => {
             </div>
           </div>
 
-          <div className="col-span-1 relative h-[400px] group cursor-pointer">
+          <div className="col-span-1 relative h-[300px] group cursor-pointer">
             <img
               src={project3}
               alt="Equity, Diversity and Inclusion"
@@ -69,7 +69,7 @@ const StudioPage = () => {
           </div>
 
           {/* Bottom Row - 3 images with text overlays */}
-          <div className="col-span-1 relative h-[400px] group cursor-pointer">
+          <div className="col-span-1 relative h-[300px] group cursor-pointer">
             <img
               src={project4}
               alt="Corporate Social Responsibility"
@@ -80,7 +80,7 @@ const StudioPage = () => {
             </div>
           </div>
 
-          <div className="col-span-1 relative h-[400px] group cursor-pointer">
+          <div className="col-span-1 relative h-[300px] group cursor-pointer">
             <img
               src={heroImage}
               alt="Global studios"
@@ -91,7 +91,7 @@ const StudioPage = () => {
             </div>
           </div>
 
-          <div className="col-span-1 relative h-[400px] group cursor-pointer">
+          <div className="col-span-1 relative h-[300px] group cursor-pointer">
             <img
               src={project1}
               alt="Studio"

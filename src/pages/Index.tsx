@@ -25,7 +25,7 @@ const Index = () => {
           {/* First Row - Image (3/4) and Text (1/4) */}
           <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-4">
             {/* Image - 3/4 width */}
-            <div className="md:col-span-3 relative h-[400px] md:h-[600px]">
+            <div className="md:col-span-3 relative h-[300px] md:h-[450px]">
               <img
                 src={heroImage}
                 alt="About"
@@ -37,7 +37,7 @@ const Index = () => {
             </div>
 
             {/* Text - 1/4 width */}
-            <div className="md:col-span-1 bg-[#333333] p-8 lg:p-12 flex flex-col justify-center h-[400px] md:h-[600px]">
+            <div className="md:col-span-1 bg-[#333333] p-8 lg:p-12 flex flex-col justify-center h-[300px] md:h-[450px]">
               <p className="text-[#D0D0D0] text-lg font-light leading-relaxed mb-6">
                 We are a global studio for sustainable architecture, urbanism, engineering and design, established in 1967.
               </p>
@@ -50,7 +50,7 @@ const Index = () => {
           {/* Rest of the content - 3 column grid */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           {/* Middle Row - 3 images with text overlays */}
-          <div className="col-span-1 relative h-[400px] group cursor-pointer">
+          <div className="col-span-1 relative h-[300px] group cursor-pointer">
             <img
               src={project1}
               alt="Life at Kote Kwema"
@@ -61,7 +61,7 @@ const Index = () => {
             </div>
           </div>
 
-          <div className="col-span-1 relative h-[400px] group cursor-pointer">
+          <div className="col-span-1 relative h-[300px] group cursor-pointer">
             <img
               src={project2}
               alt="Vacancies"
@@ -72,7 +72,7 @@ const Index = () => {
             </div>
           </div>
 
-          <div className="col-span-1 relative h-[400px] group cursor-pointer">
+          <div className="col-span-1 relative h-[300px] group cursor-pointer">
             <img
               src={project3}
               alt="Equity, Diversity and Inclusion"
@@ -84,7 +84,7 @@ const Index = () => {
           </div>
 
           {/* Bottom Row - 3 images with text overlays */}
-          <div className="col-span-1 relative h-[400px] group cursor-pointer">
+          <div className="col-span-1 relative h-[300px] group cursor-pointer">
             <img
               src={project4}
               alt="Corporate Social Responsibility"
@@ -95,7 +95,7 @@ const Index = () => {
             </div>
           </div>
 
-          <div className="col-span-1 relative h-[400px] group cursor-pointer">
+          <div className="col-span-1 relative h-[300px] group cursor-pointer">
             <img
               src={heroImage}
               alt="Global studios"
@@ -106,7 +106,7 @@ const Index = () => {
             </div>
           </div>
 
-          <div className="col-span-1 relative h-[400px] group cursor-pointer">
+          <div className="col-span-1 relative h-[300px] group cursor-pointer">
             <img
               src={project1}
               alt="Studio"

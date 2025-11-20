@@ -9,10 +9,20 @@ const Navigation = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isNavbarVisible, setIsNavbarVisible] = useState(true);
 
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 50);
+      
+      // Check if we've scrolled past the studio section
+      const studioSection = document.getElementById("studio");
+      if (studioSection) {
+        const studioSectionTop = studioSection.offsetTop;
+        const scrollPosition = window.scrollY + window.innerHeight;
+        // Hide navbar when scrolled past studio section
+        setIsNavbarVisible(window.scrollY < studioSectionTop);
+      }
     };
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
@@ -32,7 +42,9 @@ const Navigation = () => {
 
   return (
     <>
-      <nav className="fixed top-0 left-0 right-0 z-40 bg-[#1A1A1A]">
+      <nav className={`fixed top-0 left-0 right-0 z-40 bg-[#1A1A1A]/80 backdrop-blur-sm transition-transform duration-300 ${
+        isNavbarVisible ? "translate-y-0" : "-translate-y-full"
+      }`}>
         <div className="flex items-center h-20">
           {/* Logo - Far Left with Fixed Padding */}
           <a href="#" className="flex items-center gap-3 pl-6 lg:pl-12">
