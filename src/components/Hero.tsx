@@ -157,13 +157,10 @@ const Hero = () => {
                 }
               }}
               src={slide.video}
-              className={`absolute inset-0 w-full h-full min-w-full min-h-full object-cover transition-opacity duration-500 ${
+              className={`absolute inset-0 w-full h-full min-w-full min-h-full object-contain md:object-cover transition-opacity duration-500 ${
                 index === currentSlide ? "opacity-100 z-10" : "opacity-0 z-0"
               }`}
               style={{
-                width: '100%',
-                height: '100%',
-                objectFit: 'cover',
                 objectPosition: 'center',
               }}
               muted
