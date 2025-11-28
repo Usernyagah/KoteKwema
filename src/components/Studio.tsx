@@ -39,7 +39,7 @@ const Studio = () => {
             />
           </div>
           <div className="md:order-1">
-            <h3 className="text-2xl font-bold mb-4 text-white">Kote Kwema</h3>
+            <h3 className="text-2xl logo-font mb-4 text-white">KOTE KWEMA</h3>
             <p className="text-white mb-6 font-bold">
               From the very beginning our practice was founded on a philosophy of innovation, sustainability and design. We continue to learn from the past and creatively embrace the challenges of the future, with a firm belief that good design makes a difference.
             </p>
@@ -48,14 +48,7 @@ const Studio = () => {
 
         <div className="grid md:grid-cols-2 gap-8 items-center">
           <div>
-            <img
-              src={project2}
-              alt="Life at Kote Kwema"
-              className="w-full h-[400px] object-cover"
-            />
-          </div>
-          <div>
-            <h3 className="text-2xl font-bold mb-4 text-white">Life at Kote Kwema</h3>
+            <h3 className="text-2xl font-bold mb-4 text-white">Life at <span className="logo-font">KOTE KWEMA</span></h3>
             <p className="text-white mb-6 font-bold">
               We are committed to creating an inclusive and inspiring work environment where talented individuals can thrive and contribute to our global mission of sustainable design.
             </p>

@@ -26,7 +26,7 @@ const News = () => {
         {/* Right - Subscription Form (1/4 width) */}
         <div className="md:col-span-1 bg-[#333333] p-8 lg:p-12 flex flex-col justify-center h-auto md:h-[450px] min-h-[250px]">
           <p className="text-[#D0D0D0] text-lg font-bold leading-relaxed mb-8">
-            Stay up to date with the latest Kote Kwema projects and news.
+            Stay up to date with the latest <span className="logo-font">KOTE KWEMA</span> projects and news.
           </p>
           <form className="space-y-4">
             <input

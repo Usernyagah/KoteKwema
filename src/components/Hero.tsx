@@ -1,6 +1,7 @@
 import { ArrowDown } from "lucide-react";
 import { useState, useRef, useEffect } from "react";
 import heroImage from "@/assets/hero-architecture.jpg";
+import heroVideo from "@/assets/VID-20251127-WA0001.mp4";
 
 const Hero = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -12,17 +13,17 @@ const Hero = () => {
   
   const slides = [
     {
-      video: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
+      video: heroVideo,
       category: "News",
       title: "New sustainable architecture project announced",
     },
     {
-      video: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4",
+      video: heroVideo,
       category: "News",
       title: "Award recognition for excellence in design",
     },
     {
-      video: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4",
+      video: heroVideo,
       category: "News",
       title: "Innovative design solutions for modern cities",
     },

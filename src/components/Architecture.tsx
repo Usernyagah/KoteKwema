@@ -28,8 +28,8 @@ const Architecture = () => {
           <p className="text-[#D0D0D0] text-lg font-bold leading-relaxed mb-6">
             From the very beginning our practice was founded on a philosophy of innovation, sustainability and design. We continue to learn from the past and creatively embrace the challenges of the future, with a firm belief that good design makes a difference.
           </p>
-          <p className="text-[#D0D0D0] text-xl font-bold">
-            Kote Kwema
+          <p className="text-[#D0D0D0] text-xl logo-font">
+            KOTE KWEMA
           </p>
           </div>
         </div>

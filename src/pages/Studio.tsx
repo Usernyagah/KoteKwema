@@ -29,23 +29,12 @@ const StudioPage = () => {
             <p className="text-[#D0D0D0] text-lg font-bold leading-relaxed mb-6">
               We are a global studio for sustainable architecture, urbanism, engineering and design, established in 1967.
             </p>
-            <p className="text-[#D0D0D0] text-xl font-bold">
-              Kote Kwema
+            <p className="text-[#D0D0D0] text-xl logo-font">
+              KOTE KWEMA
             </p>
           </div>
 
           {/* Middle Row - 3 images with text overlays */}
-          <a href="#" className="col-span-1 relative h-[300px] block group cursor-pointer">
-            <img
-              src={project1}
-              alt="Life at Kote Kwema"
-              className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
-            />
-            <div className="absolute bottom-0 left-0 p-6">
-              <span className="text-white text-xl font-bold">Life at Kote Kwema</span>
-            </div>
-          </a>
-
           <a href="#" className="col-span-1 relative h-[300px] block group cursor-pointer">
             <img
               src={project2}

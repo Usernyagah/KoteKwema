@@ -28,8 +28,8 @@ const Climate = () => {
           <p className="text-[#D0D0D0] text-lg font-bold leading-relaxed mb-6">
             Sustainability has been a central theme of our work for more than five decades. We work closely with our clients to develop bespoke design solutions that are optimised for their operations and the planet.
           </p>
-          <p className="text-[#D0D0D0] text-xl font-bold">
-            Kote Kwema
+          <p className="text-[#D0D0D0] text-xl logo-font">
+            KOTE KWEMA
           </p>
           </div>
         </div>

@@ -50,8 +50,8 @@ const Navigation = () => {
           <a href="#" className="flex items-center gap-3 pl-6 lg:pl-12">
             <img src={logo} alt="Kote Kwema" className="h-12 w-auto" />
             <div className="flex flex-col">
-              <span className="text-xl font-bold tracking-wider text-white">KOTE KWEMA</span>
-              <span className="text-xs text-white font-bold">With Love for Nature</span>
+              <span className="text-xl logo-font text-white">KOTE KWEMA</span>
+              <span className="text-xs text-white slogan-font">With Love for Nature</span>
             </div>
           </a>
 

@@ -15,7 +15,7 @@ const Footer = () => {
         <div className="flex flex-col md:flex-row justify-between items-start gap-8 mb-6">
           {/* Left Side - Company Name and Links */}
           <div className="flex flex-col gap-5">
-            <h3 className="text-4xl md:text-5xl font-bold text-white">Kote Kwema</h3>
+            <h3 className="text-4xl md:text-5xl logo-font text-white">KOTE KWEMA</h3>
             <div className="flex flex-wrap gap-6">
               <Link to="/projects" className="text-sm text-white hover:text-white/80 transition-colors duration-200 font-bold">
                 Projects
@@ -79,7 +79,7 @@ const Footer = () => {
 
             {/* Copyright - Close to icons */}
             <p className="text-sm text-white font-bold">
-              Legal and policies © {currentYear} Kote Kwema. All Rights Reserved.
+              Legal and policies © {currentYear} <span className="logo-font">KOTE KWEMA</span>. All Rights Reserved.
             </p>
           </div>
         </div>

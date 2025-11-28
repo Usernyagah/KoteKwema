@@ -107,3 +107,21 @@ All colors MUST be HSL.
     @apply bg-background text-white font-bold;
   }
 }
+
+@layer utilities {
+  .logo-font {
+    font-family: 'Raleway', sans-serif;
+    font-weight: 100;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+  }
+  
+  .slogan-font {
+    font-family: 'Caveat', cursive;
+    font-weight: 400;
+    font-style: normal !important;
+    letter-spacing: 0.02em;
+    text-transform: none;
+    font-variant: normal;
+  }
+}
