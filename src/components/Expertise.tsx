@@ -84,7 +84,7 @@ const Expertise = () => {
               </div>
             </div>
             <div className="mt-6">
-              <a href="/projects" className="inline-block px-6 py-3 bg-white text-[#1A1A1A] hover:bg-white/90 transition-colors duration-200 font-bold tracking-wide">
+              <a href="/projects" className="inline-block px-6 py-3 bg-white text-[#1A1A1A] hover:bg-white/90 transition-colors duration-200 font-bold tracking-wide rounded-full">
                 View Project Examples
               </a>
             </div>
