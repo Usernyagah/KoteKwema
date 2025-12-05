@@ -25,9 +25,12 @@ const Expertise = () => {
       <div className="pt-20 pb-8">
         <div className="pl-6 lg:pl-12 pr-6 lg:pr-12">
           <div className="mb-8">
-            <h2 className="text-4xl md:text-5xl font-bold tracking-tight text-white">
+            <h2 className="text-4xl md:text-5xl font-bold tracking-tight text-white mb-4">
               Expertise
             </h2>
+            <p className="text-lg text-white font-bold w-full">
+              Kote Kwema offers comprehensive architectural services, from initial concept development to project completion. Our expertise spans multiple sectors, with specialized knowledge in sustainable design, urban planning, and innovative building technologies.
+            </p>
           </div>
           
           {/* Engineering - 3/4 width */}
@@ -55,12 +58,44 @@ const Expertise = () => {
             </a>
           </div>
 
+          {/* Service Menu */}
+          <div className="mb-8 bg-[#333333] p-8 rounded-lg">
+            <h3 className="text-2xl font-bold mb-6 text-white">Our Services</h3>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div>
+                <h4 className="text-lg font-bold mb-3 text-white">Core Services</h4>
+                <ul className="space-y-2 text-white font-bold">
+                  <li>• Architectural Design & Planning</li>
+                  <li>• Urban Planning & Master Planning</li>
+                  <li>• Interior Design</li>
+                  <li>• Landscape Architecture</li>
+                  <li>• Engineering Services</li>
+                </ul>
+              </div>
+              <div>
+                <h4 className="text-lg font-bold mb-3 text-white">Specialized Services</h4>
+                <ul className="space-y-2 text-white font-bold">
+                  <li>• Sustainable Design & LEED Consulting</li>
+                  <li>• BIM Technology & 3D Modeling</li>
+                  <li>• Historic Preservation</li>
+                  <li>• Workplace Consultancy</li>
+                  <li>• Project Management</li>
+                </ul>
+              </div>
+            </div>
+            <div className="mt-6">
+              <a href="/projects" className="inline-block px-6 py-3 bg-white text-[#1A1A1A] hover:bg-white/90 transition-colors duration-200 font-bold tracking-wide">
+                View Project Examples
+              </a>
+            </div>
+          </div>
+
           {/* Rest of expertise areas - 3 column grid */}
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
         {expertiseAreas.map((area, index) => (
           <a
             key={`${area.title}-${index}`}
-            href="#"
+            href="/projects"
             className="relative h-[300px] block group cursor-pointer"
           >
             <img
