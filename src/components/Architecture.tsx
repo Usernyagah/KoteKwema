@@ -25,13 +25,13 @@ const Architecture = () => {
 
         {/* Right - Dark Grey Text Box (1/4 width) */}
         <div className="md:col-span-1 bg-[#333333] p-6 sm:p-8 lg:p-12 flex flex-col justify-center h-auto md:h-[500px] min-h-[200px] sm:min-h-[250px]">
-          <p className="text-[#D0D0D0] text-sm sm:text-base md:text-lg font-bold leading-relaxed mb-4 sm:mb-6 break-words">
+          <p className="text-[#D0D0D0] text-xs sm:text-sm md:text-base font-bold leading-relaxed mb-4 sm:mb-6 break-words">
             From the very beginning our practice was founded on a philosophy of innovation, sustainability and design. We continue to learn from the past and creatively embrace the challenges of the future, with a firm belief that good design makes a difference.
           </p>
-          <p className="text-[#D0D0D0] text-base sm:text-lg md:text-xl logo-font mb-4 sm:mb-6">
+          <p className="text-[#D0D0D0] text-sm sm:text-base md:text-lg logo-font mb-4 sm:mb-6">
             KOTE KWEMA
           </p>
-          <a href="/projects" className="inline-block px-4 py-2 sm:px-6 sm:py-3 bg-[#D0D0D0] text-[#1A1A1A] hover:bg-white transition-colors duration-200 font-bold tracking-wide text-center text-sm sm:text-base">
+          <a href="/projects" className="inline-block px-4 py-2 sm:px-5 sm:py-2.5 bg-[#D0D0D0] text-[#1A1A1A] hover:bg-white transition-colors duration-200 font-bold tracking-wide text-center text-xs sm:text-sm">
             View Our Portfolio
           </a>
           </div>
