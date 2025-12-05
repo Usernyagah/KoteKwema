@@ -198,11 +198,14 @@ const Menu = ({ isOpen, onClose }: MenuProps) => {
                       key={category.name}
                       href={category.href}
                       onClick={(e) => {
-                        e.preventDefault();
-                        setSelectedCategory(category.name);
+                        // Allow navigation - don't prevent default
+                        // Just close menu and let React Router handle navigation
+                        onClose();
                       }}
                       onMouseEnter={() => {
-                        setSelectedCategory(category.name);
+                        if (category.hasSubmenu) {
+                          setSelectedCategory(category.name);
+                        }
                       }}
                       isActive={selectedCategory === category.name}
                       delay={index * 50}

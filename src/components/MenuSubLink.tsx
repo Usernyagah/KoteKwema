@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { ArrowUpRight } from "lucide-react";
 import { ReactNode } from "react";
 
@@ -10,8 +10,12 @@ interface MenuSubLinkProps {
 }
 
 export const MenuSubLink = ({ href, onClick, children, delay = 0 }: MenuSubLinkProps) => {
-  const handleClick = () => {
+  const navigate = useNavigate();
+
+  const handleClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    e.preventDefault();
     onClick();
+    navigate(href);
   };
 
   return (
