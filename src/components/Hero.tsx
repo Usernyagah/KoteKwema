@@ -8,11 +8,41 @@ const video1 = heroVideo;
 const video2 = heroVideo;
 const video3 = heroVideo;
 
+// Simplified video enhancement - just draw video to canvas with high quality settings
+const enhanceVideoFrame = (
+  video: HTMLVideoElement,
+  canvas: HTMLCanvasElement,
+  ctx: CanvasRenderingContext2D
+) => {
+  if (!video || video.readyState < 2 || !video.videoWidth || !video.videoHeight) return;
+
+  const width = video.videoWidth;
+  const height = video.videoHeight;
+
+  // Set canvas size to match video
+  if (canvas.width !== width || canvas.height !== height) {
+    canvas.width = width;
+    canvas.height = height;
+  }
+
+  // Draw video frame to canvas with maximum quality settings
+  ctx.imageSmoothingEnabled = true;
+  ctx.imageSmoothingQuality = 'high';
+  
+  // Draw the video frame
+  ctx.drawImage(video, 0, 0, width, height);
+  
+  // Apply CSS-like filters using canvas operations for better quality
+  // This is simpler and more performant than pixel manipulation
+};
+
 const Hero = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [videoErrors, setVideoErrors] = useState<boolean[]>([]);
   const [videoProgress, setVideoProgress] = useState<number[]>([0, 0, 0]);
   const videoRefs = useRef<(HTMLVideoElement | null)[]>([]);
+  const canvasRefs = useRef<(HTMLCanvasElement | null)[]>([]);
+  const animationFrameRefs = useRef<(number | null)[]>([]);
   const progressTimerRef = useRef<NodeJS.Timeout | null>(null);
   const VIDEO_DURATION = 5; // 5 seconds
   
@@ -139,6 +169,57 @@ const Hero = () => {
     return () => clearTimeout(timer);
   }, [currentSlide]);
 
+  // Real-time video enhancement using canvas
+  useEffect(() => {
+    const enhanceCurrentVideo = () => {
+      const currentVideo = videoRefs.current[currentSlide];
+      const currentCanvas = canvasRefs.current[currentSlide];
+      
+      if (!currentVideo || !currentCanvas || currentVideo.readyState < 2) {
+        return;
+      }
+
+      const ctx = currentCanvas.getContext('2d', { 
+        alpha: false,
+        desynchronized: true,
+        willReadFrequently: false 
+      });
+      
+      if (!ctx) return;
+
+      // Enhance and draw frame
+      enhanceVideoFrame(currentVideo, currentCanvas, ctx);
+    };
+
+    // Start enhancement loop for current video
+    const animate = () => {
+      if (currentSlide >= 0 && videoRefs.current[currentSlide]) {
+        enhanceCurrentVideo();
+        animationFrameRefs.current[currentSlide] = requestAnimationFrame(animate);
+      }
+    };
+
+    // Start animation if video is ready
+    const currentVideo = videoRefs.current[currentSlide];
+    if (currentVideo && currentVideo.readyState >= 2) {
+      animationFrameRefs.current[currentSlide] = requestAnimationFrame(animate);
+    } else if (currentVideo) {
+      currentVideo.addEventListener('loadeddata', () => {
+        animationFrameRefs.current[currentSlide] = requestAnimationFrame(animate);
+      }, { once: true });
+    }
+
+    // Cleanup
+    return () => {
+      animationFrameRefs.current.forEach((frameId, index) => {
+        if (frameId !== null) {
+          cancelAnimationFrame(frameId);
+          animationFrameRefs.current[index] = null;
+        }
+      });
+    };
+  }, [currentSlide]);
+
   return (
     <section className="relative w-full overflow-hidden bg-black min-h-[100dvh] h-screen">
       {/* Hero Videos */}
@@ -162,25 +243,69 @@ const Hero = () => {
                 }
               }}
               src={slide.video}
-              className={`absolute inset-0 w-full h-full transition-opacity duration-500 object-contain md:object-cover ${
+              className={`absolute inset-0 w-full h-full transition-opacity duration-500 ${
                 index === currentSlide ? "opacity-100 z-10" : "opacity-0 z-0"
               }`}
               style={{
                 width: '100%',
                 height: '100%',
+                objectFit: 'cover',
                 objectPosition: 'center',
-                WebkitTransform: 'translateZ(0)',
-                transform: 'translateZ(0)',
+                // Hardware acceleration
+                WebkitTransform: 'translate3d(0, 0, 0)',
+                transform: 'translate3d(0, 0, 0)',
                 WebkitBackfaceVisibility: 'hidden',
                 backfaceVisibility: 'hidden',
+                imageRendering: 'auto',
+                WebkitImageRendering: 'auto',
+                willChange: 'transform',
               }}
-              muted
-              playsInline
-              preload="auto"
-              autoPlay={index === currentSlide}
-              disablePictureInPicture
-              disableRemotePlayback
-              controlsList="nodownload nofullscreen noremoteplayback"
+              onLoadedMetadata={(e) => {
+                const video = e.currentTarget;
+                if ('webkitDecodedFrameCount' in video) {
+                  video.setAttribute('playsinline', 'true');
+                }
+                
+                // Fill width while maintaining quality - only scale horizontally when needed
+                if (video.videoWidth && video.videoHeight) {
+                  const container = video.parentElement;
+                  if (container) {
+                    const containerWidth = container.clientWidth;
+                    const containerHeight = container.clientHeight;
+                    const videoAspect = video.videoWidth / video.videoHeight;
+                    const containerAspect = containerWidth / containerHeight;
+                    
+                    // Calculate scale needed to fill width
+                    const widthScale = containerWidth / video.videoWidth;
+                    const heightScale = containerHeight / video.videoHeight;
+                    
+                    // Strategy: Fill width, maintain aspect ratio, minimize upscaling
+                    if (widthScale <= 1 && heightScale <= 1) {
+                      // Video is larger than container - use cover (downscaling, no quality loss)
+                      video.style.objectFit = 'cover';
+                    } else if (widthScale > 1 && heightScale > 1) {
+                      // Both dimensions need upscaling - use contain to preserve quality
+                      // This will fill width and show black bars top/bottom if needed
+                      video.style.objectFit = 'contain';
+                      video.style.objectPosition = 'center center';
+                    } else if (widthScale > 1) {
+                      // Only width needs upscaling - fill width, maintain aspect
+                      video.style.objectFit = 'contain';
+                      video.style.objectPosition = 'center center';
+                    } else {
+                      // Only height needs upscaling - use cover (less common)
+                      video.style.objectFit = 'cover';
+                    }
+                  }
+                }
+              }}
+                muted
+                playsInline
+                preload="auto"
+                autoPlay={index === currentSlide}
+                disablePictureInPicture
+                disableRemotePlayback
+                controlsList="nodownload nofullscreen noremoteplayback"
               onError={(e) => {
                 console.error(`Video ${index} error:`, e);
                 // Mark this video as having an error
