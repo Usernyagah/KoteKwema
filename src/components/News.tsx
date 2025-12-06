@@ -7,7 +7,7 @@ const News = () => {
       <div className="pt-20 pb-8">
         <div className="pl-6 lg:pl-12 pr-6 lg:pr-12">
           <div className="mb-8">
-            <h2 className="text-4xl md:text-5xl font-bold tracking-tight text-white mb-4">
+            <h2 className="hidden md:block text-4xl md:text-5xl font-bold tracking-tight text-white mb-4">
               News
             </h2>
             <p className="hidden md:block text-lg text-white font-bold w-full">
@@ -42,16 +42,16 @@ const News = () => {
               </ul>
             </div>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         {/* Left - Large Image with "Latest news" overlay (3/4 width) */}
-        <div className="md:col-span-3 space-y-4">
+        <div className="col-span-1 md:col-span-3 space-y-4">
           <Link to="/news/press" className="relative h-[300px] md:h-[450px] block group cursor-pointer mb-4">
             <img
               src="https://images.unsplash.com/photo-1504711434969-e33886168f5c?w=1200&h=800&fit=crop&q=80"
               alt="Latest news"
               className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
             />
-            <div className="absolute bottom-0 left-0 p-6">
+            <div className="hidden md:block absolute bottom-0 left-0 p-6">
               <span className="text-xs text-white font-bold mb-2 block">Press Coverage</span>
               <span className="text-white text-xl font-bold block">Kote Kwema Featured in International Architecture Magazine</span>
             </div>
@@ -71,7 +71,7 @@ const News = () => {
         </div>
 
         {/* Right - Subscription Form (1/4 width) */}
-        <div className="md:col-span-1 bg-[#333333] p-8 lg:p-12 flex flex-col justify-center h-auto md:h-[450px] min-h-[250px]">
+        <div className="col-span-1 md:col-span-1 bg-[#333333] p-4 md:p-8 lg:p-12 flex flex-col justify-center h-auto md:h-[450px] min-h-[250px]">
           <p className="text-[#D0D0D0] text-lg font-bold leading-relaxed mb-8">
             Stay up to date with the latest <span className="logo-font">KOTE KWEMA</span> projects and news.
           </p>
