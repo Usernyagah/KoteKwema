@@ -243,13 +243,12 @@ const Hero = () => {
                 }
               }}
               src={slide.video}
-              className={`absolute inset-0 w-full h-full transition-opacity duration-500 ${
+              className={`absolute inset-0 w-full h-full transition-opacity duration-500 md:object-cover object-contain ${
                 index === currentSlide ? "opacity-100 z-10" : "opacity-0 z-0"
               }`}
               style={{
                 width: '100%',
                 height: '100%',
-                objectFit: 'cover',
                 objectPosition: 'center',
                 // Hardware acceleration
                 WebkitTransform: 'translate3d(0, 0, 0)',
@@ -266,38 +265,38 @@ const Hero = () => {
                   video.setAttribute('playsinline', 'true');
                 }
                 
-                // Fill width while maintaining quality - only scale horizontally when needed
-                if (video.videoWidth && video.videoHeight) {
-                  const container = video.parentElement;
-                  if (container) {
-                    const containerWidth = container.clientWidth;
-                    const containerHeight = container.clientHeight;
-                    const videoAspect = video.videoWidth / video.videoHeight;
-                    const containerAspect = containerWidth / containerHeight;
-                    
-                    // Calculate scale needed to fill width
-                    const widthScale = containerWidth / video.videoWidth;
-                    const heightScale = containerHeight / video.videoHeight;
-                    
-                    // Strategy: Fill width, maintain aspect ratio, minimize upscaling
-                    if (widthScale <= 1 && heightScale <= 1) {
-                      // Video is larger than container - use cover (downscaling, no quality loss)
-                      video.style.objectFit = 'cover';
-                    } else if (widthScale > 1 && heightScale > 1) {
-                      // Both dimensions need upscaling - use contain to preserve quality
-                      // This will fill width and show black bars top/bottom if needed
-                      video.style.objectFit = 'contain';
-                      video.style.objectPosition = 'center center';
-                    } else if (widthScale > 1) {
-                      // Only width needs upscaling - fill width, maintain aspect
-                      video.style.objectFit = 'contain';
-                      video.style.objectPosition = 'center center';
-                    } else {
-                      // Only height needs upscaling - use cover (less common)
-                      video.style.objectFit = 'cover';
+                // Desktop: Fill width while maintaining quality - prevent excessive upscaling
+                if (window.innerWidth >= 768) {
+                  if (video.videoWidth && video.videoHeight) {
+                    const container = video.parentElement;
+                    if (container) {
+                      const containerWidth = container.clientWidth;
+                      const containerHeight = container.clientHeight;
+                      
+                      // Calculate scale needed to fill width
+                      const widthScale = containerWidth / video.videoWidth;
+                      const heightScale = containerHeight / video.videoHeight;
+                      
+                      // Strategy: Fill width, maintain aspect ratio, minimize upscaling
+                      if (widthScale <= 1 && heightScale <= 1) {
+                        // Video is larger than container - use cover (downscaling, no quality loss)
+                        video.style.objectFit = 'cover';
+                      } else if (widthScale > 1 && heightScale > 1) {
+                        // Both dimensions need upscaling - use contain to preserve quality
+                        video.style.objectFit = 'contain';
+                        video.style.objectPosition = 'center center';
+                      } else if (widthScale > 1) {
+                        // Only width needs upscaling - fill width, maintain aspect
+                        video.style.objectFit = 'contain';
+                        video.style.objectPosition = 'center center';
+                      } else {
+                        // Only height needs upscaling - use cover
+                        video.style.objectFit = 'cover';
+                      }
                     }
                   }
                 }
+                // Mobile: Keep object-contain (handled by className)
               }}
                 muted
                 playsInline
