@@ -10,13 +10,13 @@ const News = () => {
             <h2 className="text-4xl md:text-5xl font-bold tracking-tight text-white mb-4">
               News
             </h2>
-            <p className="text-lg text-white font-bold w-full">
+            <p className="hidden md:block text-lg text-white font-bold w-full">
               Stay informed about our latest projects, industry insights, awards, and firm announcements. Explore thought leadership articles on architectural trends, sustainable design, and the future of urban development in Kenya and beyond.
             </p>
           </div>
           
           {/* News Categories */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+          <div className="hidden md:grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
             <div className="bg-[#333333] p-6">
               <h3 className="text-lg font-bold mb-3 text-white">Firm Announcements</h3>
               <ul className="space-y-2 text-white font-bold text-sm">
@@ -56,7 +56,7 @@ const News = () => {
               <span className="text-white text-xl font-bold block">Kote Kwema Featured in International Architecture Magazine</span>
             </div>
           </Link>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="hidden md:grid grid-cols-1 md:grid-cols-2 gap-4">
             <div className="bg-[#333333] p-6">
               <h4 className="text-lg font-bold mb-2 text-white">Events & Speaking</h4>
               <p className="text-white text-sm font-bold mb-2">Upcoming: Sustainable Architecture Conference, Nairobi - March 2024</p>
