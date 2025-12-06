@@ -6,17 +6,18 @@ const News = () => {
     <div className="bg-[#1A1A1A]">
       <div className="pt-20 pb-8">
         <div className="pl-6 lg:pl-12 pr-6 lg:pr-12">
-          <div className="mb-8">
-            <h2 className="hidden md:block text-4xl md:text-5xl font-bold tracking-tight text-white mb-4">
+          {/* Heading and Description - Hidden on mobile */}
+          <div className="mb-8 hidden md:block">
+            <h2 className="text-4xl md:text-5xl font-bold tracking-tight text-white mb-4">
               News
             </h2>
-            <p className="hidden md:block text-lg text-white font-bold w-full">
+            <p className="text-lg text-white font-bold w-full">
               Stay informed about our latest projects, industry insights, awards, and firm announcements. Explore thought leadership articles on architectural trends, sustainable design, and the future of urban development in Kenya and beyond.
             </p>
           </div>
           
-          {/* News Categories */}
-          <div className="hidden md:grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+          {/* News Categories - Hidden on mobile */}
+          <div className="mb-8 hidden md:grid md:grid-cols-3 gap-4">
             <div className="bg-[#333333] p-6">
               <h3 className="text-lg font-bold mb-3 text-white">Firm Announcements</h3>
               <ul className="space-y-2 text-white font-bold text-sm">
