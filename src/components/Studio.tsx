@@ -25,7 +25,7 @@ const Studio = () => {
           <div>
             <h3 className="text-2xl font-bold mb-4 text-white">About</h3>
             <p className="text-white mb-6 font-bold">
-              We are a global studio for sustainable architecture, urbanism, engineering and design, established in 1967. Kote Kwema was founded with a vision to create architecture that harmonizes with nature while meeting the evolving needs of communities. Our journey began in Nairobi, Kenya, and has expanded globally, bringing together diverse perspectives and expertise to deliver innovative design solutions.
+              We craft sustainable architecture, urban landscapes, and engineering solutions where innovation meets environmental stewardship. Kote Kwema was founded with a vision to create architecture that harmonizes with nature while meeting the evolving needs of communities. Our journey began in Nairobi, Kenya, and has expanded globally, bringing together diverse perspectives and expertise to deliver innovative design solutions.
             </p>
             <p className="text-white mb-6 font-bold">
               Our philosophy centers on the belief that architecture should serve both people and the planet. We approach each project with deep respect for local context, cultural heritage, and environmental sustainability, creating spaces that inspire and endure.

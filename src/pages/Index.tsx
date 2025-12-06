@@ -40,7 +40,7 @@ const Index = () => {
             {/* Text - 1/4 width */}
             <div className="md:col-span-1 bg-[#333333] p-8 lg:p-12 flex flex-col justify-center h-[300px] md:h-[450px]">
               <p className="text-[#D0D0D0] text-lg font-bold leading-relaxed mb-6">
-                We are a global studio for sustainable architecture, urbanism, engineering and design, established in 1967.
+                We craft sustainable architecture, urban landscapes, and engineering solutions where innovation meets environmental stewardship.
               </p>
               <p className="text-[#D0D0D0] text-xl logo-font">
                 KOTE KWEMA
