@@ -18,10 +18,10 @@ const SubTopicPageLayout = ({
 }: SubTopicPageLayoutProps) => {
   return (
     <div className="min-h-screen bg-white">
-      <Navigation />
+      <Navigation variant="white" />
       
       {/* Breadcrumbs */}
-      <div className="pt-20 pl-6 lg:pl-12 pr-6 lg:pr-12 pb-6">
+      <div className="pt-24 pl-6 lg:pl-12 pr-6 lg:pr-12 pb-6">
         <nav className="text-sm text-[#4A4A4A] font-light">
           {breadcrumbs.map((crumb, index) => (
             <span key={index}>

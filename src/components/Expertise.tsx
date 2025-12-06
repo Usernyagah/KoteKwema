@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import heroImage from "@/assets/hero-architecture.jpg";
 import project1 from "@/assets/project-1.jpg";
 import project2 from "@/assets/project-2.jpg";
@@ -7,15 +8,18 @@ import project4 from "@/assets/project-4.jpg";
 const expertiseAreas = [
   {
     title: "Interiors",
-    image: project2,
+    image: "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=800&h=600&fit=crop&q=80",
+    href: "/expertise/interiors",
   },
   {
     title: "Urban and Landscape Design",
-    image: project3,
+    image: "https://images.unsplash.com/photo-1449824913935-59a10b8d2000?w=800&h=600&fit=crop&q=80",
+    href: "/expertise/urban",
   },
   {
     title: "Workplace Consultancy",
-    image: project4,
+    image: "https://images.unsplash.com/photo-1497366754035-f200968a6e72?w=800&h=600&fit=crop&q=80",
+    href: "/expertise/workplace",
   },
 ];
 
@@ -35,27 +39,27 @@ const Expertise = () => {
           
           {/* Engineering - 3/4 width */}
           <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-4">
-            <a href="#" className="md:col-span-3 relative h-[300px] md:h-[450px] block group cursor-pointer">
+            <Link to="/expertise/engineering" className="md:col-span-3 relative h-[300px] md:h-[450px] block group cursor-pointer">
               <img
-                src={heroImage}
+                src="https://images.unsplash.com/photo-1581092160562-40aa08e78837?w=1200&h=800&fit=crop&q=80"
                 alt="Engineering"
                 className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
               />
               <div className="absolute bottom-0 left-0 p-6">
                 <span className="text-white text-xl font-bold">Engineering</span>
               </div>
-            </a>
+            </Link>
             {/* Technology and Research - 1/4 width */}
-            <a href="#" className="md:col-span-1 relative h-[300px] md:h-[450px] block group cursor-pointer">
+            <Link to="/expertise/technology" className="md:col-span-1 relative h-[300px] md:h-[450px] block group cursor-pointer">
               <img
-                src={project1}
+                src="https://images.unsplash.com/photo-1488590528505-98d2b5aba04b?w=800&h=1200&fit=crop&q=80"
                 alt="Technology and Research"
                 className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
               />
               <div className="absolute bottom-0 left-0 p-6">
                 <span className="text-white text-xl font-bold">Technology and Research</span>
               </div>
-            </a>
+            </Link>
           </div>
 
           {/* Service Menu */}
@@ -84,18 +88,18 @@ const Expertise = () => {
               </div>
             </div>
             <div className="mt-6">
-              <a href="/projects" className="inline-block px-6 py-3 bg-white text-[#1A1A1A] hover:bg-white/90 transition-colors duration-200 font-bold tracking-wide rounded-full">
+              <Link to="/projects" className="inline-block px-6 py-3 bg-white text-[#1A1A1A] hover:bg-white/90 transition-colors duration-200 font-bold tracking-wide rounded-full">
                 View Project Examples
-              </a>
+              </Link>
             </div>
           </div>
 
           {/* Rest of expertise areas - 3 column grid */}
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
         {expertiseAreas.map((area, index) => (
-          <a
+          <Link
             key={`${area.title}-${index}`}
-            href="/projects"
+            to={area.href}
             className="relative h-[300px] block group cursor-pointer"
           >
             <img
@@ -106,7 +110,7 @@ const Expertise = () => {
             <div className="absolute bottom-0 left-0 p-6">
               <span className="text-white text-xl font-bold">{area.title}</span>
             </div>
-          </a>
+          </Link>
         ))}
           </div>
         </div>

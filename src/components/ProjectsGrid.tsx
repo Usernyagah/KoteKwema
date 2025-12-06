@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import project2 from "@/assets/project-2.jpg";
 import project3 from "@/assets/project-3.jpg";
 import project4 from "@/assets/project-4.jpg";
@@ -67,10 +68,19 @@ const ProjectsGrid = () => {
       </div>
 
       <div className="space-y-12">
-        {filteredProjects.map((project) => (
-          <a
+        {filteredProjects.map((project) => {
+          // Map category to subtopic href
+          const categoryToHref: Record<string, string> = {
+            "Residential": "/projects/residential",
+            "Commercial": "/projects/commercial",
+            "Cultural": "/projects/cultural",
+          };
+          const href = categoryToHref[project.category] || "#";
+          
+          return (
+          <Link
             key={project.id}
-            href="#"
+            to={href}
             className="group block space-y-4"
           >
             <div className="relative overflow-hidden">
@@ -102,8 +112,9 @@ const ProjectsGrid = () => {
                 </div>
               </div>
             </div>
-          </a>
-        ))}
+          </Link>
+          );
+        })}
       </div>
     </div>
   );

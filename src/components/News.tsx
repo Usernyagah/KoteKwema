@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import heroImage from "@/assets/hero-architecture.jpg";
 
 const News = () => {
@@ -44,9 +45,9 @@ const News = () => {
           <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
         {/* Left - Large Image with "Latest news" overlay (3/4 width) */}
         <div className="md:col-span-3 space-y-4">
-          <a href="#" className="relative h-[300px] md:h-[450px] block group cursor-pointer mb-4">
+          <Link to="/news/press" className="relative h-[300px] md:h-[450px] block group cursor-pointer mb-4">
             <img
-              src={heroImage}
+              src="https://images.unsplash.com/photo-1504711434969-e33886168f5c?w=1200&h=800&fit=crop&q=80"
               alt="Latest news"
               className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
             />
@@ -54,7 +55,7 @@ const News = () => {
               <span className="text-xs text-white font-bold mb-2 block">Press Coverage</span>
               <span className="text-white text-xl font-bold block">Kote Kwema Featured in International Architecture Magazine</span>
             </div>
-          </a>
+          </Link>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div className="bg-[#333333] p-6">
               <h4 className="text-lg font-bold mb-2 text-white">Events & Speaking</h4>

@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import heroImage from "@/assets/hero-architecture.jpg";
 
 const Architecture = () => {
@@ -12,16 +13,16 @@ const Architecture = () => {
           </div>
           <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
         {/* Left - Large Image with "Architecture" overlay (3/4 width) */}
-        <a href="#" className="md:col-span-3 relative h-[250px] sm:h-[300px] md:h-[500px] block group cursor-pointer">
+        <Link to="/expertise/architecture" className="md:col-span-3 relative h-[250px] sm:h-[300px] md:h-[500px] block group cursor-pointer">
           <img
-            src={heroImage}
+            src="https://images.unsplash.com/photo-1487958449943-2429e8be8625?w=1200&h=800&fit=crop&q=80"
             alt="Architecture"
             className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
           />
           <div className="absolute bottom-0 left-0 p-4 sm:p-6">
             <span className="text-white text-xl sm:text-2xl font-bold">Architecture</span>
           </div>
-        </a>
+        </Link>
 
         {/* Right - Dark Grey Text Box (1/4 width) */}
         <div className="md:col-span-1 bg-[#333333] p-6 sm:p-8 lg:p-12 flex flex-col justify-center h-auto md:h-[500px] min-h-[200px] sm:min-h-[250px]">
@@ -31,9 +32,9 @@ const Architecture = () => {
           <p className="text-[#D0D0D0] text-sm sm:text-base md:text-lg logo-font mb-4 sm:mb-6">
             KOTE KWEMA
           </p>
-          <a href="/projects" className="inline-block px-4 py-2 sm:px-5 sm:py-2.5 bg-[#D0D0D0] text-[#1A1A1A] hover:bg-white transition-colors duration-200 font-bold tracking-wide text-center text-xs sm:text-sm rounded-full">
+          <Link to="/projects" className="inline-block px-4 py-2 sm:px-5 sm:py-2.5 bg-[#D0D0D0] text-[#1A1A1A] hover:bg-white transition-colors duration-200 font-bold tracking-wide text-center text-xs sm:text-sm rounded-full">
             View Our Portfolio
-          </a>
+          </Link>
           </div>
         </div>
         </div>

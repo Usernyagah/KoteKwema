@@ -15,7 +15,7 @@ const StudioPage = () => {
           {/* Top Left - Large Image with "About" overlay (spans 2 columns, 2 rows) */}
           <a href="#" className="col-span-2 row-span-2 relative h-[450px] block group cursor-pointer">
             <img
-              src={heroImage}
+              src="https://images.unsplash.com/photo-1497366754035-f200968a6e72?w=1200&h=800&fit=crop&q=80"
               alt="About"
               className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
             />
@@ -37,7 +37,7 @@ const StudioPage = () => {
           {/* Middle Row - 3 images with text overlays */}
           <a href="#" className="col-span-1 relative h-[300px] block group cursor-pointer">
             <img
-              src={project2}
+              src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=800&h=600&fit=crop&q=80"
               alt="Vacancies"
               className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
             />
@@ -48,7 +48,7 @@ const StudioPage = () => {
 
           <a href="#" className="col-span-1 relative h-[300px] block group cursor-pointer">
             <img
-              src={project3}
+              src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=800&h=600&fit=crop&q=80"
               alt="Equity, Diversity and Inclusion"
               className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
             />
@@ -60,7 +60,7 @@ const StudioPage = () => {
           {/* Bottom Row - 3 images with text overlays */}
           <a href="#" className="col-span-1 relative h-[300px] block group cursor-pointer">
             <img
-              src={project4}
+              src="https://images.unsplash.com/photo-1552664730-d307ca884978?w=800&h=600&fit=crop&q=80"
               alt="Corporate Social Responsibility"
               className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
             />
@@ -71,7 +71,7 @@ const StudioPage = () => {
 
           <a href="#" className="col-span-1 relative h-[300px] block group cursor-pointer">
             <img
-              src={heroImage}
+              src="https://images.unsplash.com/photo-1497366754035-f200968a6e72?w=800&h=600&fit=crop&q=80"
               alt="Global studios"
               className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
             />
@@ -82,7 +82,7 @@ const StudioPage = () => {
 
           <a href="#" className="col-span-1 relative h-[300px] block group cursor-pointer">
             <img
-              src={project1}
+              src="https://images.unsplash.com/photo-1497366216548-37526070297c?w=800&h=600&fit=crop&q=80"
               alt="Studio"
               className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
             />

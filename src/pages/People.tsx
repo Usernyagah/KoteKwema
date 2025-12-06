@@ -9,21 +9,21 @@ const PeoplePage = () => {
       role: "Principal Architect & Founder",
       qualifications: "M.Arch, PhD in Sustainable Design",
       bio: "With over 20 years of experience, Sarah leads our design vision with a passion for sustainable architecture and community engagement.",
-      image: heroImage,
+      image: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=600&h=800&fit=crop&q=80",
     },
     {
       name: "James Kariuki",
       role: "Senior Project Manager",
       qualifications: "B.Arch, PMP Certified",
       bio: "James specializes in large-scale commercial projects and brings expertise in BIM technology and project delivery.",
-      image: project1,
+      image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&h=800&fit=crop&q=80",
     },
     {
       name: "Amina Hassan",
       role: "Sustainable Design Specialist",
       qualifications: "M.Sc Environmental Engineering, LEED AP",
       bio: "Amina drives our sustainability initiatives, ensuring every project meets the highest environmental standards.",
-      image: heroImage,
+      image: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=600&h=800&fit=crop&q=80",
     },
   ];
 
@@ -33,7 +33,7 @@ const PeoplePage = () => {
         <h1 className="text-4xl md:text-5xl font-light tracking-tight mb-8 text-white">People</h1>
         <div className="mb-8">
           <img
-            src={heroImage}
+            src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=1200&h=600&fit=crop&q=80"
             alt="People"
             className="w-full h-[400px] object-cover"
           />

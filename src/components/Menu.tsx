@@ -1,4 +1,4 @@
-import { X as XIcon, ArrowUpRight, Instagram, Linkedin } from "lucide-react";
+import { ArrowUpRight, X as XIcon } from "lucide-react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { MenuLink } from "./MenuLink";
@@ -117,11 +117,15 @@ const getSubcategories = (categoryName: string) => {
   }
 };
 
+// Official X logo SVG component
+const XLogo = ({ className }: { className?: string }) => (
+  <svg viewBox="0 0 24 24" className={className} fill="currentColor" aria-label="X">
+    <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+  </svg>
+);
+
 const socialIcons = [
-  { name: "Pinterest", href: "#", icon: "P" },
-  { name: "Instagram", href: "#", icon: Instagram },
-  { name: "LinkedIn", href: "#", icon: Linkedin },
-  { name: "X", href: "https://x.com/KoteKwema", icon: "X" },
+  { name: "X", href: "https://x.com/KoteKwema", icon: XLogo },
 ];
 
 const categoryImages: Record<string, string> = {
@@ -136,12 +140,18 @@ const categoryImages: Record<string, string> = {
 };
 
 const Menu = ({ isOpen, onClose }: MenuProps) => {
-  const [selectedCategory, setSelectedCategory] = useState<string | null>("Expertise");
+  const [clickedCategory, setClickedCategory] = useState<string | null>(null);
+  const [hoveredCategory, setHoveredCategory] = useState<string | null>(null);
   
   if (!isOpen) return null;
   
+  // Show subtopics for hovered or clicked category (for preview)
+  const selectedCategory = hoveredCategory || clickedCategory;
   const currentSubcategories = selectedCategory ? getSubcategories(selectedCategory) : [];
   const backgroundImage = selectedCategory ? categoryImages[selectedCategory] || heroImage : heroImage;
+  
+  // Subtopics are only clickable if parent category is clicked
+  const isSubtopicsClickable = clickedCategory !== null;
 
   return (
     <>
@@ -193,26 +203,40 @@ const Menu = ({ isOpen, onClose }: MenuProps) => {
               {/* Left Column - Main Categories */}
               <div className="flex-1 min-w-0">
                 <nav className="space-y-0.5 md:space-y-1">
-                  {menuCategories.map((category, index) => (
-                    <MenuLink
-                      key={category.name}
-                      href={category.href}
-                      onClick={(e) => {
-                        // Allow navigation - don't prevent default
-                        // Just close menu and let React Router handle navigation
-                        onClose();
-                      }}
-                      onMouseEnter={() => {
-                        if (category.hasSubmenu) {
-                          setSelectedCategory(category.name);
-                        }
-                      }}
-                      isActive={selectedCategory === category.name}
-                      delay={index * 50}
-                    >
-                      {category.name}
-                    </MenuLink>
-                  ))}
+                  {menuCategories.map((category, index) => {
+                    const isSelected = selectedCategory === category.name;
+                    const isClicked = clickedCategory === category.name;
+                    
+                    return (
+                      <MenuLink
+                        key={category.name}
+                        href={category.href}
+                        onClick={(e) => {
+                          e.preventDefault(); // Prevent navigation
+                          if (category.hasSubmenu) {
+                            // Toggle: if already clicked, unclick it; otherwise, set it as clicked
+                            setClickedCategory(isClicked ? null : category.name);
+                          }
+                          // Don't close menu on click - let user see subtopics
+                        }}
+                        onMouseEnter={() => {
+                          if (category.hasSubmenu) {
+                            setHoveredCategory(category.name);
+                          }
+                        }}
+                        onMouseLeave={() => {
+                          // Only clear hover if category is not clicked
+                          if (clickedCategory !== category.name) {
+                            setHoveredCategory(null);
+                          }
+                        }}
+                        isActive={isSelected}
+                        delay={index * 50}
+                      >
+                        {category.name}
+                      </MenuLink>
+                    );
+                  })}
                 </nav>
               </div>
 
@@ -227,6 +251,7 @@ const Menu = ({ isOpen, onClose }: MenuProps) => {
                           href={subcategory.href}
                           onClick={onClose}
                           delay={index * 30}
+                          disabled={!isSubtopicsClickable}
                         >
                           {subcategory.name}
                         </MenuSubLink>
@@ -246,12 +271,10 @@ const Menu = ({ isOpen, onClose }: MenuProps) => {
                     href={social.href}
                     className="text-[#4A4A4A] hover:text-black transition-colors duration-200"
                     aria-label={social.name}
+                    target="_blank"
+                    rel="noopener noreferrer"
                   >
-                    {typeof social.icon === "string" ? (
-                      <span className="text-sm font-bold">{social.icon}</span>
-                    ) : (
-                      <social.icon className="h-5 w-5" />
-                    )}
+                    <social.icon className="h-5 w-5" />
                   </a>
                 ))}
               </div>

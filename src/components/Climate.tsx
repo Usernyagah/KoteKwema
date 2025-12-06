@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import heroImage from "@/assets/hero-architecture.jpg";
 
 const Climate = () => {
@@ -12,16 +13,16 @@ const Climate = () => {
           </div>
           <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
         {/* Left - Large Panoramic Image with text overlay (3/4 width) */}
-        <a href="#" className="md:col-span-3 relative h-[300px] md:h-[500px] block group cursor-pointer">
+        <Link to="/expertise/climate" className="md:col-span-3 relative h-[300px] md:h-[500px] block group cursor-pointer">
           <img
-            src={heroImage}
+            src="https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=1200&h=800&fit=crop&q=80"
             alt="Climate and Sustainable Design"
             className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
           />
           <div className="absolute bottom-0 left-0 p-6">
             <span className="text-white text-xl font-bold">Climate and Sustainable Design</span>
           </div>
-        </a>
+        </Link>
 
         {/* Right - Dark Grey Text Box (1/4 width) */}
         <div className="md:col-span-1 bg-[#333333] p-8 lg:p-12 flex flex-col justify-center h-auto md:h-[500px] min-h-[250px]">

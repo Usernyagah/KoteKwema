@@ -30,7 +30,7 @@ const Careers = () => {
         <div className="grid md:grid-cols-2 gap-8 items-center">
           <div>
             <img
-              src={heroImage}
+              src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=800&h=600&fit=crop&q=80"
               alt="Vacancies"
               className="w-full h-[350px] object-cover"
             />

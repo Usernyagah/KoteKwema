@@ -3,27 +3,32 @@ import { useState, useRef, useEffect } from "react";
 import heroImage from "@/assets/hero-architecture.jpg";
 import heroVideo from "@/assets/VID-20251127-WA0001.mp4";
 
+// High-quality architecture videos - using local video for all slides
+const video1 = heroVideo;
+const video2 = heroVideo;
+const video3 = heroVideo;
+
 const Hero = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [videoErrors, setVideoErrors] = useState<boolean[]>([]);
   const [videoProgress, setVideoProgress] = useState<number[]>([0, 0, 0]);
   const videoRefs = useRef<(HTMLVideoElement | null)[]>([]);
   const progressTimerRef = useRef<NodeJS.Timeout | null>(null);
-  const VIDEO_DURATION = 10; // 10 seconds
+  const VIDEO_DURATION = 5; // 5 seconds
   
   const slides = [
     {
-      video: heroVideo,
+      video: video1,
       category: "News",
       title: "New sustainable architecture project announced",
     },
     {
-      video: heroVideo,
+      video: video2,
       category: "News",
       title: "Award recognition for excellence in design",
     },
     {
-      video: heroVideo,
+      video: video3,
       category: "News",
       title: "Innovative design solutions for modern cities",
     },
@@ -39,7 +44,7 @@ const Hero = () => {
 
       const updateProgress = () => {
         if (index === currentSlide) {
-          // Calculate progress based on 30 second duration
+          // Calculate progress based on 5 second duration
           const progress = Math.min((video.currentTime / VIDEO_DURATION) * 100, 100);
           setVideoProgress((prev) => {
             const newProgress = [...prev];
@@ -60,7 +65,7 @@ const Hero = () => {
 
       const handleTimeUpdate = () => updateProgress();
       const handleEnded = () => {
-        // Move to next video when this video ends (if it ends before 30 seconds)
+        // Move to next video when this video ends (if it ends before 5 seconds)
         if (index === currentSlide) {
           setTimeout(() => {
             const nextSlide = (index + 1) % slides.length;
@@ -135,9 +140,9 @@ const Hero = () => {
   }, [currentSlide]);
 
   return (
-    <section className="relative h-screen w-full overflow-hidden bg-black min-h-[100dvh]">
+    <section className="relative w-full overflow-hidden bg-black min-h-[100dvh] h-screen">
       {/* Hero Videos */}
-      <div className="absolute inset-0 bg-black">
+      <div className="absolute inset-0 bg-black w-full h-full overflow-hidden" style={{ minHeight: '100dvh' }}>
         {slides.map((slide, index) => (
           videoErrors[index] ? (
             <img
@@ -157,15 +162,28 @@ const Hero = () => {
                 }
               }}
               src={slide.video}
-              className={`absolute inset-0 w-full h-full min-w-full min-h-full object-contain md:object-cover transition-opacity duration-500 ${
+              className={`absolute inset-0 w-full h-full transition-opacity duration-500 ${
                 index === currentSlide ? "opacity-100 z-10" : "opacity-0 z-0"
               }`}
               style={{
+                width: '100%',
+                height: '100%',
+                minWidth: '100%',
+                minHeight: '100%',
+                objectFit: 'cover',
                 objectPosition: 'center',
+                WebkitTransform: 'translateZ(0)',
+                transform: 'translateZ(0)',
+                WebkitBackfaceVisibility: 'hidden',
+                backfaceVisibility: 'hidden',
               }}
               muted
               playsInline
               preload="auto"
+              autoPlay={index === currentSlide}
+              disablePictureInPicture
+              disableRemotePlayback
+              controlsList="nodownload nofullscreen noremoteplayback"
               onError={(e) => {
                 console.error(`Video ${index} error:`, e);
                 // Mark this video as having an error
@@ -200,7 +218,7 @@ const Hero = () => {
                 }
               }}
               onEnded={() => {
-                // Auto-advance to next video when current video ends (if it ends before 30 seconds)
+                // Auto-advance to next video when current video ends (if it ends before 5 seconds)
                 if (index === currentSlide) {
                   setTimeout(() => {
                     const nextSlide = (index + 1) % slides.length;
@@ -209,7 +227,7 @@ const Hero = () => {
                 }
               }}
               onTimeUpdate={() => {
-                // Stop video after 30 seconds
+                // Stop video after 5 seconds
                 if (index === currentSlide && videoRefs.current[index]) {
                   const video = videoRefs.current[index];
                   if (video.currentTime >= VIDEO_DURATION) {
@@ -222,7 +240,9 @@ const Hero = () => {
                   }
                 }
               }}
-            />
+            >
+              <source src={slide.video} type="video/mp4" />
+            </video>
           )
         ))}
       </div>

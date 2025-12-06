@@ -21,7 +21,7 @@ const Contact = () => {
 
       <div className="mb-8">
         <img
-          src={heroImage}
+          src="https://images.unsplash.com/photo-1497366754035-f200968a6e72?w=1200&h=600&fit=crop&q=80"
           alt="Contact"
           className="w-full h-[300px] object-cover mb-8"
         />

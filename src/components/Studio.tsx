@@ -17,7 +17,7 @@ const Studio = () => {
         <div className="grid md:grid-cols-2 gap-8 items-center">
           <div>
             <img
-              src={heroImage}
+              src="https://images.unsplash.com/photo-1497366754035-f200968a6e72?w=1200&h=800&fit=crop&q=80"
               alt="About"
               className="w-full h-[400px] object-cover"
             />
@@ -36,7 +36,7 @@ const Studio = () => {
         <div className="grid md:grid-cols-2 gap-8 items-center">
           <div className="md:order-2">
             <img
-              src={project1}
+              src="https://images.unsplash.com/photo-1497366754035-f200968a6e72?w=1200&h=800&fit=crop&q=80"
               alt="Kote Kwema"
               className="w-full h-[400px] object-cover"
             />
@@ -64,7 +64,7 @@ const Studio = () => {
         <div className="grid md:grid-cols-2 gap-8 items-center">
           <div>
             <img
-              src={project2}
+              src="https://images.unsplash.com/photo-1581291518857-4e27b48ff24e?w=1200&h=800&fit=crop&q=80"
               alt="Work Process"
               className="w-full h-[400px] object-cover"
             />
@@ -95,7 +95,7 @@ const Studio = () => {
           </div>
           <div>
             <img
-              src={project1}
+              src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=1200&h=800&fit=crop&q=80"
               alt="Studio Culture"
               className="w-full h-[400px] object-cover"
             />
@@ -105,7 +105,7 @@ const Studio = () => {
         <div className="grid md:grid-cols-2 gap-8 items-center">
           <div className="md:order-2">
             <img
-              src={project3}
+              src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=800&h=600&fit=crop&q=80"
               alt="Equity, Diversity and Inclusion"
               className="w-full h-[400px] object-cover"
             />
@@ -121,7 +121,7 @@ const Studio = () => {
         <div className="grid md:grid-cols-2 gap-8 items-center">
           <div>
             <img
-              src={project4}
+              src="https://images.unsplash.com/photo-1552664730-d307ca884978?w=1200&h=800&fit=crop&q=80"
               alt="Corporate Social Responsibility"
               className="w-full h-[400px] object-cover"
             />
@@ -137,7 +137,7 @@ const Studio = () => {
         <div className="grid md:grid-cols-2 gap-8 items-center">
           <div className="md:order-2">
             <img
-              src={heroImage}
+              src="https://images.unsplash.com/photo-1497366754035-f200968a6e72?w=1200&h=800&fit=crop&q=80"
               alt="Global studios"
               className="w-full h-[400px] object-cover"
             />
