@@ -142,7 +142,7 @@ const Hero = () => {
   return (
     <section className="relative w-full overflow-hidden bg-black min-h-[100dvh] h-screen">
       {/* Hero Videos */}
-      <div className="absolute inset-0 bg-black w-full h-full overflow-hidden" style={{ minHeight: '100dvh' }}>
+      <div className="absolute inset-0 bg-black w-full h-full overflow-hidden">
         {slides.map((slide, index) => (
           videoErrors[index] ? (
             <img
@@ -162,15 +162,12 @@ const Hero = () => {
                 }
               }}
               src={slide.video}
-              className={`absolute inset-0 w-full h-full transition-opacity duration-500 ${
+              className={`absolute inset-0 w-full h-full transition-opacity duration-500 object-contain md:object-cover ${
                 index === currentSlide ? "opacity-100 z-10" : "opacity-0 z-0"
               }`}
               style={{
                 width: '100%',
                 height: '100%',
-                minWidth: '100%',
-                minHeight: '100%',
-                objectFit: 'cover',
                 objectPosition: 'center',
                 WebkitTransform: 'translateZ(0)',
                 transform: 'translateZ(0)',
