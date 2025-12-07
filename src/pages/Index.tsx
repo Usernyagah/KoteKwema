@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import Navigation from "@/components/Navigation";
 import Hero from "@/components/Hero";
 import Architecture from "@/components/Architecture";
@@ -25,97 +26,86 @@ const Index = () => {
           {/* First Row - Image (3/4) and Text (1/4) */}
           <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-4">
             {/* Image - 3/4 width */}
-            <a href="#" className="md:col-span-3 relative h-[250px] md:h-[350px] block group cursor-pointer">
+            <Link to="/studio/about" className="md:col-span-3 relative h-[300px] md:h-[450px] block group cursor-pointer">
               <img
-                src={heroImage}
+                src="https://images.unsplash.com/photo-1497366754035-f200968a6e72?w=1200&h=800&fit=crop&q=80"
                 alt="About"
                 className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
               />
               <div className="absolute bottom-0 left-0 p-6">
                 <span className="text-white text-2xl font-bold">About</span>
               </div>
-            </a>
+            </Link>
 
             {/* Text - 1/4 width */}
             <div className="md:col-span-1 bg-[#333333] p-6 lg:p-8 flex flex-col justify-center h-[250px] md:h-[350px]">
               <p className="text-[#D0D0D0] text-lg font-bold leading-relaxed mb-6">
-                We are a global studio for sustainable architecture, urbanism, engineering and design, established in 1967.
+                We craft sustainable architecture, urban landscapes, and engineering solutions where innovation meets environmental stewardship.
               </p>
-              <p className="text-[#D0D0D0] text-xl font-bold">
-                Kote Kwema
+              <p className="text-[#D0D0D0] text-xl logo-font">
+                KOTE KWEMA
               </p>
             </div>
           </div>
 
           {/* Rest of the content - 3 column grid */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
           {/* Middle Row - 3 images with text overlays */}
-          <a href="#" className="col-span-1 relative h-[250px] block group cursor-pointer">
+          <Link to="/careers/positions" className="col-span-1 relative h-[300px] block group cursor-pointer">
             <img
-              src={project1}
-              alt="Life at Kote Kwema"
-              className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
-            />
-            <div className="absolute bottom-0 left-0 p-6">
-              <span className="text-white text-xl font-bold">Life at Kote Kwema</span>
-            </div>
-          </a>
-
-          <a href="#" className="col-span-1 relative h-[250px] block group cursor-pointer">
-            <img
-              src={project2}
+              src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=800&h=600&fit=crop&q=80"
               alt="Vacancies"
               className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
             />
             <div className="absolute bottom-0 left-0 p-6">
               <span className="text-white text-xl font-bold">Vacancies</span>
             </div>
-          </a>
+          </Link>
 
-          <a href="#" className="col-span-1 relative h-[250px] block group cursor-pointer">
+          <Link to="/careers/benefits" className="col-span-1 relative h-[300px] block group cursor-pointer">
             <img
-              src={project3}
+              src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=800&h=600&fit=crop&q=80"
               alt="Equity, Diversity and Inclusion"
               className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
             />
             <div className="absolute bottom-0 left-0 p-6">
               <span className="text-white text-xl font-bold">Equity, Diversity and Inclusion</span>
             </div>
-          </a>
+          </Link>
 
           {/* Bottom Row - 3 images with text overlays */}
-          <a href="#" className="col-span-1 relative h-[250px] block group cursor-pointer">
+          <Link to="/studio/about" className="col-span-1 relative h-[300px] block group cursor-pointer">
             <img
-              src={project4}
+              src="https://images.unsplash.com/photo-1552664730-d307ca884978?w=800&h=600&fit=crop&q=80"
               alt="Corporate Social Responsibility"
               className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
             />
             <div className="absolute bottom-0 left-0 p-6">
               <span className="text-white text-xl font-bold">Corporate Social Responsibility</span>
             </div>
-          </a>
+          </Link>
 
-          <a href="#" className="col-span-1 relative h-[250px] block group cursor-pointer">
+          <Link to="/studio/studios" className="col-span-1 relative h-[300px] block group cursor-pointer">
             <img
-              src={heroImage}
+              src="https://images.unsplash.com/photo-1497366754035-f200968a6e72?w=800&h=600&fit=crop&q=80"
               alt="Global studios"
               className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
             />
             <div className="absolute bottom-0 left-0 p-6">
               <span className="text-white text-xl font-bold">Global studios</span>
             </div>
-          </a>
+          </Link>
 
-          <a href="#" className="col-span-1 relative h-[250px] block group cursor-pointer">
+          <Link to="/studio/about" className="col-span-1 relative h-[300px] block group cursor-pointer">
             <img
-              src={project1}
+              src="https://images.unsplash.com/photo-1497366216548-37526070297c?w=800&h=600&fit=crop&q=80"
               alt="Studio"
               className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
             />
             <div className="absolute bottom-0 left-0 p-6">
               <span className="text-white text-xl font-bold">Studio</span>
             </div>
-          </a>
+          </Link>
         </div>
         </div>
       </section>

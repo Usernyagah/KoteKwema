@@ -1,28 +1,64 @@
 import { ArrowDown } from "lucide-react";
 import { useState, useRef, useEffect } from "react";
 import heroImage from "@/assets/hero-architecture.jpg";
+import heroVideo from "@/assets/VID-20251127-WA0001.mp4";
+
+// High-quality architecture videos - using local video for all slides
+const video1 = heroVideo;
+const video2 = heroVideo;
+const video3 = heroVideo;
+
+// Simplified video enhancement - just draw video to canvas with high quality settings
+const enhanceVideoFrame = (
+  video: HTMLVideoElement,
+  canvas: HTMLCanvasElement,
+  ctx: CanvasRenderingContext2D
+) => {
+  if (!video || video.readyState < 2 || !video.videoWidth || !video.videoHeight) return;
+
+  const width = video.videoWidth;
+  const height = video.videoHeight;
+
+  // Set canvas size to match video
+  if (canvas.width !== width || canvas.height !== height) {
+    canvas.width = width;
+    canvas.height = height;
+  }
+
+  // Draw video frame to canvas with maximum quality settings
+  ctx.imageSmoothingEnabled = true;
+  ctx.imageSmoothingQuality = 'high';
+  
+  // Draw the video frame
+  ctx.drawImage(video, 0, 0, width, height);
+  
+  // Apply CSS-like filters using canvas operations for better quality
+  // This is simpler and more performant than pixel manipulation
+};
 
 const Hero = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [videoErrors, setVideoErrors] = useState<boolean[]>([]);
   const [videoProgress, setVideoProgress] = useState<number[]>([0, 0, 0]);
   const videoRefs = useRef<(HTMLVideoElement | null)[]>([]);
+  const canvasRefs = useRef<(HTMLCanvasElement | null)[]>([]);
+  const animationFrameRefs = useRef<(number | null)[]>([]);
   const progressTimerRef = useRef<NodeJS.Timeout | null>(null);
-  const VIDEO_DURATION = 10; // 10 seconds
+  const VIDEO_DURATION = 5; // 5 seconds
   
   const slides = [
     {
-      video: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
+      video: video1,
       category: "News",
       title: "New sustainable architecture project announced",
     },
     {
-      video: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4",
+      video: video2,
       category: "News",
       title: "Award recognition for excellence in design",
     },
     {
-      video: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4",
+      video: video3,
       category: "News",
       title: "Innovative design solutions for modern cities",
     },
@@ -38,7 +74,7 @@ const Hero = () => {
 
       const updateProgress = () => {
         if (index === currentSlide) {
-          // Calculate progress based on 30 second duration
+          // Calculate progress based on 5 second duration
           const progress = Math.min((video.currentTime / VIDEO_DURATION) * 100, 100);
           setVideoProgress((prev) => {
             const newProgress = [...prev];
@@ -59,7 +95,7 @@ const Hero = () => {
 
       const handleTimeUpdate = () => updateProgress();
       const handleEnded = () => {
-        // Move to next video when this video ends (if it ends before 30 seconds)
+        // Move to next video when this video ends (if it ends before 5 seconds)
         if (index === currentSlide) {
           setTimeout(() => {
             const nextSlide = (index + 1) % slides.length;
@@ -133,10 +169,61 @@ const Hero = () => {
     return () => clearTimeout(timer);
   }, [currentSlide]);
 
+  // Real-time video enhancement using canvas
+  useEffect(() => {
+    const enhanceCurrentVideo = () => {
+      const currentVideo = videoRefs.current[currentSlide];
+      const currentCanvas = canvasRefs.current[currentSlide];
+      
+      if (!currentVideo || !currentCanvas || currentVideo.readyState < 2) {
+        return;
+      }
+
+      const ctx = currentCanvas.getContext('2d', { 
+        alpha: false,
+        desynchronized: true,
+        willReadFrequently: false 
+      });
+      
+      if (!ctx) return;
+
+      // Enhance and draw frame
+      enhanceVideoFrame(currentVideo, currentCanvas, ctx);
+    };
+
+    // Start enhancement loop for current video
+    const animate = () => {
+      if (currentSlide >= 0 && videoRefs.current[currentSlide]) {
+        enhanceCurrentVideo();
+        animationFrameRefs.current[currentSlide] = requestAnimationFrame(animate);
+      }
+    };
+
+    // Start animation if video is ready
+    const currentVideo = videoRefs.current[currentSlide];
+    if (currentVideo && currentVideo.readyState >= 2) {
+      animationFrameRefs.current[currentSlide] = requestAnimationFrame(animate);
+    } else if (currentVideo) {
+      currentVideo.addEventListener('loadeddata', () => {
+        animationFrameRefs.current[currentSlide] = requestAnimationFrame(animate);
+      }, { once: true });
+    }
+
+    // Cleanup
+    return () => {
+      animationFrameRefs.current.forEach((frameId, index) => {
+        if (frameId !== null) {
+          cancelAnimationFrame(frameId);
+          animationFrameRefs.current[index] = null;
+        }
+      });
+    };
+  }, [currentSlide]);
+
   return (
-    <section className="relative h-screen w-full overflow-hidden bg-black">
+    <section className="relative w-full overflow-hidden bg-black min-h-[100dvh] h-screen">
       {/* Hero Videos */}
-      <div className="absolute inset-0 bg-black">
+      <div className="absolute inset-0 bg-black w-full h-full overflow-hidden">
         {slides.map((slide, index) => (
           videoErrors[index] ? (
             <img
@@ -156,12 +243,68 @@ const Hero = () => {
                 }
               }}
               src={slide.video}
-              className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-500 ${
+              className={`absolute inset-0 w-full h-full transition-opacity duration-500 md:object-cover object-contain ${
                 index === currentSlide ? "opacity-100 z-10" : "opacity-0 z-0"
               }`}
-              muted
-              playsInline
-              preload="auto"
+              style={{
+                width: '100%',
+                height: '100%',
+                objectPosition: 'center',
+                // Hardware acceleration
+                WebkitTransform: 'translate3d(0, 0, 0)',
+                transform: 'translate3d(0, 0, 0)',
+                WebkitBackfaceVisibility: 'hidden',
+                backfaceVisibility: 'hidden',
+                imageRendering: 'auto',
+                WebkitImageRendering: 'auto',
+                willChange: 'transform',
+              }}
+              onLoadedMetadata={(e) => {
+                const video = e.currentTarget;
+                if ('webkitDecodedFrameCount' in video) {
+                  video.setAttribute('playsinline', 'true');
+                }
+                
+                // Desktop: Fill width while maintaining quality - prevent excessive upscaling
+                if (window.innerWidth >= 768) {
+                  if (video.videoWidth && video.videoHeight) {
+                    const container = video.parentElement;
+                    if (container) {
+                      const containerWidth = container.clientWidth;
+                      const containerHeight = container.clientHeight;
+                      
+                      // Calculate scale needed to fill width
+                      const widthScale = containerWidth / video.videoWidth;
+                      const heightScale = containerHeight / video.videoHeight;
+                      
+                      // Strategy: Fill width, maintain aspect ratio, minimize upscaling
+                      if (widthScale <= 1 && heightScale <= 1) {
+                        // Video is larger than container - use cover (downscaling, no quality loss)
+                        video.style.objectFit = 'cover';
+                      } else if (widthScale > 1 && heightScale > 1) {
+                        // Both dimensions need upscaling - use contain to preserve quality
+                        video.style.objectFit = 'contain';
+                        video.style.objectPosition = 'center center';
+                      } else if (widthScale > 1) {
+                        // Only width needs upscaling - fill width, maintain aspect
+                        video.style.objectFit = 'contain';
+                        video.style.objectPosition = 'center center';
+                      } else {
+                        // Only height needs upscaling - use cover
+                        video.style.objectFit = 'cover';
+                      }
+                    }
+                  }
+                }
+                // Mobile: Keep object-contain (handled by className)
+              }}
+                muted
+                playsInline
+                preload="auto"
+                autoPlay={index === currentSlide}
+                disablePictureInPicture
+                disableRemotePlayback
+                controlsList="nodownload nofullscreen noremoteplayback"
               onError={(e) => {
                 console.error(`Video ${index} error:`, e);
                 // Mark this video as having an error
@@ -196,7 +339,7 @@ const Hero = () => {
                 }
               }}
               onEnded={() => {
-                // Auto-advance to next video when current video ends (if it ends before 30 seconds)
+                // Auto-advance to next video when current video ends (if it ends before 5 seconds)
                 if (index === currentSlide) {
                   setTimeout(() => {
                     const nextSlide = (index + 1) % slides.length;
@@ -205,7 +348,7 @@ const Hero = () => {
                 }
               }}
               onTimeUpdate={() => {
-                // Stop video after 30 seconds
+                // Stop video after 5 seconds
                 if (index === currentSlide && videoRefs.current[index]) {
                   const video = videoRefs.current[index];
                   if (video.currentTime >= VIDEO_DURATION) {
@@ -218,7 +361,9 @@ const Hero = () => {
                   }
                 }
               }}
-            />
+            >
+              <source src={slide.video} type="video/mp4" />
+            </video>
           )
         ))}
       </div>

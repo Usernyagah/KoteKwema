@@ -12,6 +12,7 @@ import NewsPage from "./pages/News";
 import InsightsPage from "./pages/Insights";
 import CareersPage from "./pages/Careers";
 import ContactPage from "./pages/Contact";
+import SubTopicPage from "./pages/SubTopicPage";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -32,6 +33,15 @@ const App = () => (
           <Route path="/insights" element={<InsightsPage />} />
           <Route path="/careers" element={<CareersPage />} />
           <Route path="/contact" element={<ContactPage />} />
+          {/* SubTopic Routes */}
+          <Route path="/expertise/:subtopic" element={<SubTopicPage />} />
+          <Route path="/projects/:subtopic" element={<SubTopicPage />} />
+          <Route path="/studio/:subtopic" element={<SubTopicPage />} />
+          <Route path="/people/:subtopic" element={<SubTopicPage />} />
+          <Route path="/news/:subtopic" element={<SubTopicPage />} />
+          <Route path="/insights/:subtopic" element={<SubTopicPage />} />
+          <Route path="/careers/:subtopic" element={<SubTopicPage />} />
+          <Route path="/contact/:subtopic" element={<SubTopicPage />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>

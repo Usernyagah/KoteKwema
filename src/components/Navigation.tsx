@@ -1,11 +1,16 @@
 import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import { Menu as MenuIcon, Search } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import SearchOverlay from "./SearchOverlay";
 import Menu from "./Menu";
 import logo from "@/assets/logo.jpg";
 
-const Navigation = () => {
+interface NavigationProps {
+  variant?: "dark" | "white";
+}
+
+const Navigation = ({ variant = "dark" }: NavigationProps = {}) => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -15,18 +20,22 @@ const Navigation = () => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 50);
       
-      // Check if we've scrolled past the studio section
-      const studioSection = document.getElementById("studio");
-      if (studioSection) {
-        const studioSectionTop = studioSection.offsetTop;
-        const scrollPosition = window.scrollY + window.innerHeight;
-        // Hide navbar when scrolled past studio section
-        setIsNavbarVisible(window.scrollY < studioSectionTop);
+      // Only hide navbar on homepage (dark variant) when scrolled past studio section
+      if (variant === "dark") {
+        const studioSection = document.getElementById("studio");
+        if (studioSection) {
+          const studioSectionTop = studioSection.offsetTop;
+          // Hide navbar when scrolled past studio section
+          setIsNavbarVisible(window.scrollY < studioSectionTop);
+        }
+      } else {
+        // White variant always visible
+        setIsNavbarVisible(true);
       }
     };
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+  }, [variant]);
 
   useEffect(() => {
     // Prevent scrolling when overlays are open
@@ -40,20 +49,26 @@ const Navigation = () => {
     };
   }, [isSearchOpen, isMenuOpen]);
 
+  const isWhite = variant === "white";
+  const bgColor = isWhite ? "bg-white/95" : "bg-[#1A1A1A]/80";
+  const textColor = isWhite ? "text-black" : "text-white";
+  const iconColor = isWhite ? "text-black" : "text-white";
+  const hoverBg = isWhite ? "hover:bg-[#F5F5F5]" : "hover:bg-transparent";
+
   return (
     <>
-      <nav className={`fixed top-0 left-0 right-0 z-40 bg-[#1A1A1A]/80 backdrop-blur-sm transition-transform duration-300 ${
+      <nav className={`fixed top-0 left-0 right-0 z-40 ${bgColor} backdrop-blur-sm transition-transform duration-300 border-b ${isWhite ? "border-[#E5E5E5]" : "border-transparent"} ${
         isNavbarVisible ? "translate-y-0" : "-translate-y-full"
       }`}>
         <div className="flex items-center h-20">
           {/* Logo - Far Left with Fixed Padding */}
-          <a href="#" className="flex items-center gap-3 pl-6 lg:pl-12">
+          <Link to="/" className="flex items-center gap-3 pl-6 lg:pl-12">
             <img src={logo} alt="Kote Kwema" className="h-12 w-auto" />
             <div className="flex flex-col">
-              <span className="text-xl font-bold tracking-wider text-white">KOTE KWEMA</span>
-              <span className="text-xs text-white font-bold">With Love for Nature</span>
+              <span className={`text-xl logo-font ${textColor}`}>KOTE KWEMA</span>
+              <span className={`text-xs ${textColor} slogan-font`}>With Love for Nature</span>
             </div>
-          </a>
+          </Link>
 
           {/* Empty Flexible Space */}
           <div className="flex-grow"></div>
@@ -64,7 +79,7 @@ const Navigation = () => {
               variant="ghost"
               size="icon"
               onClick={() => setIsSearchOpen(true)}
-              className="hover:bg-transparent text-white"
+              className={`${hoverBg} ${iconColor}`}
             >
               <Search className="h-5 w-5" />
             </Button>
@@ -73,7 +88,7 @@ const Navigation = () => {
               variant="ghost"
               size="icon"
               onClick={() => setIsMenuOpen(true)}
-              className="hover:bg-transparent text-white"
+              className={`${hoverBg} ${iconColor}`}
             >
               <MenuIcon className="h-5 w-5" />
             </Button>
