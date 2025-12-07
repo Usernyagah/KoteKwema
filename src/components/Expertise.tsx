@@ -39,7 +39,7 @@ const Expertise = () => {
           
           {/* Engineering - 3/4 width */}
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-4">
-            <Link to="/expertise/engineering" className="col-span-2 md:col-span-3 relative h-[300px] md:h-[450px] block group cursor-pointer">
+            <Link to="/expertise/engineering" className="col-span-1 md:col-span-3 relative h-[300px] md:h-[450px] block group cursor-pointer">
               <img
                 src="https://images.unsplash.com/photo-1581092160562-40aa08e78837?w=1200&h=800&fit=crop&q=80"
                 alt="Engineering"
@@ -50,7 +50,7 @@ const Expertise = () => {
               </div>
             </Link>
             {/* Technology and Research - 1/4 width */}
-            <Link to="/expertise/technology" className="col-span-2 md:col-span-1 relative h-[300px] md:h-[450px] block group cursor-pointer">
+            <Link to="/expertise/technology" className="col-span-1 md:col-span-1 relative h-[300px] md:h-[450px] block group cursor-pointer">
               <img
                 src="https://images.unsplash.com/photo-1488590528505-98d2b5aba04b?w=800&h=1200&fit=crop&q=80"
                 alt="Technology and Research"
