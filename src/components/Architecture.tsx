@@ -15,12 +15,12 @@ const Architecture = () => {
         {/* Left - Large Image with "Architecture" overlay (3/4 width) */}
         <Link to="/expertise/architecture" className="md:col-span-3 relative h-[250px] sm:h-[300px] md:h-[500px] block group cursor-pointer">
           <img
-            src="https://images.unsplash.com/photo-1487958449943-2429e8be8625?w=1200&h=800&fit=crop&q=80"
+            src="https://images.unsplash.com/photo-1497366754035-f200968a6e72?w=1200&h=800&fit=crop&q=80"
             alt="Architecture"
             className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
           />
           <div className="absolute bottom-0 left-0 p-4 sm:p-6">
-            <span className="text-white text-xl sm:text-2xl font-bold">Architecture</span>
+            <span className="text-white text-xl sm:text-2xl font-bold drop-shadow-lg">Architecture</span>
           </div>
         </Link>
 
