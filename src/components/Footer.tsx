@@ -23,29 +23,39 @@ const Footer = () => {
           {/* Left Side - Company Name and Links */}
           <div className="flex flex-col gap-5 w-full md:w-auto">
             <h3 className="text-4xl md:text-5xl logo-font text-white">KOTE KWEMA</h3>
-            <div className="flex flex-wrap gap-4 md:gap-6">
-              <Link to="/projects" className="text-sm text-white hover:text-white/80 transition-colors duration-200 font-bold">
-                Projects
-              </Link>
-              <Link to="/expertise" className="text-sm text-white hover:text-white/80 transition-colors duration-200 font-bold">
-                Expertise
-              </Link>
-              <Link to="/studio" className="text-sm text-white hover:text-white/80 transition-colors duration-200 font-bold">
-                Studio
-              </Link>
-              <Link to="/news" className="text-sm text-white hover:text-white/80 transition-colors duration-200 font-bold">
-                News
-              </Link>
-              <Link to="/careers" className="text-sm text-white hover:text-white/80 transition-colors duration-200 font-bold">
-                Careers
-              </Link>
-              <Link to="/contact" className="text-sm text-white hover:text-white/80 transition-colors duration-200 font-bold">
-                Contact
-              </Link>
+            <div className="flex flex-wrap justify-between items-center gap-4 md:gap-6">
+              <div className="flex flex-wrap gap-4 md:gap-6">
+                <Link to="/projects" className="text-sm text-white hover:text-white/80 transition-colors duration-200 font-bold">
+                  Projects
+                </Link>
+                <Link to="/expertise" className="text-sm text-white hover:text-white/80 transition-colors duration-200 font-bold">
+                  Expertise
+                </Link>
+                <Link to="/studio" className="text-sm text-white hover:text-white/80 transition-colors duration-200 font-bold">
+                  Studio
+                </Link>
+                <Link to="/news" className="text-sm text-white hover:text-white/80 transition-colors duration-200 font-bold">
+                  News
+                </Link>
+                <Link to="/careers" className="text-sm text-white hover:text-white/80 transition-colors duration-200 font-bold">
+                  Careers
+                </Link>
+                <Link to="/contact" className="text-sm text-white hover:text-white/80 transition-colors duration-200 font-bold">
+                  Contact
+                </Link>
+              </div>
+              {/* Back To Top - Mobile only, far right */}
+              <button
+                onClick={scrollToTop}
+                className="md:hidden flex items-center gap-2 text-sm text-white hover:text-white/80 transition-colors duration-200 font-bold ml-auto"
+              >
+                Back To Top
+                <ArrowUp className="h-4 w-4" />
+              </button>
             </div>
           </div>
 
-          {/* Right Side - Social Icons, Back To Top, and Copyright */}
+          {/* Right Side - Social Icons, Back To Top (Desktop), and Copyright */}
           <div className="flex flex-col md:items-end gap-4 w-full md:w-auto">
             <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:gap-6">
               {/* Social Media Icons */}
@@ -61,10 +71,10 @@ const Footer = () => {
                 </a>
               </div>
 
-              {/* Back To Top */}
+              {/* Back To Top - Desktop only */}
               <button
                 onClick={scrollToTop}
-                className="flex items-center gap-2 text-white hover:text-white/80 transition-colors duration-200 font-bold"
+                className="hidden md:flex items-center gap-2 text-white hover:text-white/80 transition-colors duration-200 font-bold"
               >
                 <span className="text-sm">Back To Top</span>
                 <ArrowUp className="h-4 w-4" />
