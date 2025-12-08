@@ -17,9 +17,9 @@ const expertiseAreas = [
     href: "/expertise/urban",
   },
   {
-    title: "Workplace Consultancy",
+    title: "Climate and Sustainable Design",
     image: "https://images.unsplash.com/photo-1524758631624-e2822e304c36?w=800&h=600&fit=crop&q=80",
-    href: "/expertise/workplace",
+    href: "/expertise/climate",
   },
 ];
 
@@ -78,7 +78,7 @@ const Expertise = () => {
               </div>
             </div>
             <div className="mt-6">
-              <Link to="/projects" className="inline-block px-6 py-3 bg-white text-[#1A1A1A] hover:bg-white/90 transition-colors duration-200 font-bold tracking-wide rounded-full">
+              <Link to="/projects/residential" className="inline-block px-6 py-3 bg-white text-[#1A1A1A] hover:bg-white/90 transition-colors duration-200 font-bold tracking-wide rounded-full">
                 View Project Examples
               </Link>
             </div>

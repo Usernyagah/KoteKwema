@@ -25,22 +25,22 @@ const Footer = () => {
             <h3 className="text-4xl md:text-5xl logo-font text-white">KOTE KWEMA</h3>
             <div className="flex flex-wrap justify-between items-center gap-4 md:gap-6">
               <div className="flex flex-wrap gap-4 md:gap-6">
-                <Link to="/projects" className="text-sm text-white hover:text-white/80 transition-colors duration-200 font-bold">
+                <Link to="/projects/residential" className="text-sm text-white hover:text-white/80 transition-colors duration-200 font-bold">
                   Projects
                 </Link>
-                <Link to="/expertise" className="text-sm text-white hover:text-white/80 transition-colors duration-200 font-bold">
+                <Link to="/expertise/architecture" className="text-sm text-white hover:text-white/80 transition-colors duration-200 font-bold">
                   Expertise
                 </Link>
-                <Link to="/studio" className="text-sm text-white hover:text-white/80 transition-colors duration-200 font-bold">
+                <Link to="/studio/about" className="text-sm text-white hover:text-white/80 transition-colors duration-200 font-bold">
                   Studio
                 </Link>
-                <Link to="/news" className="text-sm text-white hover:text-white/80 transition-colors duration-200 font-bold">
+                <Link to="/news/announcements" className="text-sm text-white hover:text-white/80 transition-colors duration-200 font-bold">
                   News
                 </Link>
-                <Link to="/careers" className="text-sm text-white hover:text-white/80 transition-colors duration-200 font-bold">
+                <Link to="/careers/positions" className="text-sm text-white hover:text-white/80 transition-colors duration-200 font-bold">
                   Careers
                 </Link>
-                <Link to="/contact" className="text-sm text-white hover:text-white/80 transition-colors duration-200 font-bold">
+                <Link to="/contact/nairobi" className="text-sm text-white hover:text-white/80 transition-colors duration-200 font-bold">
                   Contact
                 </Link>
               </div>

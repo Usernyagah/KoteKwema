@@ -2,6 +2,7 @@ import { useParams, useLocation } from "react-router-dom";
 import { useEffect } from "react";
 import SubTopicPageLayout from "@/components/SubTopicPageLayout";
 import { Card, CardContent } from "@/components/ui/card";
+import ContactForm from "@/components/ContactForm";
 import heroImage from "@/assets/hero-architecture.jpg";
 import koteKwemaImage from "@/assets/kote kwema.jpg";
 import project1 from "@/assets/project-1.jpg";
@@ -387,22 +388,98 @@ const subtopicContent: Record<string, {
   nairobi: {
     title: "Nairobi Office",
     breadcrumbs: ["Contact", "Nairobi Office"],
-    description: "Visit our flagship studio in Nairobi, Kenya. Contact information, office location, and directions to our Westlands office."
+    description: "Visit our flagship studio in Nairobi, Kenya. Contact information, office location, and directions to our Westlands office.",
+    additionalContent: "Our Nairobi studio is located in the heart of the city, easily accessible and designed to welcome clients, collaborators, and visitors. We're proud to call Nairobi home and are deeply connected to the local architectural community and building industry.",
+    sections: [
+      { 
+        title: "Office Location", 
+        content: "We are located in Westlands, Nairobi, in a space that reflects our commitment to sustainable design and collaborative work. Our studio is designed to facilitate creativity, client meetings, and team collaboration. Please contact us in advance to schedule a visit." 
+      },
+      { 
+        title: "Contact Information", 
+        content: "Phone: +254 (0) 20 123 4567 | Email: info@kotekwema.com | Address: Westlands, Nairobi, Kenya. For specific inquiries, please use our contact forms or reach out directly via email. We typically respond within 24-48 hours during business days." 
+      },
+      { 
+        title: "Visiting Hours", 
+        content: "Our office is open Monday through Friday, 9:00 AM to 5:00 PM EAT. We recommend scheduling an appointment in advance to ensure someone is available to meet with you. For project consultations, we offer flexible scheduling including evening and weekend appointments when needed." 
+      },
+      { 
+        title: "Getting Here", 
+        content: "Westlands is easily accessible by public transport, taxi, or private vehicle. We're located near major business districts and shopping centers. Parking is available on-site. For detailed directions, please contact us and we'll provide specific guidance based on your mode of transportation." 
+      }
+    ]
   },
   consultation: {
     title: "Request Consultation",
     breadcrumbs: ["Contact", "Request Consultation"],
-    description: "Schedule a consultation to discuss your architectural project. Our team will help you explore design possibilities and project feasibility."
+    description: "Schedule a consultation to discuss your architectural project. Our team will help you explore design possibilities and project feasibility.",
+    additionalContent: "We offer initial consultations to discuss your project vision, understand your needs, and explore how Kote Kwema can help bring your ideas to life. Whether you're planning a new building, renovation, or exploring design possibilities, we're here to listen and provide expert guidance.",
+    sections: [
+      { 
+        title: "What to Expect", 
+        content: "During your consultation, we'll discuss your project goals, site conditions, budget considerations, timeline, and design preferences. This initial meeting helps us understand your vision and allows you to learn about our approach, process, and how we can help achieve your objectives." 
+      },
+      { 
+        title: "Preparation", 
+        content: "To make the most of your consultation, please come prepared with any site information, preliminary ideas, budget range, and timeline considerations. If you have existing drawings, photos, or reference images, feel free to bring them along. The more information you can share, the more productive our discussion will be." 
+      },
+      { 
+        title: "Consultation Types", 
+        content: "We offer various consultation formats: in-person meetings at our studio, site visits, virtual consultations via video call, or a combination. Initial consultations typically last 60-90 minutes. For complex projects, we may recommend a follow-up meeting to dive deeper into specific aspects." 
+      },
+      { 
+        title: "Next Steps", 
+        content: "After your consultation, we'll provide a summary of our discussion and, if appropriate, a proposal for next steps. This may include preliminary design services, feasibility studies, or full architectural services depending on your project needs and stage of development." 
+      }
+    ]
   },
   inquiry: {
     title: "General Inquiry",
     breadcrumbs: ["Contact", "General Inquiry"],
-    description: "Have a question about our services, projects, or firm? Reach out through our general inquiry form and we'll get back to you promptly."
+    description: "Have a question about our services, projects, or firm? Reach out through our general inquiry form and we'll get back to you promptly.",
+    additionalContent: "We welcome questions about our work, design philosophy, services, or any aspect of our practice. Whether you're a potential client, student, collaborator, or simply interested in learning more about sustainable architecture, we're happy to connect.",
+    sections: [
+      { 
+        title: "What We Can Help With", 
+        content: "General inquiries can cover a wide range of topics: information about our services and expertise, questions about our design approach, requests for project examples or case studies, media inquiries, speaking opportunities, collaboration proposals, or general questions about sustainable architecture and design." 
+      },
+      { 
+        title: "Response Time", 
+        content: "We aim to respond to all inquiries within 24-48 hours during business days. For urgent matters, please indicate this in your message and we'll prioritize accordingly. For detailed project inquiries, we may need additional time to provide comprehensive responses." 
+      },
+      { 
+        title: "How to Reach Us", 
+        content: "You can reach us via email at info@kotekwema.com, through our contact form, or by phone. For specific types of inquiries (media, partnerships, etc.), please mention this in your message so we can direct it to the appropriate team member." 
+      },
+      { 
+        title: "Follow-Up", 
+        content: "If your inquiry requires a more detailed response or follow-up discussion, we'll coordinate a time that works for both parties. We value meaningful conversations and are committed to providing helpful, thorough responses to all inquiries." 
+      }
+    ]
   },
   project: {
     title: "Project Inquiry",
     breadcrumbs: ["Contact", "Project Inquiry"],
-    description: "Interested in working with Kote Kwema on your next project? Submit a project inquiry with details about your vision and requirements."
+    description: "Interested in working with Kote Kwema on your next project? Submit a project inquiry with details about your vision and requirements.",
+    additionalContent: "We're excited to learn about your project and explore how we can help bring your vision to reality. Whether you're planning a residential, commercial, cultural, or mixed-use development, we bring expertise in sustainable design, innovative solutions, and collaborative project delivery.",
+    sections: [
+      { 
+        title: "Project Information to Include", 
+        content: "When submitting a project inquiry, please include: project type and scope, site location and conditions, budget range, timeline and key milestones, design goals and priorities, sustainability objectives, and any specific requirements or constraints. The more information you can provide, the better we can assess how we can help." 
+      },
+      { 
+        title: "Our Process", 
+        content: "After receiving your project inquiry, we'll review the information and schedule an initial consultation to discuss your project in detail. We'll assess project feasibility, discuss our approach, and provide a proposal outlining services, timeline, and fees. We believe in transparent communication and collaborative planning from the start." 
+      },
+      { 
+        title: "Project Types", 
+        content: "We work on a variety of project types including residential (single-family, multi-family, affordable housing), commercial (offices, retail, hospitality), cultural and institutional buildings, mixed-use developments, renovations and adaptive reuse, and master planning. We're particularly interested in projects that prioritize sustainability and community impact." 
+      },
+      { 
+        title: "Getting Started", 
+        content: "Submit your project inquiry through our contact form or email us directly at info@kotekwema.com with 'Project Inquiry' in the subject line. Include as much detail as possible about your project. We'll review your inquiry and get back to you within 2-3 business days to schedule a consultation and discuss next steps." 
+      }
+    ]
   },
 };
 
@@ -500,7 +577,7 @@ const SubTopicPage = () => {
                             alt={card.title}
                             className="w-full h-full object-cover"
                           />
-                        </div>
+              </div>
                       )}
                       <CardContent className="p-4 md:p-6 bg-white">
                         <h3 className="text-lg md:text-xl font-semibold text-[#1A1A1A] mb-3 md:mb-4">{card.title}</h3>
@@ -508,10 +585,24 @@ const SubTopicPage = () => {
                       </CardContent>
                     </Card>
                   ))}
-                </div>
+              </div>
               </div>
             )}
-          </div>
+
+            {/* Contact Forms - For Contact pages */}
+            {(key === "consultation" || key === "inquiry" || key === "project") && (
+              <div className="mt-8 md:mt-12 border-t border-[#E5E5E5] pt-8 md:pt-12">
+                <h3 className="text-2xl md:text-3xl font-light text-black mb-6">
+                  {key === "consultation" && "Request a Consultation"}
+                  {key === "inquiry" && "Send Us a Message"}
+                  {key === "project" && "Submit Your Project Inquiry"}
+                </h3>
+                <ContactForm 
+                  formType={key === "consultation" ? "consultation" : key === "project" ? "project" : "inquiry"}
+                />
+              </div>
+            )}
+            </div>
 
         </div>
       </div>

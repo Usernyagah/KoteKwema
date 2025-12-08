@@ -32,7 +32,7 @@ const Architecture = () => {
           <p className="text-[#D0D0D0] text-sm sm:text-base md:text-lg logo-font mb-4 sm:mb-6">
             KOTE KWEMA
           </p>
-          <Link to="/projects" className="inline-block px-4 py-2 sm:px-5 sm:py-2.5 bg-[#D0D0D0] text-[#1A1A1A] hover:bg-white transition-colors duration-200 font-bold tracking-wide text-center text-xs sm:text-sm rounded-full">
+          <Link to="/projects/residential" className="inline-block px-4 py-2 sm:px-5 sm:py-2.5 bg-[#D0D0D0] text-[#1A1A1A] hover:bg-white transition-colors duration-200 font-bold tracking-wide text-center text-xs sm:text-sm rounded-full">
             View Our Portfolio
           </Link>
           </div>

@@ -1,7 +1,50 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import heroImage from "@/assets/hero-architecture.jpg";
+import { toast } from "@/hooks/use-toast";
 
 const News = () => {
+  const [email, setEmail] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+
+    try {
+      // Using Formspree
+      const response = await fetch("https://formspree.io/f/mnnebzqo", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email,
+          _subject: "Newsletter Subscription - Kote Kwema",
+          _format: "plain",
+        }),
+      });
+
+      if (response.ok) {
+        toast({
+          title: "Success!",
+          description: "Thank you for subscribing to our newsletter.",
+        });
+        setEmail("");
+      } else {
+        throw new Error("Subscription failed");
+      }
+    } catch (error) {
+      toast({
+        title: "Error",
+        description: "Something went wrong. Please try again later.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
   return (
     <div className="bg-[#1A1A1A]">
       <div className="pt-12 pb-4">
@@ -76,17 +119,22 @@ const News = () => {
           <p className="text-[#D0D0D0] text-xs md:text-lg font-bold leading-relaxed mb-4 md:mb-8">
             Stay up to date with the latest <span className="logo-font">KOTE KWEMA</span> projects and news.
           </p>
-          <form className="space-y-2 md:space-y-4">
+          <form onSubmit={handleSubmit} className="space-y-2 md:space-y-4">
             <input
               type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
               placeholder="Email address..."
-              className="w-full px-3 md:px-4 py-2 md:py-3 text-xs md:text-base bg-[#1A1A1A] border border-[#404040] text-white placeholder-white/50 rounded-full focus:outline-none focus:border-white transition-colors duration-200 font-bold"
+              required
+              disabled={isSubmitting}
+              className="w-full px-3 md:px-4 py-2 md:py-3 text-xs md:text-base bg-[#1A1A1A] border border-[#404040] text-white placeholder-white/50 rounded-full focus:outline-none focus:border-white transition-colors duration-200 font-bold disabled:opacity-50"
             />
             <button
               type="submit"
-              className="w-full px-4 md:px-8 py-2 md:py-3 text-xs md:text-base bg-[#D0D0D0] text-[#2A2A2A] rounded-full font-bold tracking-wide hover:bg-white transition-colors duration-200"
+              disabled={isSubmitting}
+              className="w-full px-4 md:px-8 py-2 md:py-3 text-xs md:text-base bg-[#D0D0D0] text-[#2A2A2A] rounded-full font-bold tracking-wide hover:bg-white transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              Subscribe
+              {isSubmitting ? "Subscribing..." : "Subscribe"}
             </button>
           </form>
         </div>
