@@ -10,13 +10,13 @@ interface MenuPageLayoutProps {
 }
 
 const menuLinks = [
-  { name: "Expertise", href: "/expertise" },
-  { name: "Projects", href: "/projects" },
-  { name: "Studio", href: "/studio" },
-  { name: "People", href: "/people" },
-  { name: "News", href: "/news" },
-  { name: "Careers", href: "/careers" },
-  { name: "Contact", href: "/contact" },
+  { name: "Expertise", href: "/expertise/architecture" },
+  { name: "Projects", href: "/projects/residential" },
+  { name: "Studio", href: "/studio/about" },
+  { name: "People", href: "/people/leadership" },
+  { name: "News", href: "/news/announcements" },
+  { name: "Careers", href: "/careers/positions" },
+  { name: "Contact", href: "/contact/nairobi" },
 ];
 
 const MenuPageLayout = ({ children, image = heroImage }: MenuPageLayoutProps) => {

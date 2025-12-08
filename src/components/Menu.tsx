@@ -17,13 +17,13 @@ interface MenuProps {
 }
 
 const menuCategories = [
-  { name: "Expertise", href: "/expertise", hasSubmenu: true },
-  { name: "Projects", href: "/projects", hasSubmenu: true },
-  { name: "Studio", href: "/studio", hasSubmenu: true },
-  { name: "People", href: "/people", hasSubmenu: true },
-  { name: "News", href: "/news", hasSubmenu: true },
-  { name: "Careers", href: "/careers", hasSubmenu: true },
-  { name: "Contact", href: "/contact", hasSubmenu: true },
+  { name: "Expertise", href: "/expertise/architecture", hasSubmenu: true },
+  { name: "Projects", href: "/projects/residential", hasSubmenu: true },
+  { name: "Studio", href: "/studio/about", hasSubmenu: true },
+  { name: "People", href: "/people/leadership", hasSubmenu: true },
+  { name: "News", href: "/news/announcements", hasSubmenu: true },
+  { name: "Careers", href: "/careers/positions", hasSubmenu: true },
+  { name: "Contact", href: "/contact/nairobi", hasSubmenu: true },
 ];
 
 const expertiseSubcategories = [
@@ -176,10 +176,11 @@ const Menu = ({ isOpen, onClose }: MenuProps) => {
                         key={category.name}
                         href={category.href}
                         onClick={(e) => {
-                          e.preventDefault();
                           if (category.hasSubmenu) {
-                            // Toggle: if already clicked, unclick it; otherwise, set it as clicked
-                            setClickedCategory(isClicked ? null : category.name);
+                            // On click, navigate to the category's default subtopic
+                            // Also set clicked category to show subtopics
+                            setClickedCategory(category.name);
+                            // Allow navigation to proceed
                           }
                         }}
                         onMouseEnter={() => {
