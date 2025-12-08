@@ -115,8 +115,8 @@ const Index = () => {
       </section>
       <Architecture />
       <Expertise />
-      <News />
       <Climate />
+      <News />
       </main>
       <Footer />
       <StructuredData type="Organization" />
