@@ -24,8 +24,8 @@ const Climate = () => {
           </div>
         </Link>
 
-        {/* Right - Dark Grey Text Box (1/4 width) */}
-        <div className="md:col-span-1 bg-[#333333] p-6 lg:p-8 flex flex-col justify-center h-auto md:h-[400px] min-h-[200px]">
+        {/* Right - Dark Grey Text Box (1/4 width) - Hidden on mobile */}
+        <div className="hidden md:flex md:col-span-1 bg-[#333333] p-6 lg:p-8 flex-col justify-center h-auto md:h-[400px] min-h-[200px]">
           <p className="text-[#D0D0D0] text-lg font-bold leading-relaxed mb-6">
             Sustainability has been a central theme of our work for more than five decades. We work closely with our clients to develop bespoke design solutions that are optimised for their operations and the planet.
           </p>
