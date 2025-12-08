@@ -4,7 +4,8 @@ import { Menu as MenuIcon, Search } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import SearchOverlay from "./SearchOverlay";
 import Menu from "./Menu";
-import logo from "@/assets/logo.jpg";
+// Import logo with transparent background
+import logo from "@/assets/logo-removebg-preview.png";
 
 interface NavigationProps {
   variant?: "dark" | "white";
@@ -66,10 +67,14 @@ const Navigation = ({ variant = "dark" }: NavigationProps = {}) => {
             <img 
               src={logo} 
               alt="Kote Kwema" 
-              className={`h-12 w-auto ${isWhite ? 'opacity-90' : 'opacity-100'}`}
-              style={{ 
+              className="h-16 md:h-20 w-auto"
+              style={{
                 backgroundColor: 'transparent',
-                mixBlendMode: isWhite ? 'multiply' : 'normal',
+                filter: isWhite 
+                  ? 'brightness(1.2) contrast(1.1)' 
+                  : 'brightness(0) invert(1) brightness(1.2)',
+                opacity: 1,
+                display: 'block',
               }}
             />
             <div className="flex flex-col">
