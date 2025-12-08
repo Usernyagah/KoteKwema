@@ -63,7 +63,15 @@ const Navigation = ({ variant = "dark" }: NavigationProps = {}) => {
         <div className="flex items-center h-20">
           {/* Logo - Far Left with Fixed Padding */}
           <Link to="/" className="flex items-center gap-3 pl-6 lg:pl-12">
-            <img src={logo} alt="Kote Kwema" className="h-12 w-auto" />
+            <img 
+              src={logo} 
+              alt="Kote Kwema" 
+              className={`h-12 w-auto ${isWhite ? 'opacity-90' : 'opacity-100'}`}
+              style={{ 
+                backgroundColor: 'transparent',
+                mixBlendMode: isWhite ? 'multiply' : 'normal',
+              }}
+            />
             <div className="flex flex-col">
               <span className={`text-xl logo-font ${textColor}`}>KOTE KWEMA</span>
               <span className={`text-xs ${textColor} slogan-font`}>With Love for Nature</span>

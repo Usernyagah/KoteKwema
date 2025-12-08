@@ -46,7 +46,7 @@ const Expertise = () => {
                 className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
               />
               <div className="absolute bottom-0 left-0 p-6">
-                <span className="text-white text-xl font-bold">Engineering</span>
+                <span className="text-white text-xl font-bold drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)] bg-black/30 px-4 py-2 rounded">Engineering</span>
               </div>
             </Link>
             {/* Technology and Research - 1/4 width */}
