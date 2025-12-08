@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import heroImage from "@/assets/hero-architecture.jpg";
+import project1 from "@/assets/project-1.jpg";
 
 const Architecture = () => {
   return (
@@ -15,7 +15,7 @@ const Architecture = () => {
         {/* Left - Large Image with "Architecture" overlay (3/4 width) */}
         <Link to="/expertise/architecture" className="md:col-span-3 relative h-[250px] sm:h-[300px] md:h-[500px] block group cursor-pointer">
           <img
-            src="https://images.unsplash.com/photo-1497366754035-f200968a6e72?w=1200&h=800&fit=crop&q=80"
+            src={project1}
             alt="Architecture"
             className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
           />

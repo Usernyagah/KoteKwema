@@ -9,7 +9,6 @@ import ProjectsPage from "./pages/Projects";
 import StudioPage from "./pages/Studio";
 import PeoplePage from "./pages/People";
 import NewsPage from "./pages/News";
-import InsightsPage from "./pages/Insights";
 import CareersPage from "./pages/Careers";
 import ContactPage from "./pages/Contact";
 import SubTopicPage from "./pages/SubTopicPage";
@@ -30,7 +29,6 @@ const App = () => (
           <Route path="/studio" element={<StudioPage />} />
           <Route path="/people" element={<PeoplePage />} />
           <Route path="/news" element={<NewsPage />} />
-          <Route path="/insights" element={<InsightsPage />} />
           <Route path="/careers" element={<CareersPage />} />
           <Route path="/contact" element={<ContactPage />} />
           {/* SubTopic Routes */}
@@ -39,7 +37,6 @@ const App = () => (
           <Route path="/studio/:subtopic" element={<SubTopicPage />} />
           <Route path="/people/:subtopic" element={<SubTopicPage />} />
           <Route path="/news/:subtopic" element={<SubTopicPage />} />
-          <Route path="/insights/:subtopic" element={<SubTopicPage />} />
           <Route path="/careers/:subtopic" element={<SubTopicPage />} />
           <Route path="/contact/:subtopic" element={<SubTopicPage />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}

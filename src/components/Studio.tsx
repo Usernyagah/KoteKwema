@@ -25,7 +25,7 @@ const Studio = () => {
           <div>
             <h3 className="text-2xl font-bold mb-4 text-white">About</h3>
             <p className="text-white mb-6 font-bold">
-              We craft sustainable architecture, urban landscapes, and engineering solutions where innovation meets environmental stewardship. Kote Kwema was founded with a vision to create architecture that harmonizes with nature while meeting the evolving needs of communities. Our journey began in Nairobi, Kenya, and has expanded globally, bringing together diverse perspectives and expertise to deliver innovative design solutions.
+              We craft sustainable architecture, urban landscapes, and engineering solutions where innovation meets environmental stewardship. Kote Kwema was founded with a vision to create architecture that harmonizes with nature while meeting the evolving needs of communities. Based in Nairobi, Kenya, we bring together diverse perspectives and expertise to deliver innovative design solutions.
             </p>
             <p className="text-white mb-6 font-bold">
               Our philosophy centers on the belief that architecture should serve both people and the planet. We approach each project with deep respect for local context, cultural heritage, and environmental sustainability, creating spaces that inspire and endure.
@@ -87,7 +87,7 @@ const Studio = () => {
           <div>
             <h3 className="text-2xl font-bold mb-4 text-white">Life at <span className="logo-font">KOTE KWEMA</span></h3>
             <p className="text-white mb-6 font-bold">
-              We are committed to creating an inclusive and inspiring work environment where talented individuals can thrive and contribute to our global mission of sustainable design. Our studio culture values creativity, collaboration, and continuous learning.
+              We are committed to creating an inclusive and inspiring work environment where talented individuals can thrive and contribute to our mission of sustainable design. Our studio culture values creativity, collaboration, and continuous learning.
             </p>
             <p className="text-white font-bold">
               Behind the scenes, our design process involves extensive sketching, concept development, material exploration, and iterative refinement. We celebrate the creative journey from initial inspiration to final built form.
@@ -118,42 +118,6 @@ const Studio = () => {
           </div>
         </div>
 
-        <div className="grid md:grid-cols-2 gap-8 items-center">
-          <div>
-            <img
-              src="https://images.unsplash.com/photo-1552664730-d307ca884978?w=1200&h=800&fit=crop&q=80"
-              alt="Corporate Social Responsibility"
-              className="w-full h-[400px] object-cover"
-            />
-          </div>
-          <div>
-            <h3 className="text-2xl font-bold mb-4 text-white">Corporate Social Responsibility</h3>
-            <p className="text-white mb-6 font-bold">
-              Our commitment extends beyond architecture to making a positive impact on communities and the environment through responsible practices and partnerships.
-            </p>
-          </div>
-        </div>
-
-        <div className="grid md:grid-cols-2 gap-8 items-center">
-          <div className="md:order-2">
-            <img
-              src="https://images.unsplash.com/photo-1497366754035-f200968a6e72?w=1200&h=800&fit=crop&q=80"
-              alt="Global studios"
-              className="w-full h-[400px] object-cover"
-            />
-          </div>
-          <div className="md:order-1">
-            <h3 className="text-2xl font-bold mb-4 text-white">Global Studios</h3>
-            <p className="text-white mb-4 font-bold">
-              With studios around the world, we bring local expertise and global perspective to every project, ensuring our designs respond to their unique contexts and communities.
-            </p>
-            <div className="mt-4 space-y-3 text-white font-bold">
-              <p><strong>Nairobi Office:</strong> Our flagship studio in Kenya, serving East Africa</p>
-              <p><strong>International Reach:</strong> Projects across Africa, Europe, and Asia</p>
-              <p><strong>Local Expertise:</strong> Deep understanding of diverse regulatory environments, building codes, and cultural contexts in each market we serve</p>
-            </div>
-          </div>
-        </div>
       </div>
     </div>
   );

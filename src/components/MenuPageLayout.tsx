@@ -15,7 +15,6 @@ const menuLinks = [
   { name: "Studio", href: "/studio" },
   { name: "People", href: "/people" },
   { name: "News", href: "/news" },
-  { name: "Insights", href: "/insights" },
   { name: "Careers", href: "/careers" },
   { name: "Contact", href: "/contact" },
 ];

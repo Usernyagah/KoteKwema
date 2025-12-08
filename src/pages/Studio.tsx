@@ -71,17 +71,6 @@ const StudioPage = () => {
 
           <a href="#" className="col-span-1 relative h-[250px] block group cursor-pointer">
             <img
-              src="https://images.unsplash.com/photo-1497366754035-f200968a6e72?w=800&h=600&fit=crop&q=80"
-              alt="Global studios"
-              className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
-            />
-            <div className="absolute bottom-0 left-0 p-6">
-              <span className="text-white text-xl font-bold">Global studios</span>
-            </div>
-          </a>
-
-          <a href="#" className="col-span-1 relative h-[250px] block group cursor-pointer">
-            <img
               src="https://images.unsplash.com/photo-1497366216548-37526070297c?w=800&h=600&fit=crop&q=80"
               alt="Studio"
               className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"

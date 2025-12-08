@@ -18,7 +18,7 @@ const expertiseAreas = [
   },
   {
     title: "Workplace Consultancy",
-    image: "https://images.unsplash.com/photo-1497366754035-f200968a6e72?w=800&h=600&fit=crop&q=80",
+    image: "https://images.unsplash.com/photo-1524758631624-e2822e304c36?w=800&h=600&fit=crop&q=80",
     href: "/expertise/workplace",
   },
 ];
@@ -33,7 +33,7 @@ const Expertise = () => {
               Expertise
             </h2>
             <p className="text-lg text-white font-bold w-full">
-              Kote Kwema offers comprehensive architectural services, from initial concept development to project completion. Our expertise spans multiple sectors, with specialized knowledge in sustainable design, urban planning, and innovative building technologies.
+              Kote Kwema offers architectural services, from initial concept development to project completion. Our expertise includes sustainable design, urban planning, and innovative building technologies.
             </p>
           </div>
           
@@ -67,22 +67,12 @@ const Expertise = () => {
             <h3 className="text-2xl font-bold mb-6 text-white">Our Services</h3>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
-                <h4 className="text-lg font-bold mb-3 text-white">Core Services</h4>
+                <h4 className="text-lg font-bold mb-3 text-white">Services</h4>
                 <ul className="space-y-2 text-white font-bold">
                   <li>• Architectural Design & Planning</li>
-                  <li>• Urban Planning & Master Planning</li>
                   <li>• Interior Design</li>
-                  <li>• Landscape Architecture</li>
-                  <li>• Engineering Services</li>
-                </ul>
-              </div>
-              <div>
-                <h4 className="text-lg font-bold mb-3 text-white">Specialized Services</h4>
-                <ul className="space-y-2 text-white font-bold">
-                  <li>• Sustainable Design & LEED Consulting</li>
-                  <li>• BIM Technology & 3D Modeling</li>
-                  <li>• Historic Preservation</li>
-                  <li>• Workplace Consultancy</li>
+                  <li>• Sustainable Design</li>
+                  <li>• BIM & 3D Modeling</li>
                   <li>• Project Management</li>
                 </ul>
               </div>

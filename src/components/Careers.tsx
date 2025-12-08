@@ -9,7 +9,7 @@ const Careers = () => {
           Careers
         </h2>
         <p className="text-lg text-white font-bold mb-4">
-          Join our global studio and be part of creating sustainable architecture that makes a difference.
+          Join our studio and be part of creating sustainable architecture that makes a difference.
         </p>
         <div className="bg-[#333333] p-6 rounded-lg mb-8">
           <h3 className="text-xl font-bold mb-4 text-white">Why Work at Kote Kwema?</h3>
@@ -17,10 +17,9 @@ const Careers = () => {
             At Kote Kwema, we offer more than just a job—we provide a platform for professional growth, creative expression, and meaningful impact. Our company culture values innovation, collaboration, and work-life balance.
           </p>
           <ul className="text-white space-y-2 font-bold">
-            <li>• Work on diverse, award-winning projects across multiple sectors</li>
+            <li>• Work on diverse projects across different sectors</li>
             <li>• Competitive benefits package including health insurance and professional development</li>
             <li>• Collaborative environment with mentorship opportunities</li>
-            <li>• Global exposure through our international studio network</li>
             <li>• Commitment to sustainability and social responsibility</li>
           </ul>
         </div>
@@ -37,20 +36,12 @@ const Careers = () => {
           </div>
           <div>
             <h3 className="text-2xl font-bold mb-4 text-white">Current Openings</h3>
-            <div className="space-y-4 mb-6">
-              <div className="border-l-2 border-white pl-4">
-                <h4 className="text-lg font-bold mb-2 text-white">Senior Architect - Nairobi</h4>
-                <p className="text-white mb-2 font-bold">Lead design teams on large-scale commercial and residential projects. Minimum 8 years experience, proficiency in Revit and BIM required.</p>
-              </div>
-              <div className="border-l-2 border-white pl-4">
-                <h4 className="text-lg font-bold mb-2 text-white">Sustainable Design Specialist</h4>
-                <p className="text-white mb-2 font-bold">Focus on environmental design, LEED certification, and sustainable building practices. Background in environmental engineering preferred.</p>
-              </div>
-              <div className="border-l-2 border-white pl-4">
-                <h4 className="text-lg font-bold mb-2 text-white">Urban Planner</h4>
-                <p className="text-white font-bold">Work on master planning and urban design projects. Experience with GIS and urban design software essential.</p>
-              </div>
-            </div>
+            <p className="text-white mb-4 font-bold">
+              We occasionally have openings for talented architects and designers. If you're passionate about sustainable design and would like to join our team, please reach out.
+            </p>
+            <p className="text-white font-bold">
+              Send your portfolio and resume to: careers@kotekwema.com
+            </p>
           </div>
         </div>
 
@@ -71,27 +62,20 @@ const Careers = () => {
             </p>
           </div>
           <div>
-            <h3 className="text-2xl font-bold mb-4 text-white">Employee Testimonials</h3>
-            <div className="space-y-4">
-              <div className="bg-[#333333] p-4 rounded">
-                <p className="text-white italic mb-2 font-bold">"Working at Kote Kwema has been transformative. The collaborative culture and commitment to sustainable design align perfectly with my values."</p>
-                <p className="text-white text-sm font-bold">— Sarah M., Senior Architect</p>
-              </div>
-              <div className="bg-[#333333] p-4 rounded">
-                <p className="text-white italic mb-2 font-bold">"The opportunity to work on diverse international projects while contributing to environmental sustainability makes every day meaningful."</p>
-                <p className="text-white text-sm font-bold">— James K., Project Manager</p>
-              </div>
-            </div>
+            <h3 className="text-2xl font-bold mb-4 text-white">What We Offer</h3>
+            <p className="text-white mb-4 font-bold">
+              As a small studio, we offer a close-knit working environment where every team member's contribution matters. You'll work directly on projects from concept to completion, gaining valuable experience across all aspects of architectural practice.
+            </p>
+            <p className="text-white font-bold">
+              We value creativity, sustainability, and collaborative design. If this aligns with your values, we'd love to hear from you.
+            </p>
           </div>
         </div>
 
-        <div className="pt-8 flex gap-4">
-          <a href="/contact" className="px-8 py-3 bg-white text-[#1A1A1A] hover:bg-white/90 transition-colors duration-200 font-bold tracking-wide">
-            Apply Now
+        <div className="pt-8">
+          <a href="/contact" className="inline-block px-8 py-3 bg-white text-[#1A1A1A] hover:bg-white/90 transition-colors duration-200 font-bold tracking-wide">
+            Contact Us
           </a>
-          <button className="px-8 py-3 border border-white hover:border-white/80 transition-colors duration-200 font-bold tracking-wide text-white">
-            View All Positions
-          </button>
         </div>
       </div>
     </div>

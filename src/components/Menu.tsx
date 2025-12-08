@@ -22,7 +22,6 @@ const menuCategories = [
   { name: "Studio", href: "/studio", hasSubmenu: true },
   { name: "People", href: "/people", hasSubmenu: true },
   { name: "News", href: "/news", hasSubmenu: true },
-  { name: "Insights", href: "/insights", hasSubmenu: true },
   { name: "Careers", href: "/careers", hasSubmenu: true },
   { name: "Contact", href: "/contact", hasSubmenu: true },
 ];
@@ -31,11 +30,9 @@ const expertiseSubcategories = [
   { name: "Architecture", href: "/expertise/architecture" },
   { name: "Climate and Sustainable Design", href: "/expertise/climate" },
   { name: "Engineering", href: "/expertise/engineering" },
-  { name: "Industrial Design", href: "/expertise/industrial" },
   { name: "Interiors", href: "/expertise/interiors" },
   { name: "Technology and Research", href: "/expertise/technology" },
   { name: "Urban and Landscape Design", href: "/expertise/urban" },
-  { name: "Workplace Consultancy", href: "/expertise/workplace" },
 ];
 
 const projectsSubcategories = [
@@ -43,39 +40,23 @@ const projectsSubcategories = [
   { name: "Commercial", href: "/projects/commercial" },
   { name: "Cultural", href: "/projects/cultural" },
   { name: "Mixed-Use", href: "/projects/mixed-use" },
-  { name: "Urban Planning", href: "/projects/urban-planning" },
 ];
 
 const studioSubcategories = [
   { name: "About", href: "/studio/about" },
   { name: "History & Philosophy", href: "/studio/history" },
   { name: "Work Process", href: "/studio/process" },
-  { name: "Global Studios", href: "/studio/studios" },
   { name: "Awards & Recognition", href: "/studio/awards" },
 ];
 
 const peopleSubcategories = [
   { name: "Leadership", href: "/people/leadership" },
   { name: "Architects", href: "/people/architects" },
-  { name: "Designers", href: "/people/designers" },
-  { name: "Engineers", href: "/people/engineers" },
-  { name: "Support Team", href: "/people/support" },
 ];
 
 const newsSubcategories = [
   { name: "Firm Announcements", href: "/news/announcements" },
   { name: "Awards & Recognition", href: "/news/news-awards" },
-  { name: "Industry Insights", href: "/news/news-insights" },
-  { name: "Press Coverage", href: "/news/press" },
-  { name: "Events & Speaking", href: "/news/events" },
-];
-
-const insightsSubcategories = [
-  { name: "Design Trends", href: "/insights/trends" },
-  { name: "Sustainability", href: "/insights/sustainability" },
-  { name: "Urban Development", href: "/insights/insights-urban" },
-  { name: "Technology", href: "/insights/insights-technology" },
-  { name: "Case Studies", href: "/insights/case-studies" },
 ];
 
 const careersSubcategories = [
@@ -83,7 +64,6 @@ const careersSubcategories = [
   { name: "Life at Kote Kwema", href: "/careers/life" },
   { name: "Application Process", href: "/careers/application" },
   { name: "Benefits", href: "/careers/benefits" },
-  { name: "Employee Testimonials", href: "/careers/testimonials" },
 ];
 
 const contactSubcategories = [
@@ -91,7 +71,6 @@ const contactSubcategories = [
   { name: "Request Consultation", href: "/contact/consultation" },
   { name: "General Inquiry", href: "/contact/inquiry" },
   { name: "Project Inquiry", href: "/contact/project" },
-  { name: "Media Contact", href: "/contact/media" },
 ];
 
 const getSubcategories = (categoryName: string) => {
@@ -106,8 +85,6 @@ const getSubcategories = (categoryName: string) => {
       return peopleSubcategories;
     case "News":
       return newsSubcategories;
-    case "Insights":
-      return insightsSubcategories;
     case "Careers":
       return careersSubcategories;
     case "Contact":
@@ -134,9 +111,8 @@ const categoryImages: Record<string, string> = {
   "Studio": project2,
   "People": project3,
   "News": project4,
-  "Insights": heroImage,
-  "Careers": project1,
-  "Contact": project2,
+  "Careers": "https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=1200&h=800&fit=crop&q=80",
+  "Contact": "https://images.unsplash.com/photo-1497366754035-f200968a6e72?w=1200&h=800&fit=crop&q=80",
 };
 
 const Menu = ({ isOpen, onClose }: MenuProps) => {
@@ -145,13 +121,10 @@ const Menu = ({ isOpen, onClose }: MenuProps) => {
   
   if (!isOpen) return null;
   
-  // Show subtopics for hovered or clicked category (for preview)
-  const selectedCategory = hoveredCategory || clickedCategory;
+  // Show subtopics for clicked category, or preview on hover
+  const selectedCategory = clickedCategory || hoveredCategory;
   const currentSubcategories = selectedCategory ? getSubcategories(selectedCategory) : [];
   const backgroundImage = selectedCategory ? categoryImages[selectedCategory] || heroImage : heroImage;
-  
-  // Subtopics are only clickable if parent category is clicked
-  const isSubtopicsClickable = clickedCategory !== null;
 
   return (
     <>
@@ -188,9 +161,9 @@ const Menu = ({ isOpen, onClose }: MenuProps) => {
           </div>
 
           {/* Content Container */}
-          <div className="h-full flex flex-col px-6 md:px-12 lg:px-16 py-8 md:py-12 overflow-hidden">
+          <div className="h-full flex flex-col px-4 md:px-6 lg:px-12 xl:px-16 py-6 md:py-8 lg:py-12 overflow-hidden">
             {/* Main Navigation - Left Column Categories */}
-            <div className="flex-1 flex flex-col md:flex-row gap-8 md:gap-12 min-h-0">
+            <div className="flex-1 flex flex-col md:flex-row gap-6 md:gap-8 lg:gap-12 min-h-0">
               {/* Left Column - Main Categories */}
               <div className="flex-1 min-w-0">
                 <nav className="space-y-0.5 md:space-y-1">
@@ -203,12 +176,11 @@ const Menu = ({ isOpen, onClose }: MenuProps) => {
                         key={category.name}
                         href={category.href}
                         onClick={(e) => {
-                          e.preventDefault(); // Prevent navigation
+                          e.preventDefault();
                           if (category.hasSubmenu) {
                             // Toggle: if already clicked, unclick it; otherwise, set it as clicked
                             setClickedCategory(isClicked ? null : category.name);
                           }
-                          // Don't close menu on click - let user see subtopics
                         }}
                         onMouseEnter={() => {
                           if (category.hasSubmenu) {
@@ -232,7 +204,7 @@ const Menu = ({ isOpen, onClose }: MenuProps) => {
               </div>
 
               {/* Right Column - Subcategories */}
-              <div className="flex-1 border-l-0 md:border-l border-[#E5E5E5] pl-0 md:pl-12 min-w-0">
+              <div className="flex-1 border-l-0 md:border-l border-[#E5E5E5] pl-0 md:pl-8 lg:pl-12 min-w-0 mt-4 md:mt-0">
                 {selectedCategory && (
                   <MenuSection title={selectedCategory}>
                     <div className="space-y-1 mt-4 md:mt-6">
@@ -242,7 +214,7 @@ const Menu = ({ isOpen, onClose }: MenuProps) => {
                           href={subcategory.href}
                           onClick={onClose}
                           delay={index * 30}
-                          disabled={!isSubtopicsClickable}
+                          disabled={!clickedCategory}
                         >
                           {subcategory.name}
                         </MenuSubLink>
@@ -254,8 +226,8 @@ const Menu = ({ isOpen, onClose }: MenuProps) => {
             </div>
 
             {/* Social Icons Row - Bottom Right */}
-            <div className="mt-6 md:mt-8 pt-4 md:pt-6 border-t border-[#E5E5E5] flex-shrink-0">
-              <div className="flex items-center gap-6">
+            <div className="mt-4 md:mt-6 lg:mt-8 pt-4 md:pt-6 border-t border-[#E5E5E5] flex-shrink-0">
+              <div className="flex items-center gap-4 md:gap-6">
                 {socialIcons.map((social) => (
                   <a
                     key={social.name}

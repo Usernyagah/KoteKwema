@@ -5,17 +5,19 @@ interface MenuLinkProps {
   href: string;
   onClick?: (e: React.MouseEvent) => void;
   onMouseEnter?: () => void;
+  onMouseLeave?: () => void;
   isActive?: boolean;
   children: ReactNode;
   delay?: number;
 }
 
-export const MenuLink = ({ href, onClick, onMouseEnter, isActive = false, children, delay = 0 }: MenuLinkProps) => {
+export const MenuLink = ({ href, onClick, onMouseEnter, onMouseLeave, isActive = false, children, delay = 0 }: MenuLinkProps) => {
   return (
     <Link
       to={href}
       onClick={onClick}
       onMouseEnter={onMouseEnter}
+      onMouseLeave={onMouseLeave}
       className="block group"
       style={{
         animation: `fade-up 0.6s ease-out ${delay}ms both`,
