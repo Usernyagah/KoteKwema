@@ -58,9 +58,13 @@ const Navigation = ({ variant = "dark" }: NavigationProps = {}) => {
 
   return (
     <>
-      <nav className={`fixed top-0 left-0 right-0 z-40 ${bgColor} backdrop-blur-sm transition-transform duration-300 border-b ${isWhite ? "border-[#E5E5E5]" : "border-transparent"} ${
-        isNavbarVisible ? "translate-y-0" : "-translate-y-full"
-      }`}>
+      <nav 
+        className={`fixed top-0 left-0 right-0 z-40 ${bgColor} backdrop-blur-sm transition-transform duration-300 border-b ${isWhite ? "border-[#E5E5E5]" : "border-transparent"} ${
+          isNavbarVisible ? "translate-y-0" : "-translate-y-full"
+        }`}
+        role="navigation"
+        aria-label="Main navigation"
+      >
         <div className="flex items-center h-20">
           {/* Logo - Far Left with Fixed Padding */}
           <Link to="/" className="flex items-center gap-3 pl-6 lg:pl-12">
@@ -93,8 +97,10 @@ const Navigation = ({ variant = "dark" }: NavigationProps = {}) => {
               size="icon"
               onClick={() => setIsSearchOpen(true)}
               className={`${hoverBg} ${iconColor}`}
+              aria-label="Open search"
+              aria-expanded={isSearchOpen}
             >
-              <Search className="h-5 w-5" />
+              <Search className="h-5 w-5" aria-hidden="true" />
             </Button>
 
             <Button
@@ -102,8 +108,10 @@ const Navigation = ({ variant = "dark" }: NavigationProps = {}) => {
               size="icon"
               onClick={() => setIsMenuOpen(true)}
               className={`${hoverBg} ${iconColor}`}
+              aria-label="Open menu"
+              aria-expanded={isMenuOpen}
             >
-              <MenuIcon className="h-5 w-5" />
+              <MenuIcon className="h-5 w-5" aria-hidden="true" />
             </Button>
           </div>
         </div>

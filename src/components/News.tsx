@@ -89,7 +89,7 @@ const News = () => {
           <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
         {/* Left - Large Image with "Latest news" overlay (3/4 width) */}
         <div className="col-span-1 md:col-span-3 space-y-4">
-          <Link to="/news/press" className="relative h-[200px] md:h-[450px] block group cursor-pointer mb-4">
+          <Link to="/news/announcements" className="relative h-[200px] md:h-[450px] block group cursor-pointer mb-4">
             <img
               src="https://images.unsplash.com/photo-1504711434969-e33886168f5c?w=1200&h=800&fit=crop&q=80"
               alt="Latest news"

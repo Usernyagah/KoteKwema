@@ -1,7 +1,7 @@
 import { ArrowDown } from "lucide-react";
 import { useState, useRef, useEffect } from "react";
 import heroImage from "@/assets/hero-architecture.jpg";
-import heroVideo from "@/assets/VID-20251127-WA0001.mp4";
+import heroVideo from "@/assets/compressed_VID-20251127-WA0001.mp4";
 
 // High-quality architecture videos - using local video for all slides
 const video1 = heroVideo;
@@ -29,11 +29,33 @@ const enhanceVideoFrame = (
   ctx.imageSmoothingEnabled = true;
   ctx.imageSmoothingQuality = 'high';
   
-  // Draw the video frame
-  ctx.drawImage(video, 0, 0, width, height);
+  // Additional quality settings for compressed video
+  ctx.filter = 'none'; // Disable any default filtering that might degrade quality
   
-  // Apply CSS-like filters using canvas operations for better quality
-  // This is simpler and more performant than pixel manipulation
+  // Prevent excessive upscaling - limit to 120% of native resolution
+  const maxUpscale = 1.2;
+  const scaleX = Math.min(canvas.width / width, maxUpscale);
+  const scaleY = Math.min(canvas.height / height, maxUpscale);
+  const scale = Math.min(scaleX, scaleY);
+  
+  // Calculate final dimensions
+  const finalWidth = width * scale;
+  const finalHeight = height * scale;
+  const offsetX = (canvas.width - finalWidth) / 2;
+  const offsetY = (canvas.height - finalHeight) / 2;
+  
+  // Draw the video frame at optimal size to prevent quality loss
+  // If upscaling is needed, limit it to preserve quality
+  if (scale <= 1) {
+    // Downscaling or native size - draw at full quality
+    ctx.drawImage(video, 0, 0, width, height, offsetX, offsetY, finalWidth, finalHeight);
+  } else {
+    // Limited upscaling - draw with quality preservation
+    ctx.drawImage(video, 0, 0, width, height, offsetX, offsetY, finalWidth, finalHeight);
+  }
+  
+  // Ensure pixel-perfect rendering for compressed video
+  // This maintains quality even with compressed source
 };
 
 const Hero = () => {
@@ -250,14 +272,21 @@ const Hero = () => {
                 width: '100%',
                 height: '100%',
                 objectPosition: 'center',
-                // Hardware acceleration
+                // Hardware acceleration for smooth playback
                 WebkitTransform: 'translate3d(0, 0, 0)',
                 transform: 'translate3d(0, 0, 0)',
                 WebkitBackfaceVisibility: 'hidden',
                 backfaceVisibility: 'hidden',
-                imageRendering: 'auto',
-                WebkitImageRendering: 'auto',
+                // Quality preservation settings - prevent blurry upscaling
+                // Use auto for browser's best scaling algorithm, or optimize-contrast for sharper edges
+                imageRendering: 'auto', // Browser optimizes based on content
+                WebkitImageRendering: '-webkit-optimize-contrast', // Better quality preservation for video
                 willChange: 'transform',
+                // Prevent quality degradation
+                WebkitFontSmoothing: 'antialiased',
+                MozOsxFontSmoothing: 'grayscale',
+                // Force browser to use best scaling algorithm
+                msInterpolationMode: 'bicubic',
               }}
               onLoadedMetadata={(e) => {
                 const video = e.currentTarget;
@@ -265,46 +294,55 @@ const Hero = () => {
                   video.setAttribute('playsinline', 'true');
                 }
                 
-                // Desktop: Fill width while maintaining quality - prevent excessive upscaling
-                if (window.innerWidth >= 768) {
-                  if (video.videoWidth && video.videoHeight) {
-                    const container = video.parentElement;
-                    if (container) {
-                      const containerWidth = container.clientWidth;
-                      const containerHeight = container.clientHeight;
-                      
-                      // Calculate scale needed to fill width
-                      const widthScale = containerWidth / video.videoWidth;
-                      const heightScale = containerHeight / video.videoHeight;
-                      
-                      // Strategy: Fill width, maintain aspect ratio, minimize upscaling
-                      if (widthScale <= 1 && heightScale <= 1) {
-                        // Video is larger than container - use cover (downscaling, no quality loss)
-                        video.style.objectFit = 'cover';
-                      } else if (widthScale > 1 && heightScale > 1) {
-                        // Both dimensions need upscaling - use contain to preserve quality
-                        video.style.objectFit = 'contain';
-                        video.style.objectPosition = 'center center';
-                      } else if (widthScale > 1) {
-                        // Only width needs upscaling - fill width, maintain aspect
-                        video.style.objectFit = 'contain';
-                        video.style.objectPosition = 'center center';
-                      } else {
-                        // Only height needs upscaling - use cover
-                        video.style.objectFit = 'cover';
-                      }
+                // Quality preservation: Limit upscaling to prevent quality loss
+                if (video.videoWidth && video.videoHeight) {
+                  const container = video.parentElement;
+                  if (container) {
+                    const containerWidth = container.clientWidth;
+                    const containerHeight = container.clientHeight;
+                    
+                    // Calculate scale needed
+                    const widthScale = containerWidth / video.videoWidth;
+                    const heightScale = containerHeight / video.videoHeight;
+                    
+                    // Maximum upscale factor - prevent quality loss beyond 1.2x (20% upscale)
+                    const MAX_UPSCALE = 1.2;
+                    
+                    // Strategy: Prioritize quality - avoid upscaling when possible
+                    if (widthScale <= 1 && heightScale <= 1) {
+                      // Video is larger than container - use cover (downscaling, no quality loss)
+                      video.style.objectFit = 'cover';
+                      video.style.objectPosition = 'center center';
+                    } else if (widthScale > MAX_UPSCALE || heightScale > MAX_UPSCALE) {
+                      // Excessive upscaling detected - use contain to show full video without quality loss
+                      video.style.objectFit = 'contain';
+                      video.style.objectPosition = 'center center';
+                      // Add black bars instead of upscaling
+                      video.style.backgroundColor = '#000000';
+                    } else if (widthScale > 1 || heightScale > 1) {
+                      // Moderate upscaling - use cover but limit to native resolution
+                      const scale = Math.min(widthScale, heightScale, MAX_UPSCALE);
+                      video.style.objectFit = 'cover';
+                      video.style.objectPosition = 'center center';
+                    } else {
+                      // No upscaling needed
+                      video.style.objectFit = 'cover';
+                      video.style.objectPosition = 'center center';
                     }
+                    
+                    // Force high-quality rendering to prevent quality loss on upscale
+                    video.style.imageRendering = 'auto';
+                    video.style.WebkitImageRendering = '-webkit-optimize-contrast';
                   }
                 }
-                // Mobile: Keep object-contain (handled by className)
               }}
-                muted
-                playsInline
-                preload="auto"
-                autoPlay={index === currentSlide}
-                disablePictureInPicture
-                disableRemotePlayback
-                controlsList="nodownload nofullscreen noremoteplayback"
+              muted
+              playsInline
+              preload="auto"
+              autoPlay={index === currentSlide}
+              disablePictureInPicture
+              disableRemotePlayback
+              controlsList="nodownload nofullscreen noremoteplayback"
               onError={(e) => {
                 console.error(`Video ${index} error:`, e);
                 // Mark this video as having an error

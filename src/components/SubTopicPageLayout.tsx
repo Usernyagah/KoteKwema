@@ -62,9 +62,9 @@ const SubTopicPageLayout = ({
       )}
 
       {/* Content Section */}
-      <div className="bg-white">
+      <main id="main-content" className="bg-white">
         {children}
-      </div>
+      </main>
 
       <Footer />
     </div>

@@ -3,6 +3,9 @@ import { useEffect } from "react";
 import SubTopicPageLayout from "@/components/SubTopicPageLayout";
 import { Card, CardContent } from "@/components/ui/card";
 import ContactForm from "@/components/ContactForm";
+import StructuredData from "@/components/StructuredData";
+import { useSEO } from "@/hooks/useSEO";
+import { trackPageView } from "@/utils/analytics";
 import heroImage from "@/assets/hero-architecture.jpg";
 import koteKwemaImage from "@/assets/kote kwema.jpg";
 import project1 from "@/assets/project-1.jpg";
@@ -493,12 +496,36 @@ const SubTopicPage = () => {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [location.pathname]);
-  
+
   const key = subtopic || "";
   const content = subtopicContent[key] || {
     title: subtopic?.replace(/-/g, " ").replace(/\b\w/g, l => l.toUpperCase()) || "Page",
     breadcrumbs: [category?.charAt(0).toUpperCase() + category?.slice(1) || "", subtopic?.replace(/-/g, " ").replace(/\b\w/g, l => l.toUpperCase()) || ""],
     description: "Explore our work and expertise in this area."
+  };
+
+  // SEO
+  useSEO({
+    title: content.title,
+    description: content.description,
+    url: `${window.location.origin}${location.pathname}`,
+  });
+
+  // Analytics tracking
+  useEffect(() => {
+    trackPageView(location.pathname, content.title);
+  }, [location.pathname, content.title]);
+
+  // Breadcrumb structured data
+  const breadcrumbData = {
+    itemListElement: content.breadcrumbs.map((crumb, index) => ({
+      '@type': 'ListItem',
+      position: index + 1,
+      name: crumb,
+      item: index === 0 
+        ? 'https://kotekwema.com' 
+        : `https://kotekwema.com${location.pathname}`,
+    })),
   };
 
   // Determine which pages should show images and which shouldn't
@@ -606,6 +633,7 @@ const SubTopicPage = () => {
 
         </div>
       </div>
+      <StructuredData type="BreadcrumbList" data={breadcrumbData} />
     </SubTopicPageLayout>
   );
 };

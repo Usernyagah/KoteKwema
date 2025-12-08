@@ -6,6 +6,8 @@ import Expertise from "@/components/Expertise";
 import News from "@/components/News";
 import Climate from "@/components/Climate";
 import Footer from "@/components/Footer";
+import StructuredData from "@/components/StructuredData";
+import { useSEO } from "@/hooks/useSEO";
 import heroImage from "@/assets/hero-architecture.jpg";
 import project1 from "@/assets/project-1.jpg";
 import project2 from "@/assets/project-2.jpg";
@@ -13,10 +15,17 @@ import project3 from "@/assets/project-3.jpg";
 import project4 from "@/assets/project-4.jpg";
 
 const Index = () => {
+  useSEO({
+    title: "Home",
+    description: "Kote Kwema is an award-winning architecture firm in Nairobi, Kenya, specializing in sustainable design, urban planning, and innovative architectural solutions. Explore our portfolio of residential, commercial, and cultural projects.",
+    keywords: "architecture firm Nairobi, sustainable architecture Kenya, architectural design Nairobi, urban planning Kenya, commercial architecture, residential design",
+  });
+
   return (
     <div className="min-h-screen">
       <Navigation />
-      <Hero />
+      <main id="main-content">
+        <Hero />
       <section id="studio" className="pt-12 bg-[#1A1A1A]">
         <div className="pl-6 lg:pl-12 pr-6 lg:pr-12">
           <div className="mb-4">
@@ -103,7 +112,10 @@ const Index = () => {
       <Expertise />
       <News />
       <Climate />
+      </main>
       <Footer />
+      <StructuredData type="Organization" />
+      <StructuredData type="WebSite" />
     </div>
   );
 };
