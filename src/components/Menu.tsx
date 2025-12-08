@@ -189,15 +189,6 @@ const Menu = ({ isOpen, onClose }: MenuProps) => {
 
           {/* Content Container */}
           <div className="h-full flex flex-col px-6 md:px-12 lg:px-16 py-8 md:py-12 overflow-hidden">
-            {/* Mobile Image (only on mobile) */}
-            <div className="md:hidden w-full h-32 mb-6 relative overflow-hidden">
-              <img
-                src={backgroundImage}
-                alt="Menu Background"
-                className="w-full h-full object-cover transition-opacity duration-500"
-              />
-            </div>
-
             {/* Main Navigation - Left Column Categories */}
             <div className="flex-1 flex flex-col md:flex-row gap-8 md:gap-12 min-h-0">
               {/* Left Column - Main Categories */}
