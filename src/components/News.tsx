@@ -97,7 +97,7 @@ const News = () => {
             />
             <div className="hidden md:block absolute bottom-0 left-0 p-6">
               <span className="text-xs text-white font-bold mb-2 block">Press Coverage</span>
-              <span className="text-white text-xl font-bold block">Kote Kwema Featured in International Architecture Magazine</span>
+              <span className="text-white text-xl font-bold block">Latest News and Updates</span>
             </div>
           </Link>
           <div className="hidden md:grid grid-cols-1 md:grid-cols-2 gap-4">
