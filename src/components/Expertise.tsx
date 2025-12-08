@@ -65,7 +65,7 @@ const Expertise = () => {
           {/* Service Menu with Images */}
           <div className="mb-8">
             <h3 className="text-2xl md:text-3xl font-bold mb-6 text-white">Our Services</h3>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4 mb-6">
+            <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-5 gap-4 mb-6">
               {/* Architectural Design & Planning */}
               <Link to="/expertise/architecture" className="relative h-[250px] md:h-[300px] block group cursor-pointer overflow-hidden rounded-lg">
                 <img
