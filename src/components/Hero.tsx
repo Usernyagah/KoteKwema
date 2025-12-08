@@ -1,12 +1,14 @@
 import { ArrowDown } from "lucide-react";
 import { useState, useRef, useEffect } from "react";
 import heroImage from "@/assets/hero-architecture.jpg";
-import heroVideo from "@/assets/compressed_VID-20251127-WA0001.mp4";
+import compressedVideo from "@/assets/compressed_VID-20251127-WA0001.mp4";
+import adobeStockVideo1 from "@/assets/AdobeStock_226432701_Video_HD_Preview.mov";
+import adobeStockVideo2 from "@/assets/AdobeStock_197756865_Video_HD_Preview.mov";
 
-// High-quality architecture videos - using local video for all slides
-const video1 = heroVideo;
-const video2 = heroVideo;
-const video3 = heroVideo;
+// High-quality architecture videos - using local Adobe Stock videos for first two, compressed local for third
+const video1 = adobeStockVideo1;
+const video2 = adobeStockVideo2;
+const video3 = compressedVideo;
 
 // Simplified video enhancement - just draw video to canvas with high quality settings
 const enhanceVideoFrame = (
