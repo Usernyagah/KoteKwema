@@ -83,7 +83,7 @@ const Expertise = () => {
               {/* Interior Design */}
               <Link to="/expertise/interiors" className="relative h-[250px] md:h-[300px] block group cursor-pointer overflow-hidden rounded-lg">
                 <img
-                  src="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=800&h=600&fit=crop&q=80"
+                  src="https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?w=800&h=600&fit=crop&q=80"
                   alt="Interior Design"
                   className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
                 />
@@ -97,7 +97,7 @@ const Expertise = () => {
               {/* Sustainable Design */}
               <Link to="/expertise/climate" className="relative h-[250px] md:h-[300px] block group cursor-pointer overflow-hidden rounded-lg">
                 <img
-                  src="https://images.unsplash.com/photo-1524758631624-e2822e304c36?w=800&h=600&fit=crop&q=80"
+                  src="https://images.unsplash.com/photo-1497435334941-8c899ee9e8e9?w=800&h=600&fit=crop&q=80"
                   alt="Sustainable Design"
                   className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
                 />
@@ -111,7 +111,7 @@ const Expertise = () => {
               {/* BIM & 3D Modeling */}
               <Link to="/expertise/technology" className="relative h-[250px] md:h-[300px] block group cursor-pointer overflow-hidden rounded-lg">
                 <img
-                  src="https://images.unsplash.com/photo-1488590528505-98d2b5aba04b?w=800&h=600&fit=crop&q=80"
+                  src="https://images.unsplash.com/photo-1561070791-2526d30994b5?w=800&h=600&fit=crop&q=80"
                   alt="BIM & 3D Modeling"
                   className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
                 />
