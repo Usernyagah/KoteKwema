@@ -4,21 +4,31 @@ import project1 from "@/assets/project-1.jpg";
 import project2 from "@/assets/project-2.jpg";
 import project3 from "@/assets/project-3.jpg";
 import project4 from "@/assets/project-4.jpg";
+import interiorsImage from "@/assets/interiors.jpg";
+import urbanLandscapeImage from "@/assets/urban-landscape.jpg";
+import climateSustainableImage from "@/assets/climate-sustainable.jpg";
+import engineeringImage from "@/assets/engineering.jpg";
+import technologyResearchImage from "@/assets/technology-research.jpg";
+import architecturalDesignImage from "@/assets/architectural-design.jpg";
+import interiorDesignServiceImage from "@/assets/interior-design-service.jpg";
+import sustainableDesignServiceImage from "@/assets/sustainable-design-service.jpg";
+import bim3dModelingImage from "@/assets/bim-3d-modeling.jpg";
+import projectManagementImage from "@/assets/project-management.jpg";
 
 const expertiseAreas = [
   {
     title: "Interiors",
-    image: "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=800&h=600&fit=crop&q=80",
+    image: interiorsImage,
     href: "/expertise/interiors",
   },
   {
     title: "Urban and Landscape Design",
-    image: "https://images.unsplash.com/photo-1449824913935-59a10b8d2000?w=800&h=600&fit=crop&q=80",
+    image: urbanLandscapeImage,
     href: "/expertise/urban",
   },
   {
     title: "Climate and Sustainable Design",
-    image: "https://images.unsplash.com/photo-1524758631624-e2822e304c36?w=800&h=600&fit=crop&q=80",
+    image: climateSustainableImage,
     href: "/expertise/climate",
   },
 ];
@@ -41,7 +51,7 @@ const Expertise = () => {
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-4">
             <Link to="/expertise/engineering" className="col-span-1 md:col-span-3 relative h-[300px] md:h-[450px] block group cursor-pointer">
               <img
-                src="https://images.unsplash.com/photo-1581092160562-40aa08e78837?w=1200&h=800&fit=crop&q=80"
+                src={engineeringImage}
                 alt="Engineering"
                 className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
               />
@@ -52,7 +62,7 @@ const Expertise = () => {
             {/* Technology and Research - 1/4 width */}
             <Link to="/expertise/technology" className="col-span-1 md:col-span-1 relative h-[300px] md:h-[450px] block group cursor-pointer">
               <img
-                src="https://images.unsplash.com/photo-1488590528505-98d2b5aba04b?w=800&h=1200&fit=crop&q=80"
+                src={technologyResearchImage}
                 alt="Technology and Research"
                 className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
               />
@@ -69,7 +79,7 @@ const Expertise = () => {
               {/* Architectural Design & Planning */}
               <Link to="/expertise/architecture" className="relative h-[250px] md:h-[300px] block group cursor-pointer overflow-hidden rounded-lg">
                 <img
-                  src="https://images.unsplash.com/photo-1487958449943-2429e8be8625?w=800&h=600&fit=crop&q=80"
+                  src={architecturalDesignImage}
                   alt="Architectural Design & Planning"
                   className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
                 />
@@ -83,7 +93,7 @@ const Expertise = () => {
               {/* Interior Design */}
               <Link to="/expertise/interiors" className="relative h-[250px] md:h-[300px] block group cursor-pointer overflow-hidden rounded-lg">
                 <img
-                  src="https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?w=800&h=600&fit=crop&q=80"
+                  src={interiorDesignServiceImage}
                   alt="Interior Design"
                   className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
                 />
@@ -97,7 +107,7 @@ const Expertise = () => {
               {/* Sustainable Design */}
               <Link to="/expertise/climate" className="relative h-[250px] md:h-[300px] block group cursor-pointer overflow-hidden rounded-lg">
                 <img
-                  src="https://images.unsplash.com/photo-1497435334941-8c899ee9e8e9?w=800&h=600&fit=crop&q=80"
+                  src={sustainableDesignServiceImage}
                   alt="Sustainable Design"
                   className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
                 />
@@ -111,7 +121,7 @@ const Expertise = () => {
               {/* BIM & 3D Modeling */}
               <Link to="/expertise/technology" className="relative h-[250px] md:h-[300px] block group cursor-pointer overflow-hidden rounded-lg">
                 <img
-                  src="https://images.unsplash.com/photo-1561070791-2526d30994b5?w=800&h=600&fit=crop&q=80"
+                  src={bim3dModelingImage}
                   alt="BIM & 3D Modeling"
                   className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
                 />
@@ -122,10 +132,10 @@ const Expertise = () => {
                 </div>
               </Link>
 
-              {/* Project Management */}
-              <Link to="/projects/residential" className="relative h-[250px] md:h-[300px] block group cursor-pointer overflow-hidden rounded-lg">
+              {/* Project Management - Full width on mobile to fill space */}
+              <Link to="/projects/residential" className="col-span-2 md:col-span-1 lg:col-span-1 relative h-[250px] md:h-[300px] block group cursor-pointer overflow-hidden rounded-lg">
                 <img
-                  src="https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=800&h=600&fit=crop&q=80"
+                  src={projectManagementImage}
                   alt="Project Management"
                   className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
                 />
