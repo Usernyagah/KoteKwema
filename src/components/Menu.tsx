@@ -121,9 +121,10 @@ const Menu = ({ isOpen, onClose }: MenuProps) => {
   
   if (!isOpen) return null;
   
-  // Show subtopics for clicked category, or preview on hover
-  const selectedCategory = clickedCategory || hoveredCategory;
-  const currentSubcategories = selectedCategory ? getSubcategories(selectedCategory) : [];
+  // Show subtopics only for clicked category (not hover preview)
+  // Hover preview is for background image only, subtopics only show on click
+  const selectedCategory = clickedCategory || (hoveredCategory && !clickedCategory ? hoveredCategory : null);
+  const currentSubcategories = clickedCategory ? getSubcategories(clickedCategory) : []; // Only show subtopics for clicked category
   const backgroundImage = selectedCategory ? categoryImages[selectedCategory] || heroImage : heroImage;
 
   return (
@@ -174,17 +175,22 @@ const Menu = ({ isOpen, onClose }: MenuProps) => {
                     return (
                       <MenuLink
                         key={category.name}
-                        href={category.href}
+                        href={category.hasSubmenu ? "#" : category.href}
                         onClick={(e) => {
                           if (category.hasSubmenu) {
-                            // On click, navigate to the category's default subtopic
-                            // Also set clicked category to show subtopics
-                            setClickedCategory(category.name);
-                            // Allow navigation to proceed
+                            e.preventDefault(); // Prevent navigation
+                            // Toggle clicked category - if already clicked, deselect
+                            if (clickedCategory === category.name) {
+                              setClickedCategory(null);
+                            } else {
+                              setClickedCategory(category.name);
+                            }
                           }
+                          // If no submenu, allow navigation to proceed
                         }}
                         onMouseEnter={() => {
-                          if (category.hasSubmenu) {
+                          if (category.hasSubmenu && !clickedCategory) {
+                            // Only show hover preview if no category is clicked
                             setHoveredCategory(category.name);
                           }
                         }}
@@ -204,10 +210,10 @@ const Menu = ({ isOpen, onClose }: MenuProps) => {
                 </nav>
               </div>
 
-              {/* Right Column - Subcategories */}
+              {/* Right Column - Subcategories - Only show when category is clicked */}
               <div className="flex-1 border-l-0 md:border-l border-[#E5E5E5] pl-0 md:pl-8 lg:pl-12 min-w-0 mt-4 md:mt-0">
-                {selectedCategory && (
-                  <MenuSection title={selectedCategory}>
+                {clickedCategory && (
+                  <MenuSection title={clickedCategory}>
                     <div className="space-y-1 mt-4 md:mt-6">
                       {currentSubcategories.map((subcategory, index) => (
                         <MenuSubLink
@@ -215,7 +221,7 @@ const Menu = ({ isOpen, onClose }: MenuProps) => {
                           href={subcategory.href}
                           onClick={onClose}
                           delay={index * 30}
-                          disabled={!clickedCategory}
+                          disabled={false}
                         >
                           {subcategory.name}
                         </MenuSubLink>
