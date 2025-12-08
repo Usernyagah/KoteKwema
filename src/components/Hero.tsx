@@ -64,6 +64,8 @@ const Hero = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [videoErrors, setVideoErrors] = useState<boolean[]>([]);
   const [videoProgress, setVideoProgress] = useState<number[]>([0, 0, 0]);
+  const [isMobile, setIsMobile] = useState(false);
+  const [loadedVideos, setLoadedVideos] = useState<Set<number>>(new Set([0])); // Only load first video initially
   const videoRefs = useRef<(HTMLVideoElement | null)[]>([]);
   const canvasRefs = useRef<(HTMLCanvasElement | null)[]>([]);
   const animationFrameRefs = useRef<(number | null)[]>([]);
@@ -87,6 +89,39 @@ const Hero = () => {
       title: "Innovative design solutions for modern cities",
     },
   ];
+
+  // Detect mobile and update loaded videos
+  useEffect(() => {
+    const checkMobile = () => {
+      const mobile = window.innerWidth < 768;
+      setIsMobile(mobile);
+    };
+    
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
+  // Preload next video when current video is almost done (mobile optimization)
+  useEffect(() => {
+    if (!isMobile) return; // Only on mobile
+    
+    const currentVideo = videoRefs.current[currentSlide];
+    if (!currentVideo) return;
+
+    const handleTimeUpdate = () => {
+      // Preload next video when current is 70% done
+      if (currentVideo.currentTime >= VIDEO_DURATION * 0.7) {
+        const nextSlide = (currentSlide + 1) % slides.length;
+        if (!loadedVideos.has(nextSlide)) {
+          setLoadedVideos(prev => new Set([...prev, nextSlide]));
+        }
+      }
+    };
+
+    currentVideo.addEventListener('timeupdate', handleTimeUpdate);
+    return () => currentVideo.removeEventListener('timeupdate', handleTimeUpdate);
+  }, [currentSlide, isMobile, loadedVideos, slides.length]);
 
   // Handle video progress and auto-advance for all videos
   useEffect(() => {
@@ -146,7 +181,13 @@ const Hero = () => {
   useEffect(() => {
     const playCurrentVideo = async () => {
       const currentVideo = videoRefs.current[currentSlide];
-      if (!currentVideo) return;
+      if (!currentVideo) {
+        // On mobile, if video isn't loaded yet, mark it for loading
+        if (isMobile && !loadedVideos.has(currentSlide)) {
+          setLoadedVideos(prev => new Set([...prev, currentSlide]));
+        }
+        return;
+      }
 
       // Reset progress for new video
       setVideoProgress((prev) => {
@@ -191,7 +232,7 @@ const Hero = () => {
 
     const timer = setTimeout(playCurrentVideo, 100);
     return () => clearTimeout(timer);
-  }, [currentSlide]);
+  }, [currentSlide, isMobile, loadedVideos]);
 
   // Real-time video enhancement using canvas
   useEffect(() => {
@@ -298,8 +339,25 @@ const Hero = () => {
     <section className="relative w-full overflow-hidden bg-black min-h-[100dvh] h-screen">
       {/* Hero Videos */}
       <div className="absolute inset-0 bg-black w-full h-full overflow-hidden md:h-screen h-[100dvh]">
-        {slides.map((slide, index) => (
-          videoErrors[index] ? (
+        {slides.map((slide, index) => {
+          // On mobile, only render videos that are loaded or currently active
+          const shouldRender = !isMobile || loadedVideos.has(index) || index === currentSlide;
+          
+          if (!shouldRender) {
+            // Show placeholder image on mobile for unloaded videos
+            return (
+              <img
+                key={`placeholder-${index}`}
+                src={heroImage}
+                alt="Architecture"
+                className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-500 ${
+                  index === currentSlide ? "opacity-100 z-10" : "opacity-0 z-0"
+                }`}
+              />
+            );
+          }
+
+          return videoErrors[index] ? (
             <img
               key={`img-${index}`}
               src={heroImage}
@@ -317,6 +375,7 @@ const Hero = () => {
                 }
               }}
               src={slide.video}
+              poster={heroImage}
               className={`absolute inset-0 w-full h-full transition-opacity duration-500 ${
                 index === currentSlide ? "opacity-100 z-10" : "opacity-0 z-0"
               }`}
@@ -347,7 +406,7 @@ const Hero = () => {
                 }
                 
                 // Mobile-responsive video sizing
-                const isMobile = window.innerWidth < 768;
+                const isMobileDevice = window.innerWidth < 768;
                 
                 if (video.videoWidth && video.videoHeight) {
                   const container = video.parentElement;
@@ -363,7 +422,7 @@ const Hero = () => {
                     const MAX_UPSCALE = 1.2;
                     
                     // Mobile-specific handling
-                    if (isMobile) {
+                    if (isMobileDevice) {
                       // On mobile: prefer contain to show full video, avoid cropping
                       if (widthScale > MAX_UPSCALE || heightScale > MAX_UPSCALE) {
                         video.style.objectFit = 'contain';
@@ -404,7 +463,11 @@ const Hero = () => {
               }}
               muted
               playsInline
-              preload={index === currentSlide ? "auto" : "metadata"}
+              preload={
+                isMobile 
+                  ? (index === currentSlide ? "auto" : "none") // On mobile, only preload current video
+                  : (index === currentSlide ? "auto" : "metadata") // On desktop, preload metadata for others
+              }
               autoPlay={index === currentSlide}
               disablePictureInPicture
               disableRemotePlayback
@@ -452,6 +515,10 @@ const Hero = () => {
                   setTimeout(() => {
                     const nextSlide = (index + 1) % slides.length;
                     setCurrentSlide(nextSlide);
+                    // On mobile, ensure next video is loaded
+                    if (isMobile && !loadedVideos.has(nextSlide)) {
+                      setLoadedVideos(prev => new Set([...prev, nextSlide]));
+                    }
                   }, 300);
                 }
               }}
@@ -465,6 +532,10 @@ const Hero = () => {
                     setTimeout(() => {
                       const nextSlide = (index + 1) % slides.length;
                       setCurrentSlide(nextSlide);
+                      // On mobile, ensure next video is loaded
+                      if (isMobile && !loadedVideos.has(nextSlide)) {
+                        setLoadedVideos(prev => new Set([...prev, nextSlide]));
+                      }
                     }, 300);
                   }
                 }
@@ -472,8 +543,8 @@ const Hero = () => {
             >
               <source src={slide.video} type="video/mp4" />
             </video>
-          )
-        ))}
+          );
+        })}
       </div>
 
       {/* News Overlay - Bottom Left */}
