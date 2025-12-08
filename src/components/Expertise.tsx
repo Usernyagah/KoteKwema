@@ -11,7 +11,6 @@ import engineeringImage from "@/assets/engineering.jpg";
 import technologyResearchImage from "@/assets/technology-research.jpg";
 import architecturalDesignImage from "@/assets/architectural-design.jpg";
 import interiorDesignServiceImage from "@/assets/interior-design-service.jpg";
-import sustainableDesignServiceImage from "@/assets/sustainable-design-service.jpg";
 import bim3dModelingImage from "@/assets/bim-3d-modeling.jpg";
 import projectManagementImage from "@/assets/project-management.jpg";
 
@@ -75,7 +74,7 @@ const Expertise = () => {
           {/* Service Menu with Images */}
           <div className="mb-8">
             <h3 className="text-2xl md:text-3xl font-bold mb-6 text-white">Our Services</h3>
-            <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-5 gap-4 mb-6">
+            <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
               {/* Architectural Design & Planning */}
               <Link to="/expertise/architecture" className="relative h-[250px] md:h-[300px] block group cursor-pointer overflow-hidden rounded-lg">
                 <img
@@ -100,20 +99,6 @@ const Expertise = () => {
                 <div className="absolute inset-0 bg-black/50 group-hover:bg-black/40 transition-colors duration-300 flex items-end">
                   <div className="p-4 md:p-6 w-full">
                     <span className="text-white text-base md:text-lg font-bold">Interior Design</span>
-                  </div>
-                </div>
-              </Link>
-
-              {/* Sustainable Design */}
-              <Link to="/expertise/climate" className="relative h-[250px] md:h-[300px] block group cursor-pointer overflow-hidden rounded-lg">
-                <img
-                  src={sustainableDesignServiceImage}
-                  alt="Sustainable Design"
-                  className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
-                />
-                <div className="absolute inset-0 bg-black/50 group-hover:bg-black/40 transition-colors duration-300 flex items-end">
-                  <div className="p-4 md:p-6 w-full">
-                    <span className="text-white text-base md:text-lg font-bold">Sustainable Design</span>
                   </div>
                 </div>
               </Link>
