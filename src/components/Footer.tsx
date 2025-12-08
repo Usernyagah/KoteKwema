@@ -22,7 +22,10 @@ const Footer = () => {
         <div className="flex flex-col md:flex-row justify-between items-start gap-8 mb-6">
           {/* Left Side - Company Name and Links */}
           <div className="flex flex-col gap-5 w-full md:w-auto">
-            <h3 className="text-4xl md:text-5xl logo-font text-white">KOTE KWEMA</h3>
+            <div className="flex flex-col gap-1">
+              <h3 className="text-4xl md:text-5xl logo-font text-white">KOTE KWEMA</h3>
+              <p className="text-sm text-white/80 font-medium">Architecture, Engineering & Construction</p>
+            </div>
             <div className="flex flex-wrap justify-between items-center gap-4 md:gap-6">
               <div className="flex flex-wrap gap-4 md:gap-6">
                 <Link to="/projects/residential" className="text-sm text-white hover:text-white/80 transition-colors duration-200 font-bold">

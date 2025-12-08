@@ -51,9 +51,14 @@ const Index = () => {
               <p className="text-[#D0D0D0] text-lg font-bold leading-relaxed mb-6">
                 We craft sustainable architecture, urban landscapes, and engineering solutions where innovation meets environmental stewardship.
               </p>
-              <p className="text-[#D0D0D0] text-xl logo-font">
-                KOTE KWEMA
-              </p>
+              <div className="flex flex-col gap-1">
+                <p className="text-[#D0D0D0] text-xl logo-font">
+                  KOTE KWEMA
+                </p>
+                <p className="text-[#D0D0D0] text-sm font-medium">
+                  Architecture, Engineering & Construction
+                </p>
+              </div>
             </div>
           </div>
 

@@ -84,6 +84,7 @@ const Navigation = ({ variant = "dark" }: NavigationProps = {}) => {
             <div className="flex flex-col">
               <span className={`text-xl logo-font ${textColor}`}>KOTE KWEMA</span>
               <span className={`text-xs ${textColor} slogan-font`}>With Love for Nature</span>
+              <span className={`text-[10px] ${textColor} font-medium mt-0.5`}>Architecture, Engineering & Construction</span>
             </div>
           </Link>
 
