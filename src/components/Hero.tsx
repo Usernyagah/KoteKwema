@@ -244,10 +244,60 @@ const Hero = () => {
     };
   }, [currentSlide]);
 
+  // Handle window resize for responsive video sizing
+  useEffect(() => {
+    const handleResize = () => {
+      videoRefs.current.forEach((video) => {
+        if (video && video.videoWidth && video.videoHeight) {
+          const container = video.parentElement;
+          if (container) {
+            const containerWidth = container.clientWidth;
+            const containerHeight = container.clientHeight;
+            const widthScale = containerWidth / video.videoWidth;
+            const heightScale = containerHeight / video.videoHeight;
+            const MAX_UPSCALE = 1.2;
+            const isMobile = window.innerWidth < 768;
+
+            if (isMobile) {
+              if (widthScale > MAX_UPSCALE || heightScale > MAX_UPSCALE) {
+                video.style.objectFit = 'contain';
+                video.style.objectPosition = 'center center';
+                video.style.backgroundColor = '#000000';
+              } else {
+                video.style.objectFit = 'cover';
+                video.style.objectPosition = 'center center';
+              }
+            } else {
+              if (widthScale <= 1 && heightScale <= 1) {
+                video.style.objectFit = 'cover';
+                video.style.objectPosition = 'center center';
+              } else if (widthScale > MAX_UPSCALE || heightScale > MAX_UPSCALE) {
+                video.style.objectFit = 'contain';
+                video.style.objectPosition = 'center center';
+                video.style.backgroundColor = '#000000';
+              } else {
+                video.style.objectFit = 'cover';
+                video.style.objectPosition = 'center center';
+              }
+            }
+          }
+        }
+      });
+    };
+
+    window.addEventListener('resize', handleResize);
+    // Call once on mount to set initial sizing
+    handleResize();
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
+
   return (
     <section className="relative w-full overflow-hidden bg-black min-h-[100dvh] h-screen">
       {/* Hero Videos */}
-      <div className="absolute inset-0 bg-black w-full h-full overflow-hidden">
+      <div className="absolute inset-0 bg-black w-full h-full overflow-hidden md:h-screen h-[100dvh]">
         {slides.map((slide, index) => (
           videoErrors[index] ? (
             <img
@@ -267,7 +317,7 @@ const Hero = () => {
                 }
               }}
               src={slide.video}
-              className={`absolute inset-0 w-full h-full transition-opacity duration-500 md:object-cover object-contain ${
+              className={`absolute inset-0 w-full h-full transition-opacity duration-500 ${
                 index === currentSlide ? "opacity-100 z-10" : "opacity-0 z-0"
               }`}
               style={{
@@ -296,7 +346,9 @@ const Hero = () => {
                   video.setAttribute('playsinline', 'true');
                 }
                 
-                // Quality preservation: Limit upscaling to prevent quality loss
+                // Mobile-responsive video sizing
+                const isMobile = window.innerWidth < 768;
+                
                 if (video.videoWidth && video.videoHeight) {
                   const container = video.parentElement;
                   if (container) {
@@ -310,26 +362,38 @@ const Hero = () => {
                     // Maximum upscale factor - prevent quality loss beyond 1.2x (20% upscale)
                     const MAX_UPSCALE = 1.2;
                     
-                    // Strategy: Prioritize quality - avoid upscaling when possible
-                    if (widthScale <= 1 && heightScale <= 1) {
-                      // Video is larger than container - use cover (downscaling, no quality loss)
-                      video.style.objectFit = 'cover';
-                      video.style.objectPosition = 'center center';
-                    } else if (widthScale > MAX_UPSCALE || heightScale > MAX_UPSCALE) {
-                      // Excessive upscaling detected - use contain to show full video without quality loss
-                      video.style.objectFit = 'contain';
-                      video.style.objectPosition = 'center center';
-                      // Add black bars instead of upscaling
-                      video.style.backgroundColor = '#000000';
-                    } else if (widthScale > 1 || heightScale > 1) {
-                      // Moderate upscaling - use cover but limit to native resolution
-                      const scale = Math.min(widthScale, heightScale, MAX_UPSCALE);
-                      video.style.objectFit = 'cover';
-                      video.style.objectPosition = 'center center';
+                    // Mobile-specific handling
+                    if (isMobile) {
+                      // On mobile: prefer contain to show full video, avoid cropping
+                      if (widthScale > MAX_UPSCALE || heightScale > MAX_UPSCALE) {
+                        video.style.objectFit = 'contain';
+                        video.style.objectPosition = 'center center';
+                        video.style.backgroundColor = '#000000';
+                      } else {
+                        // Use cover on mobile if video is large enough
+                        video.style.objectFit = 'cover';
+                        video.style.objectPosition = 'center center';
+                      }
                     } else {
-                      // No upscaling needed
-                      video.style.objectFit = 'cover';
-                      video.style.objectPosition = 'center center';
+                      // Desktop: Quality preservation strategy
+                      if (widthScale <= 1 && heightScale <= 1) {
+                        // Video is larger than container - use cover (downscaling, no quality loss)
+                        video.style.objectFit = 'cover';
+                        video.style.objectPosition = 'center center';
+                      } else if (widthScale > MAX_UPSCALE || heightScale > MAX_UPSCALE) {
+                        // Excessive upscaling detected - use contain to show full video without quality loss
+                        video.style.objectFit = 'contain';
+                        video.style.objectPosition = 'center center';
+                        video.style.backgroundColor = '#000000';
+                      } else if (widthScale > 1 || heightScale > 1) {
+                        // Moderate upscaling - use cover but limit to native resolution
+                        video.style.objectFit = 'cover';
+                        video.style.objectPosition = 'center center';
+                      } else {
+                        // No upscaling needed
+                        video.style.objectFit = 'cover';
+                        video.style.objectPosition = 'center center';
+                      }
                     }
                     
                     // Force high-quality rendering to prevent quality loss on upscale
@@ -340,11 +404,15 @@ const Hero = () => {
               }}
               muted
               playsInline
-              preload="auto"
+              preload={index === currentSlide ? "auto" : "metadata"}
               autoPlay={index === currentSlide}
               disablePictureInPicture
               disableRemotePlayback
               controlsList="nodownload nofullscreen noremoteplayback"
+              webkit-playsinline="true"
+              x5-playsinline="true"
+              x5-video-player-type="h5"
+              x5-video-player-fullscreen="false"
               onError={(e) => {
                 console.error(`Video ${index} error:`, e);
                 // Mark this video as having an error
