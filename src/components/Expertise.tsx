@@ -62,24 +62,78 @@ const Expertise = () => {
             </Link>
           </div>
 
-          {/* Service Menu */}
-          <div className="mb-8 bg-[#333333] p-8 rounded-lg">
-            <h3 className="text-2xl font-bold mb-6 text-white">Our Services</h3>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div>
-                <h4 className="text-lg font-bold mb-3 text-white">Services</h4>
-                <ul className="space-y-2 text-white font-bold">
-                  <li>• Architectural Design & Planning</li>
-                  <li>• Interior Design</li>
-                  <li>• Sustainable Design</li>
-                  <li>• BIM & 3D Modeling</li>
-                  <li>• Project Management</li>
-                </ul>
-              </div>
-            </div>
-            <div className="mt-6">
-              <Link to="/projects/residential" className="inline-block px-6 py-3 bg-white text-[#1A1A1A] hover:bg-white/90 transition-colors duration-200 font-bold tracking-wide rounded-full">
-                View Project Examples
+          {/* Service Menu with Images */}
+          <div className="mb-8">
+            <h3 className="text-2xl md:text-3xl font-bold mb-6 text-white">Our Services</h3>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4 mb-6">
+              {/* Architectural Design & Planning */}
+              <Link to="/expertise/architecture" className="relative h-[250px] md:h-[300px] block group cursor-pointer overflow-hidden rounded-lg">
+                <img
+                  src="https://images.unsplash.com/photo-1487958449943-2429e8be8625?w=800&h=600&fit=crop&q=80"
+                  alt="Architectural Design & Planning"
+                  className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+                />
+                <div className="absolute inset-0 bg-black/50 group-hover:bg-black/40 transition-colors duration-300 flex items-end">
+                  <div className="p-4 md:p-6 w-full">
+                    <span className="text-white text-base md:text-lg font-bold">Architectural Design & Planning</span>
+                  </div>
+                </div>
+              </Link>
+
+              {/* Interior Design */}
+              <Link to="/expertise/interiors" className="relative h-[250px] md:h-[300px] block group cursor-pointer overflow-hidden rounded-lg">
+                <img
+                  src="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=800&h=600&fit=crop&q=80"
+                  alt="Interior Design"
+                  className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+                />
+                <div className="absolute inset-0 bg-black/50 group-hover:bg-black/40 transition-colors duration-300 flex items-end">
+                  <div className="p-4 md:p-6 w-full">
+                    <span className="text-white text-base md:text-lg font-bold">Interior Design</span>
+                  </div>
+                </div>
+              </Link>
+
+              {/* Sustainable Design */}
+              <Link to="/expertise/climate" className="relative h-[250px] md:h-[300px] block group cursor-pointer overflow-hidden rounded-lg">
+                <img
+                  src="https://images.unsplash.com/photo-1524758631624-e2822e304c36?w=800&h=600&fit=crop&q=80"
+                  alt="Sustainable Design"
+                  className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+                />
+                <div className="absolute inset-0 bg-black/50 group-hover:bg-black/40 transition-colors duration-300 flex items-end">
+                  <div className="p-4 md:p-6 w-full">
+                    <span className="text-white text-base md:text-lg font-bold">Sustainable Design</span>
+                  </div>
+                </div>
+              </Link>
+
+              {/* BIM & 3D Modeling */}
+              <Link to="/expertise/technology" className="relative h-[250px] md:h-[300px] block group cursor-pointer overflow-hidden rounded-lg">
+                <img
+                  src="https://images.unsplash.com/photo-1488590528505-98d2b5aba04b?w=800&h=600&fit=crop&q=80"
+                  alt="BIM & 3D Modeling"
+                  className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+                />
+                <div className="absolute inset-0 bg-black/50 group-hover:bg-black/40 transition-colors duration-300 flex items-end">
+                  <div className="p-4 md:p-6 w-full">
+                    <span className="text-white text-base md:text-lg font-bold">BIM & 3D Modeling</span>
+                  </div>
+                </div>
+              </Link>
+
+              {/* Project Management */}
+              <Link to="/projects/residential" className="relative h-[250px] md:h-[300px] block group cursor-pointer overflow-hidden rounded-lg">
+                <img
+                  src="https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=800&h=600&fit=crop&q=80"
+                  alt="Project Management"
+                  className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+                />
+                <div className="absolute inset-0 bg-black/50 group-hover:bg-black/40 transition-colors duration-300 flex items-end">
+                  <div className="p-4 md:p-6 w-full">
+                    <span className="text-white text-base md:text-lg font-bold">Project Management</span>
+                  </div>
+                </div>
               </Link>
             </div>
           </div>
@@ -102,6 +156,13 @@ const Expertise = () => {
             </div>
           </Link>
         ))}
+          </div>
+          
+          {/* View Project Examples Button - Below all sections */}
+          <div className="mt-8 text-center">
+            <Link to="/projects/residential" className="inline-block px-6 py-3 bg-white text-[#1A1A1A] hover:bg-white/90 transition-colors duration-200 font-bold tracking-wide rounded-full">
+              View Project Examples
+            </Link>
           </div>
         </div>
       </div>
