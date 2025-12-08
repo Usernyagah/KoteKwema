@@ -121,10 +121,10 @@ const Menu = ({ isOpen, onClose }: MenuProps) => {
   
   if (!isOpen) return null;
   
-  // Show subtopics only for clicked category (not hover preview)
-  // Hover preview is for background image only, subtopics only show on click
-  const selectedCategory = clickedCategory || (hoveredCategory && !clickedCategory ? hoveredCategory : null);
-  const currentSubcategories = clickedCategory ? getSubcategories(clickedCategory) : []; // Only show subtopics for clicked category
+  // Show subtopics for clicked category or hovered category
+  // Hover shows both background image and subtopics
+  const selectedCategory = clickedCategory || hoveredCategory;
+  const currentSubcategories = selectedCategory ? getSubcategories(selectedCategory) : []; // Show subtopics for clicked or hovered category
   const backgroundImage = selectedCategory ? categoryImages[selectedCategory] || heroImage : heroImage;
 
   return (
@@ -189,8 +189,8 @@ const Menu = ({ isOpen, onClose }: MenuProps) => {
                           // If no submenu, allow navigation to proceed
                         }}
                         onMouseEnter={() => {
-                          if (category.hasSubmenu && !clickedCategory) {
-                            // Only show hover preview if no category is clicked
+                          if (category.hasSubmenu) {
+                            // Show hover preview with subtopics
                             setHoveredCategory(category.name);
                           }
                         }}
@@ -210,10 +210,10 @@ const Menu = ({ isOpen, onClose }: MenuProps) => {
                 </nav>
               </div>
 
-              {/* Right Column - Subcategories - Only show when category is clicked */}
+              {/* Right Column - Subcategories - Show when category is clicked or hovered */}
               <div className="flex-1 border-l-0 md:border-l border-[#E5E5E5] pl-0 md:pl-8 lg:pl-12 min-w-0 mt-4 md:mt-0">
-                {clickedCategory && (
-                  <MenuSection title={clickedCategory}>
+                {selectedCategory && (
+                  <MenuSection title={selectedCategory}>
                     <div className="space-y-1 mt-4 md:mt-6">
                       {currentSubcategories.map((subcategory, index) => (
                         <MenuSubLink
@@ -221,7 +221,7 @@ const Menu = ({ isOpen, onClose }: MenuProps) => {
                           href={subcategory.href}
                           onClick={onClose}
                           delay={index * 30}
-                          disabled={false}
+                          disabled={!clickedCategory}
                         >
                           {subcategory.name}
                         </MenuSubLink>
