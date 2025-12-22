@@ -22,7 +22,13 @@ const StructuredData = ({ type = 'Organization', data }: StructuredDataProps) =>
           '@type': 'Organization',
           name: 'Kote Kwema',
           url: baseUrl,
-          logo: `${baseUrl}/logo.jpg`,
+          logo: {
+            '@type': 'ImageObject',
+            url: `${baseUrl}/logo.jpg`,
+            width: 297,
+            height: 297,
+          },
+          image: `${baseUrl}/logo.jpg`,
           description: 'Award-winning architecture firm creating innovative and sustainable designs across residential, commercial, and cultural spaces in Nairobi, Kenya.',
           address: {
             '@type': 'PostalAddress',
