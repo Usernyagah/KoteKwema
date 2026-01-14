@@ -14,6 +14,7 @@ Kote Kwema is a modern, responsive website built for an architecture firm specia
 - **Search Functionality**: Client-side search across all subtopics
 - **Form Handling**: Integrated Formspree forms for newsletter, consultation, and inquiries
 - **Menu System**: Interactive menu with hover previews and click navigation
+- **Admin Dashboard**: Firebase-powered admin panel for managing properties, job vacancies, and email subscriptions
 
 ### Performance & SEO
 - **SEO Optimization**: Dynamic meta tags, Open Graph, and Twitter Card support
@@ -34,6 +35,7 @@ Kote Kwema is a modern, responsive website built for an architecture firm specia
 - **UI Components**: shadcn/ui
 - **Routing**: React Router DOM
 - **Form Handling**: Formspree
+- **Backend**: Firebase (Authentication, Firestore)
 - **State Management**: React Hooks
 - **Icons**: Lucide React
 
@@ -65,9 +67,18 @@ The application will be available at `http://localhost:5173`
 
 ### Environment Variables
 
-Create a `.env` file in the root directory for analytics (optional):
+Create a `.env` file in the root directory:
 
 ```env
+# Firebase Configuration (Required for Admin Dashboard)
+VITE_FIREBASE_API_KEY=your-api-key-here
+VITE_FIREBASE_AUTH_DOMAIN=your-project-id.firebaseapp.com
+VITE_FIREBASE_PROJECT_ID=your-project-id
+VITE_FIREBASE_STORAGE_BUCKET=your-project-id.appspot.com
+VITE_FIREBASE_MESSAGING_SENDER_ID=your-sender-id
+VITE_FIREBASE_APP_ID=your-app-id
+
+# Google Analytics (Optional)
 VITE_GA_MEASUREMENT_ID=your-google-analytics-id
 ```
 
@@ -86,6 +97,23 @@ The project uses Formspree for form submissions. Configure your forms:
    - `src/components/ContactForm.tsx` (contact forms)
 
 See `FORMS_SETUP.md` for detailed instructions.
+
+### Firebase & Admin Dashboard Setup
+
+The project includes an admin dashboard for managing properties, job vacancies, and email subscriptions. **The free Firebase Spark plan is sufficient** - no paid subscription required.
+
+To set it up:
+
+1. Create a Firebase project at [Firebase Console](https://console.firebase.google.com/)
+   - Select the **Spark (free) plan** when creating the project
+2. Enable Authentication (Email/Password) and Firestore Database
+3. Add your Firebase configuration to `.env` file
+4. Create an admin user in Firebase Authentication
+5. Configure Firestore security rules (see `ADMIN_SETUP.md`)
+
+**Free Plan Limits:** 1 GB storage, 50K reads/day, 20K writes/day - more than enough for most websites.
+
+See `ADMIN_SETUP.md` for detailed admin dashboard setup instructions.
 
 ## 📁 Project Structure
 
@@ -113,6 +141,8 @@ KoteKwema/
 - **Index**: Homepage with hero, architecture showcase, expertise, news, and climate sections
 - **SubTopicPage**: Dynamic page component for all subtopic routes
 - **NotFound**: Enhanced 404 error page
+- **AdminLogin**: Admin authentication page
+- **AdminDashboard**: Admin panel for managing content
 
 ### Components
 - **Navigation**: Main navigation bar with logo, menu, and search
@@ -157,11 +187,20 @@ This creates an optimized production build in the `dist/` directory.
 
 ## 📝 Content Management
 
-All content is managed in `src/pages/SubTopicPage.tsx` in the `subtopicContent` object. To update content:
+### Static Content
+All static content is managed in `src/pages/SubTopicPage.tsx` in the `subtopicContent` object. To update content:
 
 1. Navigate to `src/pages/SubTopicPage.tsx`
 2. Find the relevant subtopic in `subtopicContent`
 3. Update the content object with your changes
+
+### Dynamic Content (Admin Dashboard)
+Use the admin dashboard to manage:
+- **Properties**: Add, edit, and manage property listings
+- **Job Vacancies**: Post and manage job openings
+- **Email Subscriptions**: View and manage newsletter subscriptions
+
+Access the admin dashboard at `/admin/login` after setting up Firebase.
 
 ## 🔍 SEO Features
 

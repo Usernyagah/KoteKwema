@@ -2,6 +2,8 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import heroImage from "@/assets/hero-architecture.jpg";
 import { toast } from "@/hooks/use-toast";
+import { collection, addDoc, query, where, getDocs } from "firebase/firestore";
+import { db } from "@/lib/firebase";
 
 const News = () => {
   const [email, setEmail] = useState("");
@@ -12,7 +14,34 @@ const News = () => {
     setIsSubmitting(true);
 
     try {
-      // Using Formspree
+      // Save to Firebase if configured
+      if (db) {
+        try {
+          // Check if email already exists
+          const q = query(collection(db, "emailSubscriptions"), where("email", "==", email));
+          const querySnapshot = await getDocs(q);
+
+          if (!querySnapshot.empty) {
+            toast({
+              title: "Already subscribed",
+              description: "This email is already subscribed to our newsletter.",
+            });
+            setEmail("");
+            setIsSubmitting(false);
+            return;
+          }
+
+          // Save to Firebase
+          await addDoc(collection(db, "emailSubscriptions"), {
+            email,
+            subscribedAt: new Date(),
+          });
+        } catch (firebaseError) {
+          console.warn("Firebase save failed, continuing with Formspree:", firebaseError);
+        }
+      }
+
+      // Also send to Formspree (optional, for email notifications)
       const response = await fetch("https://formspree.io/f/mnnebzqo", {
         method: "POST",
         headers: {
@@ -32,7 +61,11 @@ const News = () => {
         });
         setEmail("");
       } else {
-        throw new Error("Subscription failed");
+        toast({
+          title: "Error",
+          description: "Something went wrong. Please try again later.",
+          variant: "destructive",
+        });
       }
     } catch (error) {
       toast({

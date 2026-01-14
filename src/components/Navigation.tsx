@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { Menu as MenuIcon, Search } from "lucide-react";
+import { Menu as MenuIcon, Search, LogIn } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import SearchOverlay from "./SearchOverlay";
 import Menu from "./Menu";
@@ -92,7 +92,7 @@ const Navigation = ({ variant = "dark" }: NavigationProps = {}) => {
           <div className="flex-grow"></div>
 
           {/* Icons - Far Right with Fixed Padding */}
-          <div className="flex items-center pr-6 lg:pr-12">
+          <div className="flex items-center gap-2 pr-6 lg:pr-12">
             <Button
               variant="ghost"
               size="icon"
@@ -103,6 +103,18 @@ const Navigation = ({ variant = "dark" }: NavigationProps = {}) => {
             >
               <Search className="h-5 w-5" aria-hidden="true" />
             </Button>
+
+            <Link to="/admin/login">
+              <Button
+                variant="ghost"
+                size="icon"
+                className={`${hoverBg} ${iconColor}`}
+                aria-label="Admin login"
+                title="Admin Login"
+              >
+                <LogIn className="h-5 w-5" aria-hidden="true" />
+              </Button>
+            </Link>
 
             <Button
               variant="ghost"
