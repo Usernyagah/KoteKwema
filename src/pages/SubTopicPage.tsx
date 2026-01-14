@@ -8,6 +8,7 @@ import { useSEO } from "@/hooks/useSEO";
 import { trackPageView } from "@/utils/analytics";
 import heroImage from "@/assets/hero-architecture.jpg";
 import koteKwemaImage from "@/assets/kote kwema.jpg";
+import bonfaceAgeroImage from "@/assets/unnamed.jpg";
 import project1 from "@/assets/project-1.jpg";
 import project2 from "@/assets/project-2.jpg";
 import project3 from "@/assets/project-3.jpg";
@@ -327,6 +328,12 @@ const subtopicContent: Record<string, {
         role: "Principal Architect @KoteKwema",
         bio: "Architect Mwangi leads our design vision with extensive experience in sustainable architecture and innovative design solutions. With a deep commitment to creating buildings that serve communities and respect the environment, Architect Mwangi guides our team in delivering exceptional architectural projects that combine aesthetic excellence with environmental responsibility.",
         image: koteKwemaImage
+      },
+      {
+        name: "Bonface Agero",
+        role: "Operational Director, M.AAK, B.Arch",
+        bio: "Bonface Agero brings extensive operational expertise and architectural knowledge to Kote Kwema. With qualifications including M.AAK and B.Arch, he oversees the firm's day-to-day operations, ensuring efficient project delivery and maintaining the highest standards of quality and professionalism across all our work.",
+        image: bonfaceAgeroImage
       }
     ]
   },
