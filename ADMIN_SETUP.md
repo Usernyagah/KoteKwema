@@ -21,6 +21,7 @@ This guide will help you set up the admin dashboard for managing properties, job
 3. Enable the following services (all available on free plan):
    - **Authentication** (Email/Password) - Unlimited on free plan
    - **Firestore Database** - 1 GB storage, 50K reads/day, 20K writes/day on free plan
+   - **Storage** - 5 GB storage, 1 GB/day downloads on free plan (for image uploads)
 
 ### 2. Get Firebase Configuration
 
@@ -88,7 +89,17 @@ service cloud.firestore {
 }
 ```
 
-### 7. Create Admin User
+### 7. Enable Firebase Storage
+
+1. In Firebase Console, go to **Storage**
+2. Click **"Get started"** (if first time)
+3. Choose **"Start in test mode"** (you can update security rules later)
+4. Select a location (same as Firestore location recommended)
+5. Click **"Done"**
+
+**Note:** Storage security rules will allow authenticated users to upload. You can customize these later in Storage > Rules.
+
+### 8. Create Admin User
 
 1. In Firebase Console, go to **Authentication**
 2. Click on **"Sign-in method"** tab
@@ -163,6 +174,10 @@ The Firebase Spark (free) plan includes generous limits that are more than suffi
   - 50,000 reads per day
   - 20,000 writes per day
   - 20,000 deletes per day
+- **Storage** (for image uploads):
+  - 5 GB storage
+  - 1 GB/day downloads
+  - 20,000 uploads per day
 - **Network**: 10 GB/month egress
 
 For most small to medium-sized websites, these limits are more than adequate. You can monitor your usage in the Firebase Console.

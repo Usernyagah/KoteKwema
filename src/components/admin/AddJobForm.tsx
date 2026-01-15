@@ -107,6 +107,7 @@ const AddJobForm = () => {
             </SelectTrigger>
             <SelectContent>
               <SelectItem value="architecture">Architecture</SelectItem>
+              <SelectItem value="design">Design</SelectItem>
               <SelectItem value="engineering">Engineering</SelectItem>
               <SelectItem value="interior-design">Interior Design</SelectItem>
               <SelectItem value="urban-planning">Urban Planning</SelectItem>
@@ -150,8 +151,11 @@ const AddJobForm = () => {
             value={formData.applicationEmail}
             onChange={(e) => handleChange("applicationEmail", e.target.value)}
             disabled={isSubmitting}
-            placeholder="careers@example.com"
+            placeholder="careers@kotekwema.com"
           />
+          <p className="text-xs text-muted-foreground">
+            Default: careers@kotekwema.com (as per careers page)
+          </p>
         </div>
 
         <div className="space-y-2">

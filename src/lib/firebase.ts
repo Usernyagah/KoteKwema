@@ -1,6 +1,7 @@
 import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
+import { getStorage } from "firebase/storage";
 
 const firebaseConfig = {
   apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
@@ -26,6 +27,7 @@ const isFirebaseConfigured = () => {
 let app: ReturnType<typeof initializeApp> | null = null;
 let auth: ReturnType<typeof getAuth> | null = null;
 let db: ReturnType<typeof getFirestore> | null = null;
+let storage: ReturnType<typeof getStorage> | null = null;
 
 // Initialize Firebase only if configured
 if (isFirebaseConfigured()) {
@@ -33,6 +35,7 @@ if (isFirebaseConfigured()) {
     app = initializeApp(firebaseConfig);
     auth = getAuth(app);
     db = getFirestore(app);
+    storage = getStorage(app);
   } catch (error) {
     console.warn("Firebase initialization error:", error);
     if (process.env.NODE_ENV === "development") {
@@ -48,5 +51,5 @@ if (isFirebaseConfigured()) {
 }
 
 // Export Firebase services (may be null if not configured)
-export { auth, db };
+export { auth, db, storage };
 export default app;

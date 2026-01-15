@@ -4,6 +4,7 @@ import SubTopicPageLayout from "@/components/SubTopicPageLayout";
 import { Card, CardContent } from "@/components/ui/card";
 import ContactForm from "@/components/ContactForm";
 import StructuredData from "@/components/StructuredData";
+import PropertiesList from "@/components/PropertiesList";
 import { useSEO } from "@/hooks/useSEO";
 import { trackPageView } from "@/utils/analytics";
 import heroImage from "@/assets/hero-architecture.jpg";
@@ -620,6 +621,14 @@ const SubTopicPage = () => {
                     </Card>
                   ))}
               </div>
+              </div>
+            )}
+
+            {/* Properties from Firestore - For Projects pages */}
+            {(key === "residential" || key === "commercial" || key === "cultural" || key === "mixed-use") && (
+              <div className="mt-8 md:mt-12">
+                <h2 className="text-2xl md:text-3xl font-light text-black mb-6">Our Projects</h2>
+                <PropertiesList category={key === "mixed-use" ? "mixed-use" : key} />
               </div>
             )}
 
