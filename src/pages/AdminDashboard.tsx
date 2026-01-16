@@ -8,8 +8,8 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { toast } from "@/hooks/use-toast";
 import { useNavigate } from "react-router-dom";
 import { Building2, Briefcase, Mail, LogOut } from "lucide-react";
-import AddPropertyForm from "@/components/admin/AddPropertyForm";
-import AddJobForm from "@/components/admin/AddJobForm";
+import PropertiesManagement from "@/components/admin/PropertiesManagement";
+import JobsManagement from "@/components/admin/JobsManagement";
 import EmailSubscriptions from "@/components/admin/EmailSubscriptions";
 
 const AdminDashboard = () => {
@@ -98,11 +98,11 @@ const AdminDashboard = () => {
           <TabsContent value="properties">
             <Card>
               <CardHeader>
-                <CardTitle>Add New Property</CardTitle>
-                <CardDescription>Add a new property to the database</CardDescription>
+                <CardTitle>Properties Management</CardTitle>
+                <CardDescription>View, add, edit, and delete properties</CardDescription>
               </CardHeader>
               <CardContent>
-                <AddPropertyForm />
+                <PropertiesManagement />
               </CardContent>
             </Card>
           </TabsContent>
@@ -110,11 +110,11 @@ const AdminDashboard = () => {
           <TabsContent value="jobs">
             <Card>
               <CardHeader>
-                <CardTitle>Add New Job Vacancy</CardTitle>
-                <CardDescription>Post a new job opening</CardDescription>
+                <CardTitle>Job Vacancies Management</CardTitle>
+                <CardDescription>View, add, edit, and delete job vacancies</CardDescription>
               </CardHeader>
               <CardContent>
-                <AddJobForm />
+                <JobsManagement />
               </CardContent>
             </Card>
           </TabsContent>

@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { collection, query, where, getDocs, orderBy } from "firebase/firestore";
 import { db } from "@/lib/firebase";
-import { Card, CardContent } from "@/components/ui/card";
+import PropertyCard from "./PropertyCard";
 
 interface Property {
   id: string;
@@ -146,52 +146,9 @@ const PropertiesList = ({ category }: PropertiesListProps) => {
 
   return (
     <div className="mt-8 md:mt-12">
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
         {properties.map((property) => (
-          <Card
-            key={property.id}
-            className="overflow-hidden border border-[#E5E5E5] bg-white hover:shadow-lg transition-shadow duration-300"
-          >
-            {property.images && property.images.length > 0 && (
-              <div className="aspect-[16/9] overflow-hidden">
-                <img
-                  src={property.images[0]}
-                  alt={property.title}
-                  className="w-full h-full object-cover"
-                  onError={(e) => {
-                    (e.target as HTMLImageElement).src = "https://via.placeholder.com/800x450?text=No+Image";
-                  }}
-                />
-              </div>
-            )}
-            <CardContent className="p-4 md:p-6 bg-white">
-              <h3 className="text-lg md:text-xl font-semibold text-[#1A1A1A] mb-2">
-                {property.title}
-              </h3>
-              <div className="space-y-1 mb-3">
-                <p className="text-xs md:text-sm text-[#666666] font-medium">
-                  {property.location}
-                </p>
-                {property.price && (
-                  <p className="text-sm font-semibold text-[#1A1A1A]">
-                    ${property.price.toLocaleString()}
-                  </p>
-                )}
-                <div className="flex gap-4 text-xs text-[#666666]">
-                  {property.bedrooms && (
-                    <span>{property.bedrooms} Bed{property.bedrooms > 1 ? "s" : ""}</span>
-                  )}
-                  {property.bathrooms && (
-                    <span>{property.bathrooms} Bath{property.bathrooms > 1 ? "s" : ""}</span>
-                  )}
-                  {property.area && <span>{property.area.toLocaleString()} sq ft</span>}
-                </div>
-              </div>
-              <p className="text-xs md:text-sm text-[#4A4A4A] font-light leading-relaxed line-clamp-3">
-                {property.description}
-              </p>
-            </CardContent>
-          </Card>
+          <PropertyCard key={property.id} property={property} />
         ))}
       </div>
     </div>

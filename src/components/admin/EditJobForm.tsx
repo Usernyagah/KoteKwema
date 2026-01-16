@@ -1,12 +1,26 @@
 import { useState } from "react";
-import { collection, addDoc } from "firebase/firestore";
+import { doc, updateDoc } from "firebase/firestore";
 import { db } from "@/lib/firebase";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Switch } from "@/components/ui/switch";
 import { toast } from "@/hooks/use-toast";
+
+interface Job {
+  id: string;
+  title: string;
+  department: string;
+  location: string;
+  type: string;
+  description: string;
+  requirements: string;
+  applicationEmail: string;
+  applicationUrl: string;
+  isActive: boolean;
+}
 
 interface JobFormData {
   title: string;
@@ -17,26 +31,29 @@ interface JobFormData {
   requirements: string;
   applicationEmail: string;
   applicationUrl: string;
+  isActive: boolean;
 }
 
-interface AddJobFormProps {
-  onSuccess?: () => void;
+interface EditJobFormProps {
+  job: Job;
+  onSuccess: () => void;
 }
 
-const AddJobForm = ({ onSuccess }: AddJobFormProps = {}) => {
+const EditJobForm = ({ job, onSuccess }: EditJobFormProps) => {
   const [formData, setFormData] = useState<JobFormData>({
-    title: "",
-    department: "",
-    location: "",
-    type: "",
-    description: "",
-    requirements: "",
-    applicationEmail: "",
-    applicationUrl: "",
+    title: job.title || "",
+    department: job.department || "",
+    location: job.location || "",
+    type: job.type || "",
+    description: job.description || "",
+    requirements: job.requirements || "",
+    applicationEmail: job.applicationEmail || "",
+    applicationUrl: job.applicationUrl || "",
+    isActive: job.isActive !== undefined ? job.isActive : true,
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const handleChange = (field: keyof JobFormData, value: string) => {
+  const handleChange = (field: keyof JobFormData, value: string | boolean) => {
     setFormData((prev) => ({ ...prev, [field]: value }));
   };
 
@@ -55,37 +72,21 @@ const AddJobForm = ({ onSuccess }: AddJobFormProps = {}) => {
     setIsSubmitting(true);
 
     try {
-      await addDoc(collection(db, "jobVacancies"), {
+      await updateDoc(doc(db, "jobVacancies", job.id), {
         ...formData,
-        isActive: true,
-        createdAt: new Date(),
+        updatedAt: new Date(),
       });
 
       toast({
         title: "Success!",
-        description: "Job vacancy added successfully.",
+        description: "Job vacancy updated successfully.",
       });
 
-      // Reset form
-      setFormData({
-        title: "",
-        department: "",
-        location: "",
-        type: "",
-        description: "",
-        requirements: "",
-        applicationEmail: "",
-        applicationUrl: "",
-      });
-
-      // Call onSuccess callback if provided
-      if (onSuccess) {
-        onSuccess();
-      }
+      onSuccess();
     } catch (error) {
       toast({
         title: "Error",
-        description: "Failed to add job vacancy. Please try again.",
+        description: "Failed to update job vacancy. Please try again.",
         variant: "destructive",
       });
     } finally {
@@ -162,9 +163,6 @@ const AddJobForm = ({ onSuccess }: AddJobFormProps = {}) => {
             disabled={isSubmitting}
             placeholder="careers@kotekwema.com"
           />
-          <p className="text-xs text-muted-foreground">
-            Default: careers@kotekwema.com (as per careers page)
-          </p>
         </div>
 
         <div className="space-y-2">
@@ -177,6 +175,18 @@ const AddJobForm = ({ onSuccess }: AddJobFormProps = {}) => {
             disabled={isSubmitting}
             placeholder="https://example.com/apply"
           />
+        </div>
+
+        <div className="space-y-2 flex items-center gap-2">
+          <Switch
+            id="isActive"
+            checked={formData.isActive}
+            onCheckedChange={(checked) => handleChange("isActive", checked)}
+            disabled={isSubmitting}
+          />
+          <Label htmlFor="isActive" className="cursor-pointer">
+            Active (visible on website)
+          </Label>
         </div>
       </div>
 
@@ -205,11 +215,16 @@ const AddJobForm = ({ onSuccess }: AddJobFormProps = {}) => {
         />
       </div>
 
-      <Button type="submit" disabled={isSubmitting}>
-        {isSubmitting ? "Adding..." : "Add Job Vacancy"}
-      </Button>
+      <div className="flex gap-2">
+        <Button type="submit" disabled={isSubmitting}>
+          {isSubmitting ? "Updating..." : "Update Job Vacancy"}
+        </Button>
+        <Button type="button" variant="outline" onClick={onSuccess} disabled={isSubmitting}>
+          Cancel
+        </Button>
+      </div>
     </form>
   );
 };
 
-export default AddJobForm;
+export default EditJobForm;

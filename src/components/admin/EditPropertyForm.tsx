@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { collection, addDoc } from "firebase/firestore";
+import { useState, useEffect } from "react";
+import { doc, updateDoc } from "firebase/firestore";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { db, storage } from "@/lib/firebase";
 import { Button } from "@/components/ui/button";
@@ -8,12 +8,25 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { toast } from "@/hooks/use-toast";
-import { Plus, X, Upload, Loader2 } from "lucide-react";
+import { Plus, X, Loader2 } from "lucide-react";
+
+interface Property {
+  id: string;
+  title: string;
+  description: string;
+  category: string;
+  location: string;
+  price?: number;
+  bedrooms?: number;
+  bathrooms?: number;
+  area?: number;
+  images: string[];
+}
 
 interface PropertyFormData {
   title: string;
   description: string;
-  category: string; // Changed from 'type' to 'category' to match projects page
+  category: string;
   location: string;
   price: string;
   bedrooms: string;
@@ -28,23 +41,36 @@ interface ImageUploadState {
   url: string;
 }
 
-interface AddPropertyFormProps {
-  onSuccess?: () => void;
+interface EditPropertyFormProps {
+  property: Property;
+  onSuccess: () => void;
 }
 
-const AddPropertyForm = ({ onSuccess }: AddPropertyFormProps = {}) => {
+const EditPropertyForm = ({ property, onSuccess }: EditPropertyFormProps) => {
   const [formData, setFormData] = useState<PropertyFormData>({
-    title: "",
-    description: "",
-    category: "",
-    location: "",
-    price: "",
-    bedrooms: "",
-    bathrooms: "",
-    area: "",
-    images: [""],
+    title: property.title || "",
+    description: property.description || "",
+    category: property.category || "",
+    location: property.location || "",
+    price: property.price?.toString() || "",
+    bedrooms: property.bedrooms?.toString() || "",
+    bathrooms: property.bathrooms?.toString() || "",
+    area: property.area?.toString() || "",
+    images: property.images || [""],
   });
-  const [imageUploads, setImageUploads] = useState<ImageUploadState[]>([{ file: null, uploading: false, url: "" }]);
+  const [imageUploads, setImageUploads] = useState<ImageUploadState[]>(
+    property.images && property.images.length > 0
+      ? property.images.map(() => ({ file: null, uploading: false, url: "" }))
+      : [{ file: null, uploading: false, url: "" }]
+  );
+
+  // Ensure images array matches uploads array length
+  useEffect(() => {
+    if (formData.images.length !== imageUploads.length) {
+      const newUploads = formData.images.map(() => ({ file: null, uploading: false, url: "" }));
+      setImageUploads(newUploads);
+    }
+  }, [formData.images.length]);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleChange = (field: keyof PropertyFormData, value: string | string[]) => {
@@ -56,7 +82,6 @@ const AddPropertyForm = ({ onSuccess }: AddPropertyFormProps = {}) => {
     newImages[index] = value;
     handleChange("images", newImages);
     
-    // Clear file upload if URL is entered
     const newUploads = [...imageUploads];
     if (newUploads[index]) {
       newUploads[index] = { file: null, uploading: false, url: "" };
@@ -76,7 +101,6 @@ const AddPropertyForm = ({ onSuccess }: AddPropertyFormProps = {}) => {
       return;
     }
 
-    // Validate file type
     if (!file.type.startsWith("image/")) {
       toast({
         title: "Invalid file",
@@ -86,7 +110,6 @@ const AddPropertyForm = ({ onSuccess }: AddPropertyFormProps = {}) => {
       return;
     }
 
-    // Validate file size (max 10MB)
     if (file.size > 10 * 1024 * 1024) {
       toast({
         title: "File too large",
@@ -96,29 +119,22 @@ const AddPropertyForm = ({ onSuccess }: AddPropertyFormProps = {}) => {
       return;
     }
 
-    // Update upload state
     const newUploads = [...imageUploads];
     newUploads[index] = { file, uploading: true, url: "" };
     setImageUploads(newUploads);
 
     try {
-      // Create a unique filename
       const timestamp = Date.now();
       const filename = `properties/${timestamp}_${file.name}`;
       const storageRef = ref(storage, filename);
 
-      // Upload file
       await uploadBytes(storageRef, file);
-
-      // Get download URL
       const downloadURL = await getDownloadURL(storageRef);
 
-      // Update state with URL
       const updatedUploads = [...imageUploads];
       updatedUploads[index] = { file: null, uploading: false, url: downloadURL };
       setImageUploads(updatedUploads);
 
-      // Update form data with the URL
       const newImages = [...formData.images];
       newImages[index] = downloadURL;
       handleChange("images", newImages);
@@ -168,47 +184,31 @@ const AddPropertyForm = ({ onSuccess }: AddPropertyFormProps = {}) => {
     setIsSubmitting(true);
 
     try {
-      // Filter out empty image URLs
       const validImages = formData.images.filter((url) => url.trim() !== "");
       
-      await addDoc(collection(db, "properties"), {
-        ...formData,
-        category: formData.category, // Save as 'category' to match projects page structure
+      await updateDoc(doc(db, "properties", property.id), {
+        title: formData.title,
+        description: formData.description,
+        category: formData.category,
+        location: formData.location,
         images: validImages.length > 0 ? validImages : [],
         price: formData.price ? parseFloat(formData.price) : null,
         bedrooms: formData.bedrooms ? parseInt(formData.bedrooms) : null,
         bathrooms: formData.bathrooms ? parseInt(formData.bathrooms) : null,
         area: formData.area ? parseFloat(formData.area) : null,
-        createdAt: new Date(),
+        updatedAt: new Date(),
       });
 
       toast({
         title: "Success!",
-        description: "Property added successfully.",
+        description: "Property updated successfully.",
       });
 
-      // Reset form
-      setFormData({
-        title: "",
-        description: "",
-        category: "",
-        location: "",
-        price: "",
-        bedrooms: "",
-        bathrooms: "",
-        area: "",
-        images: [""],
-      });
-      setImageUploads([{ file: null, uploading: false, url: "" }]);
-
-      // Call onSuccess callback if provided
-      if (onSuccess) {
-        onSuccess();
-      }
+      onSuccess();
     } catch (error) {
       toast({
         title: "Error",
-        description: "Failed to add property. Please try again.",
+        description: "Failed to update property. Please try again.",
         variant: "destructive",
       });
     } finally {
@@ -303,7 +303,6 @@ const AddPropertyForm = ({ onSuccess }: AddPropertyFormProps = {}) => {
             placeholder="Property area"
           />
         </div>
-
       </div>
 
       <div className="space-y-2">
@@ -402,11 +401,16 @@ const AddPropertyForm = ({ onSuccess }: AddPropertyFormProps = {}) => {
         />
       </div>
 
-      <Button type="submit" disabled={isSubmitting}>
-        {isSubmitting ? "Adding..." : "Add Property"}
-      </Button>
+      <div className="flex gap-2">
+        <Button type="submit" disabled={isSubmitting}>
+          {isSubmitting ? "Updating..." : "Update Property"}
+        </Button>
+        <Button type="button" variant="outline" onClick={onSuccess} disabled={isSubmitting}>
+          Cancel
+        </Button>
+      </div>
     </form>
   );
 };
 
-export default AddPropertyForm;
+export default EditPropertyForm;
