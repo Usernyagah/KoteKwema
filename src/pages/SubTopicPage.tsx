@@ -1,10 +1,11 @@
 import { useParams, useLocation } from "react-router-dom";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import SubTopicPageLayout from "@/components/SubTopicPageLayout";
 import { Card, CardContent } from "@/components/ui/card";
 import ContactForm from "@/components/ContactForm";
 import StructuredData from "@/components/StructuredData";
 import PropertiesList from "@/components/PropertiesList";
+import ProjectsFilter from "@/components/ProjectsFilter";
 import { useSEO } from "@/hooks/useSEO";
 import { trackPageView } from "@/utils/analytics";
 import heroImage from "@/assets/hero-architecture.jpg";
@@ -144,6 +145,11 @@ const subtopicContent: Record<string, {
     ]
   },
   // Projects subtopics
+  all: {
+    title: "Projects",
+    breadcrumbs: ["Projects", "All"],
+    description: "Explore our complete portfolio of architectural projects, from residential and commercial developments to cultural institutions and mixed-use spaces. Each project reflects our commitment to sustainable design, innovation, and creating spaces that serve communities while respecting the environment.",
+  },
   residential: {
     title: "Residential Projects",
     breadcrumbs: ["Projects", "Residential"],
@@ -500,10 +506,24 @@ const SubTopicPage = () => {
   const pathParts = location.pathname.split('/').filter(Boolean);
   const category = pathParts[0] || "";
   
+  // Filter states for "all" projects page
+  const [searchQuery, setSearchQuery] = useState("");
+  const [filterCategory, setFilterCategory] = useState<string>("all");
+  const [filterLocation, setFilterLocation] = useState<string>("All locations");
+  const [sortBy, setSortBy] = useState<string>("date-desc");
+  const [totalCount, setTotalCount] = useState<number>(0);
+  
   // Scroll to top when component mounts or route changes
   useEffect(() => {
     window.scrollTo(0, 0);
-  }, [location.pathname]);
+    // Reset filters when route changes
+    if (category !== "projects" || subtopic !== "all") {
+      setSearchQuery("");
+      setFilterCategory("all");
+      setFilterLocation("All locations");
+      setSortBy("date-desc");
+    }
+  }, [location.pathname, category, subtopic]);
 
   const key = subtopic || "";
   const content = subtopicContent[key] || {
@@ -625,10 +645,38 @@ const SubTopicPage = () => {
             )}
 
             {/* Properties from Firestore - For Projects pages */}
-            {(key === "residential" || key === "commercial" || key === "cultural" || key === "mixed-use") && (
+            {(key === "residential" || key === "commercial" || key === "cultural" || key === "mixed-use" || key === "all") && (
               <div className="mt-8 md:mt-12">
-                <h2 className="text-2xl md:text-3xl font-light text-black mb-6">Our Projects</h2>
-                <PropertiesList category={key === "mixed-use" ? "mixed-use" : key} />
+                {/* Show filter UI only for "all" page */}
+                {key === "all" ? (
+                  <>
+                    <ProjectsFilter
+                      category={filterCategory}
+                      location={filterLocation}
+                      onCategoryChange={(cat) => {
+                        setFilterCategory(cat);
+                      }}
+                      onLocationChange={(loc) => {
+                        setFilterLocation(loc);
+                      }}
+                      onSearchChange={setSearchQuery}
+                      onSortChange={setSortBy}
+                      totalCount={totalCount}
+                    />
+                    <PropertiesList 
+                      category={filterCategory} 
+                      locationFilter={filterLocation === "All locations" ? undefined : filterLocation}
+                      searchQuery={searchQuery}
+                      sortBy={sortBy}
+                      onTotalCountChange={setTotalCount}
+                    />
+                  </>
+                ) : (
+                  <>
+                    <h2 className="text-2xl md:text-3xl font-light text-black mb-6">Our Projects</h2>
+                    <PropertiesList category={key === "mixed-use" ? "mixed-use" : key} />
+                  </>
+                )}
               </div>
             )}
 

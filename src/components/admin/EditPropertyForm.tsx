@@ -8,7 +8,7 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { toast } from "@/hooks/use-toast";
-import { Plus, X, Loader2 } from "lucide-react";
+import { Plus, X, Loader2, Upload } from "lucide-react";
 
 interface Property {
   id: string;
@@ -160,6 +160,97 @@ const EditPropertyForm = ({ property, onSuccess }: EditPropertyFormProps) => {
     setImageUploads([...imageUploads, { file: null, uploading: false, url: "" }]);
   };
 
+  const handleMultipleFileSelect = async (files: FileList | null) => {
+    if (!files || files.length === 0) return;
+
+    if (!storage) {
+      toast({
+        title: "Error",
+        description: "Firebase Storage is not configured.",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    const validFiles: File[] = [];
+    const invalidFiles: string[] = [];
+
+    // Validate all files
+    Array.from(files).forEach((file) => {
+      if (!file.type.startsWith("image/")) {
+        invalidFiles.push(`${file.name} (not an image)`);
+        return;
+      }
+      if (file.size > 10 * 1024 * 1024) {
+        invalidFiles.push(`${file.name} (too large, max 10MB)`);
+        return;
+      }
+      validFiles.push(file);
+    });
+
+    if (invalidFiles.length > 0) {
+      toast({
+        title: "Some files were skipped",
+        description: invalidFiles.join(", "),
+        variant: "destructive",
+      });
+    }
+
+    if (validFiles.length === 0) return;
+
+    // Add new image fields for each file
+    const currentLength = formData.images.length;
+    const newImages = [...formData.images, ...Array(validFiles.length).fill("")];
+    const newUploads = [...imageUploads, ...validFiles.map(() => ({ file: null, uploading: false, url: "" }))];
+    
+    handleChange("images", newImages);
+    setImageUploads(newUploads);
+
+    // Upload all files
+    for (let i = 0; i < validFiles.length; i++) {
+      const file = validFiles[i];
+      const index = currentLength + i;
+      
+      // Update upload state
+      const updatedUploads = [...newUploads];
+      updatedUploads[index] = { file, uploading: true, url: "" };
+      setImageUploads(updatedUploads);
+
+      try {
+        const timestamp = Date.now();
+        const filename = `properties/${timestamp}_${i}_${file.name}`;
+        const storageRef = ref(storage, filename);
+
+        await uploadBytes(storageRef, file);
+        const downloadURL = await getDownloadURL(storageRef);
+
+        // Update state with URL
+        const finalUploads = [...newUploads];
+        finalUploads[index] = { file: null, uploading: false, url: downloadURL };
+        setImageUploads(finalUploads);
+
+        // Update form data with the URL
+        const updatedImages = [...newImages];
+        updatedImages[index] = downloadURL;
+        handleChange("images", updatedImages);
+      } catch (error) {
+        toast({
+          title: "Upload failed",
+          description: `Failed to upload ${file.name}. Please try again.`,
+          variant: "destructive",
+        });
+        const failedUploads = [...newUploads];
+        failedUploads[index] = { file: null, uploading: false, url: "" };
+        setImageUploads(failedUploads);
+      }
+    }
+
+    toast({
+      title: "Success!",
+      description: `${validFiles.length} image${validFiles.length > 1 ? "s" : ""} uploaded successfully.`,
+    });
+  };
+
   const removeImageField = (index: number) => {
     if (formData.images.length > 1) {
       const newImages = formData.images.filter((_, i) => i !== index);
@@ -217,102 +308,162 @@ const EditPropertyForm = ({ property, onSuccess }: EditPropertyFormProps) => {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-4">
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <div className="space-y-2">
-          <Label htmlFor="title">Title *</Label>
-          <Input
-            id="title"
-            value={formData.title}
-            onChange={(e) => handleChange("title", e.target.value)}
-            required
-            disabled={isSubmitting}
-          />
-        </div>
+    <form onSubmit={handleSubmit} className="space-y-6">
+      {/* Essential Fields - What appears on the card */}
+      <div className="space-y-4">
+        <h3 className="text-lg font-semibold text-[#1A1A1A] border-b border-[#E5E5E5] pb-2">
+          Essential Information
+        </h3>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="space-y-2">
+            <Label htmlFor="title">Title *</Label>
+            <Input
+              id="title"
+              value={formData.title}
+              onChange={(e) => handleChange("title", e.target.value)}
+              required
+              disabled={isSubmitting}
+              className="rounded-md"
+            />
+          </div>
 
-        <div className="space-y-2">
-          <Label htmlFor="category">Category *</Label>
-          <Select value={formData.category} onValueChange={(value) => handleChange("category", value)} required>
-            <SelectTrigger disabled={isSubmitting}>
-              <SelectValue placeholder="Select project category" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="residential">Residential</SelectItem>
-              <SelectItem value="commercial">Commercial</SelectItem>
-              <SelectItem value="cultural">Cultural</SelectItem>
-              <SelectItem value="mixed-use">Mixed-Use</SelectItem>
-            </SelectContent>
-          </Select>
-        </div>
+          <div className="space-y-2">
+            <Label htmlFor="category">Category *</Label>
+            <Select value={formData.category} onValueChange={(value) => handleChange("category", value)} required>
+              <SelectTrigger disabled={isSubmitting} className="rounded-md">
+                <SelectValue placeholder="Select project category" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="residential">Residential</SelectItem>
+                <SelectItem value="commercial">Commercial</SelectItem>
+                <SelectItem value="cultural">Cultural</SelectItem>
+                <SelectItem value="mixed-use">Mixed-Use</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
 
-        <div className="space-y-2">
-          <Label htmlFor="location">Location *</Label>
-          <Input
-            id="location"
-            value={formData.location}
-            onChange={(e) => handleChange("location", e.target.value)}
-            required
-            disabled={isSubmitting}
-          />
-        </div>
-
-        <div className="space-y-2">
-          <Label htmlFor="price">Price (Optional)</Label>
-          <Input
-            id="price"
-            type="number"
-            value={formData.price}
-            onChange={(e) => handleChange("price", e.target.value)}
-            disabled={isSubmitting}
-            placeholder="Enter price in KSh"
-          />
-        </div>
-
-        <div className="space-y-2">
-          <Label htmlFor="bedrooms">Bedrooms</Label>
-          <Input
-            id="bedrooms"
-            type="number"
-            value={formData.bedrooms}
-            onChange={(e) => handleChange("bedrooms", e.target.value)}
-            disabled={isSubmitting}
-            placeholder="Number of bedrooms"
-          />
-        </div>
-
-        <div className="space-y-2">
-          <Label htmlFor="bathrooms">Bathrooms</Label>
-          <Input
-            id="bathrooms"
-            type="number"
-            value={formData.bathrooms}
-            onChange={(e) => handleChange("bathrooms", e.target.value)}
-            disabled={isSubmitting}
-            placeholder="Number of bathrooms"
-          />
-        </div>
-
-        <div className="space-y-2">
-          <Label htmlFor="area">Area (m²)</Label>
-          <Input
-            id="area"
-            type="number"
-            value={formData.area}
-            onChange={(e) => handleChange("area", e.target.value)}
-            disabled={isSubmitting}
-            placeholder="Property area"
-          />
+          <div className="space-y-2 md:col-span-2">
+            <Label htmlFor="location">Location *</Label>
+            <Input
+              id="location"
+              value={formData.location}
+              onChange={(e) => handleChange("location", e.target.value)}
+              required
+              disabled={isSubmitting}
+              placeholder="e.g., Nairobi, Mombasa, Kisumu"
+              className="rounded-md"
+            />
+            <p className="text-xs text-muted-foreground">
+              The location will appear on the project card as: [Year] - [Location]
+            </p>
+          </div>
         </div>
       </div>
 
-      <div className="space-y-2">
-        <Label>Property Images</Label>
-        <p className="text-sm text-muted-foreground">
-          Upload images from your computer or enter image URLs
-        </p>
+      {/* Additional Details - Optional fields */}
+      <div className="space-y-4">
+        <h3 className="text-lg font-semibold text-[#1A1A1A] border-b border-[#E5E5E5] pb-2">
+          Additional Details (Optional)
+        </h3>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="space-y-2">
+            <Label htmlFor="price">Price (KSh)</Label>
+            <Input
+              id="price"
+              type="number"
+              value={formData.price}
+              onChange={(e) => handleChange("price", e.target.value)}
+              disabled={isSubmitting}
+              placeholder="Enter price in KSh"
+              className="rounded-md"
+            />
+          </div>
+
+          <div className="space-y-2">
+            <Label htmlFor="area">Area (m²)</Label>
+            <Input
+              id="area"
+              type="number"
+              value={formData.area}
+              onChange={(e) => handleChange("area", e.target.value)}
+              disabled={isSubmitting}
+              placeholder="Property area in square metres"
+              className="rounded-md"
+            />
+          </div>
+
+          <div className="space-y-2">
+            <Label htmlFor="bedrooms">Bedrooms</Label>
+            <Input
+              id="bedrooms"
+              type="number"
+              value={formData.bedrooms}
+              onChange={(e) => handleChange("bedrooms", e.target.value)}
+              disabled={isSubmitting}
+              placeholder="Number of bedrooms"
+              className="rounded-md"
+            />
+          </div>
+
+          <div className="space-y-2">
+            <Label htmlFor="bathrooms">Bathrooms</Label>
+            <Input
+              id="bathrooms"
+              type="number"
+              value={formData.bathrooms}
+              onChange={(e) => handleChange("bathrooms", e.target.value)}
+              disabled={isSubmitting}
+              placeholder="Number of bathrooms"
+              className="rounded-md"
+            />
+          </div>
+        </div>
+      </div>
+
+      {/* Images */}
+      <div className="space-y-4">
+        <h3 className="text-lg font-semibold text-[#1A1A1A] border-b border-[#E5E5E5] pb-2">
+          Images
+        </h3>
+        <div className="space-y-2">
+          <Label>Property Images *</Label>
+          <p className="text-sm text-muted-foreground">
+            Upload images from your computer or enter image URLs. The first image will be displayed on the project card.
+          </p>
+        
+        {/* Multiple Image Upload Button */}
+        <div className="mb-4">
+          <Input
+            type="file"
+            accept="image/*"
+            multiple
+            onChange={(e) => handleMultipleFileSelect(e.target.files)}
+            disabled={isSubmitting}
+            className="hidden"
+            id="multiple-image-upload-edit"
+          />
+          <Label htmlFor="multiple-image-upload-edit" className="cursor-pointer">
+            <Button
+              type="button"
+              variant="outline"
+              disabled={isSubmitting}
+              className="w-full"
+              asChild
+            >
+              <span>
+                <Upload className="h-4 w-4 mr-2" />
+                Select Multiple Images
+              </span>
+            </Button>
+          </Label>
+          <p className="text-xs text-muted-foreground mt-1 text-center">
+            Select multiple images at once (max 10MB per image)
+          </p>
+        </div>
+
         <div className="space-y-3">
           {formData.images.map((imageUrl, index) => (
-            <div key={index} className="space-y-2 p-4 border rounded-lg">
+            <div key={index} className="space-y-2 p-4 border rounded-md">
               <div className="flex gap-2">
                 <div className="flex-1 space-y-2">
                   <Label className="text-xs">Upload from computer:</Label>
@@ -325,7 +476,7 @@ const EditPropertyForm = ({ property, onSuccess }: EditPropertyFormProps) => {
                         handleFileSelect(index, file);
                       }}
                       disabled={isSubmitting || imageUploads[index]?.uploading}
-                      className="flex-1"
+                      className="flex-1 rounded-md"
                     />
                     {imageUploads[index]?.uploading && (
                       <div className="flex items-center gap-2 text-sm text-muted-foreground">
@@ -359,6 +510,7 @@ const EditPropertyForm = ({ property, onSuccess }: EditPropertyFormProps) => {
                   onChange={(e) => handleImageChange(index, e.target.value)}
                   disabled={isSubmitting || imageUploads[index]?.uploading}
                   placeholder="https://example.com/image.jpg"
+                  className="rounded-md"
                 />
               </div>
               {imageUrl && (
@@ -386,27 +538,35 @@ const EditPropertyForm = ({ property, onSuccess }: EditPropertyFormProps) => {
             Add Another Image
           </Button>
         </div>
+        </div>
       </div>
 
-      <div className="space-y-2">
-        <Label htmlFor="description">Description *</Label>
-        <Textarea
-          id="description"
-          value={formData.description}
-          onChange={(e) => handleChange("description", e.target.value)}
-          required
-          disabled={isSubmitting}
-          rows={4}
-          placeholder="Enter property description"
-        />
+      {/* Description */}
+      <div className="space-y-4">
+        <h3 className="text-lg font-semibold text-[#1A1A1A] border-b border-[#E5E5E5] pb-2">
+          Description
+        </h3>
+        <div className="space-y-2">
+          <Label htmlFor="description">Description *</Label>
+          <Textarea
+            id="description"
+            value={formData.description}
+            onChange={(e) => handleChange("description", e.target.value)}
+            required
+            disabled={isSubmitting}
+            rows={4}
+            placeholder="Enter property description (shown in detail view)"
+            className="rounded-md"
+          />
+        </div>
       </div>
 
-      <div className="flex gap-2">
-        <Button type="submit" disabled={isSubmitting}>
-          {isSubmitting ? "Updating..." : "Update Property"}
-        </Button>
-        <Button type="button" variant="outline" onClick={onSuccess} disabled={isSubmitting}>
+      <div className="flex justify-end gap-2 pt-4 border-t border-[#E5E5E5]">
+        <Button type="button" variant="outline" onClick={onSuccess} disabled={isSubmitting} className="rounded-md">
           Cancel
+        </Button>
+        <Button type="submit" disabled={isSubmitting} className="rounded-md">
+          {isSubmitting ? "Updating..." : "Update Property"}
         </Button>
       </div>
     </form>

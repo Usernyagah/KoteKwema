@@ -18,11 +18,23 @@ interface Property {
 }
 
 interface PropertiesListProps {
-  category?: string; // Filter by category: residential, commercial, cultural, mixed-use
+  category?: string; // Filter by category: residential, commercial, cultural, mixed-use, all
+  locationFilter?: string; // Filter by location (town/city name)
+  searchQuery?: string; // Search query to filter properties
+  sortBy?: string; // Sort option: date-desc, date-asc, alphabetical
+  showFilters?: boolean; // Whether to show filter UI (handled by parent)
+  onTotalCountChange?: (count: number) => void; // Callback for total count
 }
 
-const PropertiesList = ({ category }: PropertiesListProps) => {
+const PropertiesList = ({ 
+  category, 
+  locationFilter,
+  searchQuery = "",
+  sortBy = "date-desc",
+  onTotalCountChange 
+}: PropertiesListProps) => {
   const [properties, setProperties] = useState<Property[]>([]);
+  const [filteredProperties, setFilteredProperties] = useState<Property[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -36,7 +48,10 @@ const PropertiesList = ({ category }: PropertiesListProps) => {
 
       try {
         let q;
-        if (category) {
+        // Handle "all" category as showing all properties
+        const actualCategory = category === "all" ? undefined : category;
+        
+        if (actualCategory) {
           // Try with orderBy first, fallback to without if index is missing
           try {
             q = query(
@@ -120,6 +135,54 @@ const PropertiesList = ({ category }: PropertiesListProps) => {
     fetchProperties();
   }, [category]);
 
+  // Filter and sort properties based on search query, location filter, and sort option
+  useEffect(() => {
+    let filtered = [...properties];
+
+    // Apply location filter
+    if (locationFilter) {
+      filtered = filtered.filter((property) => {
+        return property.location.toLowerCase().includes(locationFilter.toLowerCase());
+      });
+    }
+
+    // Apply search filter
+    if (searchQuery.trim()) {
+      const query = searchQuery.toLowerCase().trim();
+      filtered = filtered.filter((property) => {
+        const titleMatch = property.title.toLowerCase().includes(query);
+        const descriptionMatch = property.description.toLowerCase().includes(query);
+        const locationMatch = property.location.toLowerCase().includes(query);
+        const categoryMatch = property.category?.toLowerCase().includes(query);
+        return titleMatch || descriptionMatch || locationMatch || categoryMatch;
+      });
+    }
+
+    // Apply sorting
+    filtered.sort((a, b) => {
+      switch (sortBy) {
+        case "date-asc":
+          const aTimeAsc = a.createdAt?.toMillis?.() || 0;
+          const bTimeAsc = b.createdAt?.toMillis?.() || 0;
+          return aTimeAsc - bTimeAsc;
+        case "alphabetical":
+          return a.title.localeCompare(b.title);
+        case "date-desc":
+        default:
+          const aTimeDesc = a.createdAt?.toMillis?.() || 0;
+          const bTimeDesc = b.createdAt?.toMillis?.() || 0;
+          return bTimeDesc - aTimeDesc;
+      }
+    });
+
+    setFilteredProperties(filtered);
+    
+    // Notify parent of total count
+    if (onTotalCountChange) {
+      onTotalCountChange(filtered.length);
+    }
+  }, [properties, searchQuery, locationFilter, sortBy, onTotalCountChange]);
+
   if (isLoading) {
     return (
       <div className="text-center py-8">
@@ -136,10 +199,12 @@ const PropertiesList = ({ category }: PropertiesListProps) => {
     );
   }
 
-  if (properties.length === 0) {
+  if (!isLoading && filteredProperties.length === 0) {
     return (
       <div className="text-center py-8">
-        <p className="text-muted-foreground">No properties found.</p>
+        <p className="text-muted-foreground">
+          {searchQuery ? `No properties found matching "${searchQuery}".` : "No properties found."}
+        </p>
       </div>
     );
   }
@@ -147,7 +212,7 @@ const PropertiesList = ({ category }: PropertiesListProps) => {
   return (
     <div className="mt-8 md:mt-12">
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
-        {properties.map((property) => (
+        {filteredProperties.map((property) => (
           <PropertyCard key={property.id} property={property} />
         ))}
       </div>

@@ -26,6 +26,7 @@ const searchIndex: SearchResult[] = [
   { title: "Urban and Landscape Design", href: "/expertise/urban", category: "Expertise", description: "Urban planning and landscape architecture" },
   
   // Projects subtopics
+  { title: "All Projects", href: "/projects/all", category: "Projects", description: "View all architecture projects" },
   { title: "Residential", href: "/projects/residential", category: "Projects", description: "Residential architecture projects" },
   { title: "Commercial", href: "/projects/commercial", category: "Projects", description: "Commercial and office buildings" },
   { title: "Cultural", href: "/projects/cultural", category: "Projects", description: "Cultural and institutional projects" },

@@ -99,6 +99,67 @@ service cloud.firestore {
 
 **Note:** Storage security rules will allow authenticated users to upload. You can customize these later in Storage > Rules.
 
+### 8. Configure Firebase Storage CORS (Required for Image Uploads)
+
+To allow image uploads from your local development environment, you need to configure CORS for Firebase Storage.
+
+**Option 1: Using Firebase CLI (Recommended)**
+
+1. Install Firebase CLI if you haven't already:
+   ```bash
+   npm install -g firebase-tools
+   ```
+
+2. Login to Firebase:
+   ```bash
+   firebase login
+   ```
+
+3. Set your project:
+   ```bash
+   firebase use your-project-id
+   ```
+
+4. Apply CORS configuration:
+   ```bash
+   gsutil cors set firebase-storage-cors.json gs://your-project-id.appspot.com
+   ```
+   
+   Replace `your-project-id.appspot.com` with your actual storage bucket name (found in your `.env` file as `VITE_FIREBASE_STORAGE_BUCKET`).
+
+**Option 2: Using Google Cloud Console**
+
+1. Go to [Google Cloud Console](https://console.cloud.google.com/)
+2. Select your Firebase project
+3. Navigate to **Cloud Storage** > **Buckets**
+4. Click on your storage bucket (usually `your-project-id.appspot.com`)
+5. Go to **Configuration** tab
+6. Scroll to **CORS** section
+7. Click **Edit CORS configuration**
+8. Paste the following JSON:
+   ```json
+   [
+     {
+       "origin": ["http://localhost:8080", "http://localhost:8081", "http://127.0.0.1:8080", "http://127.0.0.1:8081"],
+       "method": ["GET", "HEAD", "PUT", "POST", "DELETE"],
+       "maxAgeSeconds": 3600,
+       "responseHeader": ["Content-Type", "Authorization"]
+     }
+   ```
+9. Click **Save**
+
+**For Production:**
+
+When deploying to production, add your production domain to the `origin` array:
+```json
+"origin": [
+  "http://localhost:8080",
+  "http://localhost:8081",
+  "https://yourdomain.com",
+  "https://www.yourdomain.com"
+]
+```
+
 ### 8. Create Admin User
 
 1. In Firebase Console, go to **Authentication**

@@ -18,7 +18,7 @@ interface MenuProps {
 
 const menuCategories = [
   { name: "Expertise", href: "/expertise/architecture", hasSubmenu: true },
-  { name: "Projects", href: "/projects/residential", hasSubmenu: true },
+  { name: "Projects", href: "/projects/all", hasSubmenu: true },
   { name: "Studio", href: "/studio/about", hasSubmenu: true },
   { name: "People", href: "/people/leadership", hasSubmenu: true },
   { name: "News", href: "/news/announcements", hasSubmenu: true },
@@ -36,6 +36,7 @@ const expertiseSubcategories = [
 ];
 
 const projectsSubcategories = [
+  { name: "All", href: "/projects/all" },
   { name: "Residential", href: "/projects/residential" },
   { name: "Commercial", href: "/projects/commercial" },
   { name: "Cultural", href: "/projects/cultural" },
