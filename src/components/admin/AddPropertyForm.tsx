@@ -96,8 +96,6 @@ const AddPropertyForm = ({ onSuccess }: AddPropertyFormProps = {}) => {
       // Upload to Cloudinary
       const result = await uploadImage(file, {
         folder: "properties",
-        quality: "auto",
-        format: "auto",
       });
 
       // Update state with URL
@@ -183,8 +181,6 @@ const AddPropertyForm = ({ onSuccess }: AddPropertyFormProps = {}) => {
         // Upload to Cloudinary
         const result = await uploadImage(file, {
           folder: "properties",
-          quality: "auto",
-          format: "auto",
         });
 
         // Update state with URL

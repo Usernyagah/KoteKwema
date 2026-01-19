@@ -81,20 +81,31 @@ export async function uploadImage(
       }
     );
 
+    const responseData = await response.json().catch(() => null);
+
     if (!response.ok) {
-      let errorMessage = `Upload failed: ${response.status} ${response.statusText}`;
-      try {
-        const errorData = await response.json();
-        errorMessage = errorData.error?.message || errorMessage;
-      } catch (e) {
-        // If response is not JSON, use status text
-        await response.text().catch(() => '');
+      // Cloudinary returns error details in responseData.error
+      const errorMessage = responseData?.error?.message || 
+                          `Upload failed: ${response.status} ${response.statusText}`;
+      
+      // Provide helpful error messages for common issues
+      if (response.status === 400) {
+        if (errorMessage.includes('upload preset') || errorMessage.includes('preset')) {
+          throw new Error(`Invalid upload preset. Please check VITE_CLOUDINARY_UPLOAD_PRESET in your environment variables. Error: ${errorMessage}`);
+        }
+        if (errorMessage.includes('unsigned')) {
+          throw new Error(`Upload preset must be set to "Unsigned" mode in Cloudinary settings. Error: ${errorMessage}`);
+        }
       }
+      
       throw new Error(errorMessage);
     }
 
-    const data: UploadResponse = await response.json();
-    return data;
+    if (!responseData) {
+      throw new Error('Invalid response from Cloudinary');
+    }
+
+    return responseData as UploadResponse;
   } catch (error) {
     if (error instanceof Error) {
       throw error;
