@@ -47,8 +47,11 @@ const AddPropertyForm = ({ onSuccess }: AddPropertyFormProps = {}) => {
   const [imageUploads, setImageUploads] = useState<ImageUploadState[]>([{ file: null, uploading: false, url: "" }]);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const handleChange = (field: keyof PropertyFormData, value: string | string[]) => {
-    setFormData((prev) => ({ ...prev, [field]: value }));
+  const handleChange = (field: keyof PropertyFormData, value: string | string[] | ((prev: string | string[]) => string | string[])) => {
+    setFormData((prev) => {
+      const newValue = typeof value === 'function' ? value(prev[field]) : value;
+      return { ...prev, [field]: newValue };
+    });
   };
 
   const handleImageChange = (index: number, value: string) => {
@@ -161,21 +164,22 @@ const AddPropertyForm = ({ onSuccess }: AddPropertyFormProps = {}) => {
 
     // Add new image fields for each file
     const currentLength = formData.images.length;
-    const newImages = [...formData.images, ...Array(validFiles.length).fill("")];
-    const newUploads = [...imageUploads, ...validFiles.map(() => ({ file: null, uploading: false, url: "" }))];
+    const initialImages = [...formData.images, ...Array(validFiles.length).fill("")];
+    const initialUploads = [...imageUploads, ...validFiles.map(() => ({ file: null, uploading: false, url: "" }))];
     
-    handleChange("images", newImages);
-    setImageUploads(newUploads);
+    handleChange("images", initialImages);
+    setImageUploads(initialUploads);
 
-    // Upload all files to Cloudinary
-    for (let i = 0; i < validFiles.length; i++) {
-      const file = validFiles[i];
+    // Upload all files to Cloudinary in parallel
+    const uploadPromises = validFiles.map(async (file, i) => {
       const index = currentLength + i;
       
-      // Update upload state
-      const updatedUploads = [...newUploads];
-      updatedUploads[index] = { file, uploading: true, url: "" };
-      setImageUploads(updatedUploads);
+      // Update upload state to uploading
+      setImageUploads((prev) => {
+        const updated = [...prev];
+        updated[index] = { file, uploading: true, url: "" };
+        return updated;
+      });
 
       try {
         // Upload to Cloudinary
@@ -183,15 +187,21 @@ const AddPropertyForm = ({ onSuccess }: AddPropertyFormProps = {}) => {
           folder: "properties",
         });
 
-        // Update state with URL
-        const finalUploads = [...newUploads];
-        finalUploads[index] = { file: null, uploading: false, url: result.secure_url };
-        setImageUploads(finalUploads);
+        // Update state with URL using functional update
+        setImageUploads((prev) => {
+          const updated = [...prev];
+          updated[index] = { file: null, uploading: false, url: result.secure_url };
+          return updated;
+        });
 
-        // Update form data with the URL
-        const updatedImages = [...newImages];
-        updatedImages[index] = result.secure_url;
-        handleChange("images", updatedImages);
+        // Update form data with the URL using functional update
+        handleChange("images", (prevImages) => {
+          const updated = [...prevImages];
+          updated[index] = result.secure_url;
+          return updated;
+        });
+
+        return { success: true, file: file.name };
       } catch (error) {
         const errorMessage = error instanceof Error ? error.message : `Failed to upload ${file.name}. Please try again.`;
         toast({
@@ -199,16 +209,28 @@ const AddPropertyForm = ({ onSuccess }: AddPropertyFormProps = {}) => {
           description: errorMessage,
           variant: "destructive",
         });
-        const failedUploads = [...newUploads];
-        failedUploads[index] = { file: null, uploading: false, url: "" };
-        setImageUploads(failedUploads);
+        
+        // Update state to show failed
+        setImageUploads((prev) => {
+          const updated = [...prev];
+          updated[index] = { file: null, uploading: false, url: "" };
+          return updated;
+        });
+        
+        return { success: false, file: file.name };
       }
-    }
-
-    toast({
-      title: "Success!",
-      description: `${validFiles.length} image${validFiles.length > 1 ? "s" : ""} uploaded successfully.`,
     });
+
+    // Wait for all uploads to complete
+    const results = await Promise.all(uploadPromises);
+    const successCount = results.filter((r) => r.success).length;
+
+    if (successCount > 0) {
+      toast({
+        title: "Success!",
+        description: `${successCount} image${successCount > 1 ? "s" : ""} uploaded successfully.`,
+      });
+    }
   };
 
   const removeImageField = (index: number) => {
