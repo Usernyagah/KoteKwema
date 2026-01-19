@@ -86,12 +86,9 @@ export async function uploadImage(
       try {
         const errorData = await response.json();
         errorMessage = errorData.error?.message || errorMessage;
-        // Log detailed error for debugging
-        console.error('Cloudinary upload error:', errorData);
       } catch (e) {
         // If response is not JSON, use status text
-        const text = await response.text().catch(() => '');
-        console.error('Cloudinary upload error (non-JSON):', text);
+        await response.text().catch(() => '');
       }
       throw new Error(errorMessage);
     }
