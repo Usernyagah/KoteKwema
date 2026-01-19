@@ -1,0 +1,24 @@
+[
+  {
+    "origin": [
+      "https://kotekwema.com",
+      "https://www.kotekwema.com"
+    ],
+    "method": [
+      "GET",
+      "POST",
+      "PUT",
+      "DELETE",
+      "HEAD",
+      "OPTIONS"
+    ],
+    "responseHeader": [
+      "Content-Type",
+      "Authorization",
+      "x-goog-meta-*"
+    ],
+    "maxAgeSeconds": 3600
+  }
+]
+
+

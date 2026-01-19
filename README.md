@@ -80,7 +80,38 @@ VITE_FIREBASE_APP_ID=your-app-id
 
 # Google Analytics (Optional)
 VITE_GA_MEASUREMENT_ID=your-google-analytics-id
+
+# Cloudinary Image Storage (required for image uploads)
+VITE_CLOUDINARY_CLOUD_NAME=your-cloud-name
+VITE_CLOUDINARY_UPLOAD_PRESET=your-upload-preset
 ```
+
+### Cloudinary Setup (Free Image Storage)
+
+The project uses **Cloudinary** for image uploads (free tier: 25GB storage, 25GB bandwidth/month).
+
+1. **Sign up** at [cloudinary.com](https://cloudinary.com) (free account)
+2. **Get your credentials** from the Dashboard:
+   - Cloud Name (found in Dashboard URL: `https://console.cloudinary.com/settings/cloudinary_console`)
+   - Upload Preset (Settings → Upload → Upload presets → Create unsigned preset)
+3. **Add to `.env`**:
+   ```env
+   VITE_CLOUDINARY_CLOUD_NAME=your-cloud-name
+   VITE_CLOUDINARY_UPLOAD_PRESET=your-upload-preset
+   ```
+4. **Use the ImageUpload component**:
+   ```tsx
+   import ImageUpload from './components/ImageUpload';
+   
+   <ImageUpload
+     folder="properties"
+     onUploadComplete={(url, publicId) => {
+       console.log('Uploaded:', url);
+     }}
+   />
+   ```
+
+**Note**: For unsigned uploads (client-side), make sure your Upload Preset is set to "Unsigned" in Cloudinary settings.
 
 ### Formspree Setup
 
