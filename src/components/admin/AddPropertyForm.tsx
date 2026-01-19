@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { collection, addDoc } from "firebase/firestore";
-import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
-import { db, storage } from "@/lib/firebase";
+import { db } from "@/lib/firebase";
+import { uploadImage } from "@/utils/cloudinary";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -67,15 +67,6 @@ const AddPropertyForm = ({ onSuccess }: AddPropertyFormProps = {}) => {
   const handleFileSelect = async (index: number, file: File | null) => {
     if (!file) return;
 
-    if (!storage) {
-      toast({
-        title: "Error",
-        description: "Firebase Storage is not configured.",
-        variant: "destructive",
-      });
-      return;
-    }
-
     // Validate file type
     if (!file.type.startsWith("image/")) {
       toast({
@@ -102,25 +93,21 @@ const AddPropertyForm = ({ onSuccess }: AddPropertyFormProps = {}) => {
     setImageUploads(newUploads);
 
     try {
-      // Create a unique filename
-      const timestamp = Date.now();
-      const filename = `properties/${timestamp}_${file.name}`;
-      const storageRef = ref(storage, filename);
-
-      // Upload file
-      await uploadBytes(storageRef, file);
-
-      // Get download URL
-      const downloadURL = await getDownloadURL(storageRef);
+      // Upload to Cloudinary
+      const result = await uploadImage(file, {
+        folder: "properties",
+        quality: "auto",
+        format: "auto",
+      });
 
       // Update state with URL
       const updatedUploads = [...imageUploads];
-      updatedUploads[index] = { file: null, uploading: false, url: downloadURL };
+      updatedUploads[index] = { file: null, uploading: false, url: result.secure_url };
       setImageUploads(updatedUploads);
 
       // Update form data with the URL
       const newImages = [...formData.images];
-      newImages[index] = downloadURL;
+      newImages[index] = result.secure_url;
       handleChange("images", newImages);
 
       toast({
@@ -128,9 +115,10 @@ const AddPropertyForm = ({ onSuccess }: AddPropertyFormProps = {}) => {
         description: "Image uploaded successfully.",
       });
     } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : "Failed to upload image. Please try again.";
       toast({
         title: "Upload failed",
-        description: "Failed to upload image. Please try again.",
+        description: errorMessage,
         variant: "destructive",
       });
       const updatedUploads = [...imageUploads];
@@ -146,15 +134,6 @@ const AddPropertyForm = ({ onSuccess }: AddPropertyFormProps = {}) => {
 
   const handleMultipleFileSelect = async (files: FileList | null) => {
     if (!files || files.length === 0) return;
-
-    if (!storage) {
-      toast({
-        title: "Error",
-        description: "Firebase Storage is not configured.",
-        variant: "destructive",
-      });
-      return;
-    }
 
     const validFiles: File[] = [];
     const invalidFiles: string[] = [];
@@ -190,7 +169,7 @@ const AddPropertyForm = ({ onSuccess }: AddPropertyFormProps = {}) => {
     handleChange("images", newImages);
     setImageUploads(newUploads);
 
-    // Upload all files
+    // Upload all files to Cloudinary
     for (let i = 0; i < validFiles.length; i++) {
       const file = validFiles[i];
       const index = currentLength + i;
@@ -201,26 +180,27 @@ const AddPropertyForm = ({ onSuccess }: AddPropertyFormProps = {}) => {
       setImageUploads(updatedUploads);
 
       try {
-        const timestamp = Date.now();
-        const filename = `properties/${timestamp}_${i}_${file.name}`;
-        const storageRef = ref(storage, filename);
-
-        await uploadBytes(storageRef, file);
-        const downloadURL = await getDownloadURL(storageRef);
+        // Upload to Cloudinary
+        const result = await uploadImage(file, {
+          folder: "properties",
+          quality: "auto",
+          format: "auto",
+        });
 
         // Update state with URL
         const finalUploads = [...newUploads];
-        finalUploads[index] = { file: null, uploading: false, url: downloadURL };
+        finalUploads[index] = { file: null, uploading: false, url: result.secure_url };
         setImageUploads(finalUploads);
 
         // Update form data with the URL
         const updatedImages = [...newImages];
-        updatedImages[index] = downloadURL;
+        updatedImages[index] = result.secure_url;
         handleChange("images", updatedImages);
       } catch (error) {
+        const errorMessage = error instanceof Error ? error.message : `Failed to upload ${file.name}. Please try again.`;
         toast({
           title: "Upload failed",
-          description: `Failed to upload ${file.name}. Please try again.`,
+          description: errorMessage,
           variant: "destructive",
         });
         const failedUploads = [...newUploads];
