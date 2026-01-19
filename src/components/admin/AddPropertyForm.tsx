@@ -433,7 +433,7 @@ const AddPropertyForm = ({ onSuccess }: AddPropertyFormProps = {}) => {
             </Button>
           </Label>
           <p className="text-xs text-muted-foreground mt-1 text-center">
-            Select multiple images at once (max 10MB per image)
+            Hold Ctrl/Cmd to select multiple images at once (max 10MB per image)
           </p>
         </div>
 
@@ -442,14 +442,23 @@ const AddPropertyForm = ({ onSuccess }: AddPropertyFormProps = {}) => {
             <div key={index} className="space-y-2 p-4 border rounded-md">
               <div className="flex gap-2">
                 <div className="flex-1 space-y-2">
-                  <Label className="text-xs">Upload from computer:</Label>
+                  <Label className="text-xs">Upload from computer (can select multiple):</Label>
                   <div className="flex gap-2">
                     <Input
                       type="file"
                       accept="image/*"
+                      multiple
                       onChange={(e) => {
-                        const file = e.target.files?.[0] || null;
-                        handleFileSelect(index, file);
+                        const files = e.target.files;
+                        if (files && files.length > 0) {
+                          // If multiple files selected, use the multiple file handler
+                          if (files.length > 1) {
+                            handleMultipleFileSelect(files);
+                          } else {
+                            // Single file - use single file handler
+                            handleFileSelect(index, files[0]);
+                          }
+                        }
                       }}
                       disabled={isSubmitting || imageUploads[index]?.uploading}
                       className="flex-1 rounded-md"
