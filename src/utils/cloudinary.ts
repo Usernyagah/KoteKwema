@@ -41,8 +41,11 @@ export async function uploadImage(
   const uploadPreset = import.meta.env.VITE_CLOUDINARY_UPLOAD_PRESET;
 
   if (!cloudName || !uploadPreset) {
+    const missing = [];
+    if (!cloudName) missing.push('VITE_CLOUDINARY_CLOUD_NAME');
+    if (!uploadPreset) missing.push('VITE_CLOUDINARY_UPLOAD_PRESET');
     throw new Error(
-      'Cloudinary credentials not found. Please add VITE_CLOUDINARY_CLOUD_NAME and VITE_CLOUDINARY_UPLOAD_PRESET to your .env file'
+      `Cloudinary credentials not found. Missing: ${missing.join(', ')}. Please add them to your .env file and restart the dev server.`
     );
   }
 
@@ -66,31 +69,8 @@ export async function uploadImage(
     formData.append('folder', options.folder);
   }
 
-  // Build transformation string for eager transformations (applied during upload)
-  const transformations: string[] = [];
-  
-  if (options.maxWidth || options.maxHeight) {
-    const parts: string[] = [];
-    if (options.maxWidth) parts.push(`w_${options.maxWidth}`);
-    if (options.maxHeight) parts.push(`h_${options.maxHeight}`);
-    parts.push('c_limit'); // Maintain aspect ratio
-    transformations.push(parts.join(','));
-  }
-  
-  if (options.quality) {
-    const qualityValue = options.quality === 'auto' ? 'auto' : options.quality;
-    transformations.push(`q_${qualityValue}`);
-  }
-  
-  if (options.format && options.format !== 'auto') {
-    transformations.push(`f_${options.format}`);
-  }
-
-  // Apply transformations via eager parameter (creates transformed versions)
-  if (transformations.length > 0) {
-    const transformationString = transformations.join('/');
-    formData.append('eager', transformationString);
-  }
+  // Note: Transformations are applied via URL after upload, not during upload
+  // This keeps the upload simple and compatible with unsigned presets
 
   try {
     const response = await fetch(
@@ -102,8 +82,18 @@ export async function uploadImage(
     );
 
     if (!response.ok) {
-      const error = await response.json().catch(() => ({ error: { message: 'Upload failed' } }));
-      throw new Error(error.error?.message || `Upload failed: ${response.statusText}`);
+      let errorMessage = `Upload failed: ${response.status} ${response.statusText}`;
+      try {
+        const errorData = await response.json();
+        errorMessage = errorData.error?.message || errorMessage;
+        // Log detailed error for debugging
+        console.error('Cloudinary upload error:', errorData);
+      } catch (e) {
+        // If response is not JSON, use status text
+        const text = await response.text().catch(() => '');
+        console.error('Cloudinary upload error (non-JSON):', text);
+      }
+      throw new Error(errorMessage);
     }
 
     const data: UploadResponse = await response.json();
