@@ -1,7 +1,7 @@
-import { useState } from "react";
+import { useMemo } from "react";
 import { Card } from "@/components/ui/card";
 import { ArrowUpRight } from "lucide-react";
-import PropertyDetailsDialog from "./PropertyDetailsDialog";
+import { useNavigate } from "react-router-dom";
 
 interface Property {
   id: string;
@@ -22,7 +22,7 @@ interface PropertyCardProps {
 }
 
 const PropertyCard = ({ property }: PropertyCardProps) => {
-  const [isDetailsOpen, setIsDetailsOpen] = useState(false);
+  const navigate = useNavigate();
   const mainImage = property.images && property.images.length > 0 ? property.images[0] : null;
 
   // Extract year from createdAt if available, or use current year as fallback
@@ -38,12 +38,13 @@ const PropertyCard = ({ property }: PropertyCardProps) => {
 
   const year = getYear();
 
+  const projectUrl = useMemo(() => `/projects/project/${property.id}`, [property.id]);
+
   return (
-    <>
-      <Card 
-        className="group overflow-hidden border-0 bg-transparent hover:cursor-pointer transition-all duration-300"
-        onClick={() => setIsDetailsOpen(true)}
-      >
+    <Card 
+      className="group overflow-hidden border-0 bg-transparent hover:cursor-pointer transition-all duration-300"
+      onClick={() => navigate(projectUrl)}
+    >
         {/* Image Section */}
         <div className="relative aspect-[4/3] overflow-hidden bg-gray-100 mb-4">
           {mainImage ? (
@@ -81,15 +82,7 @@ const PropertyCard = ({ property }: PropertyCardProps) => {
             <ArrowUpRight className="h-5 w-5 text-[#1A1A1A]" />
           </div>
         </div>
-      </Card>
-
-      {/* Details Dialog */}
-      <PropertyDetailsDialog
-        property={property}
-        isOpen={isDetailsOpen}
-        onClose={() => setIsDetailsOpen(false)}
-      />
-    </>
+    </Card>
   );
 };
 

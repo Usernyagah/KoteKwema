@@ -21,6 +21,8 @@ interface Property {
   bathrooms?: number;
   area?: number;
   images: string[];
+  team?: string[];
+  consultants?: string[];
 }
 
 interface PropertyFormData {
@@ -33,6 +35,8 @@ interface PropertyFormData {
   bathrooms: string;
   area: string;
   images: string[];
+  team: string;
+  consultants: string;
 }
 
 interface ImageUploadState {
@@ -57,6 +61,8 @@ const EditPropertyForm = ({ property, onSuccess }: EditPropertyFormProps) => {
     bathrooms: property.bathrooms?.toString() || "",
     area: property.area?.toString() || "",
     images: property.images || [""],
+    team: Array.isArray(property.team) ? property.team.join("\n") : "",
+    consultants: Array.isArray(property.consultants) ? property.consultants.join("\n") : "",
   });
   const [imageUploads, setImageUploads] = useState<ImageUploadState[]>(
     property.images && property.images.length > 0
@@ -281,6 +287,14 @@ const EditPropertyForm = ({ property, onSuccess }: EditPropertyFormProps) => {
         bedrooms: formData.bedrooms ? parseInt(formData.bedrooms) : null,
         bathrooms: formData.bathrooms ? parseInt(formData.bathrooms) : null,
         area: formData.area ? parseFloat(formData.area) : null,
+        team: formData.team
+          .split("\n")
+          .map((s) => s.trim())
+          .filter(Boolean),
+        consultants: formData.consultants
+          .split("\n")
+          .map((s) => s.trim())
+          .filter(Boolean),
         updatedAt: new Date(),
       });
 
@@ -550,6 +564,39 @@ const EditPropertyForm = ({ property, onSuccess }: EditPropertyFormProps) => {
             placeholder="Enter property description (shown in detail view)"
             className="rounded-md"
           />
+        </div>
+      </div>
+
+      {/* Team & Consultants */}
+      <div className="space-y-4">
+        <h3 className="text-lg font-semibold text-[#1A1A1A] border-b border-[#E5E5E5] pb-2">
+          Team &amp; Consultants (Optional)
+        </h3>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="space-y-2">
+            <Label htmlFor="team">Team (one per line)</Label>
+            <Textarea
+              id="team"
+              value={formData.team}
+              onChange={(e) => handleChange("team", e.target.value)}
+              disabled={isSubmitting}
+              rows={6}
+              placeholder={"e.g.\nNorman Foster\nStefan Behling\nSimona Bencini"}
+              className="rounded-md"
+            />
+          </div>
+          <div className="space-y-2">
+            <Label htmlFor="consultants">Consultants (one per line)</Label>
+            <Textarea
+              id="consultants"
+              value={formData.consultants}
+              onChange={(e) => handleChange("consultants", e.target.value)}
+              disabled={isSubmitting}
+              rows={6}
+              placeholder={"e.g.\nEnvironmental Engineer\nFoster + Partners, KEO International Consultants"}
+              className="rounded-md"
+            />
+          </div>
         </div>
       </div>
 

@@ -9,6 +9,7 @@ import SubTopicPage from "./pages/SubTopicPage";
 import NotFound from "./pages/NotFound";
 import AdminLogin from "./pages/AdminLogin";
 import AdminDashboard from "./pages/AdminDashboard";
+import ProjectDetailsPage from "./pages/ProjectDetailsPage";
 
 const queryClient = new QueryClient();
 
@@ -40,6 +41,8 @@ const App = () => (
             <Route path="/news/:subtopic" element={<SubTopicPage />} />
             <Route path="/careers/:subtopic" element={<SubTopicPage />} />
             <Route path="/contact/:subtopic" element={<SubTopicPage />} />
+            {/* Project Detail */}
+            <Route path="/projects/project/:id" element={<ProjectDetailsPage />} />
             {/* Admin Routes */}
             <Route path="/admin/login" element={<AdminLogin />} />
             <Route path="/admin" element={<AdminDashboard />} />
