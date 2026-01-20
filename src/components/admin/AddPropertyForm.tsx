@@ -298,14 +298,14 @@ const AddPropertyForm = ({ onSuccess }: AddPropertyFormProps = {}) => {
 
   return (
     <form onSubmit={handleSubmit} className="space-y-6">
-      {/* Essential Fields - What appears on the card */}
+      {/* Essential Fields - What appears on the project card */}
       <div className="space-y-4">
         <h3 className="text-lg font-semibold text-[#1A1A1A] border-b border-[#E5E5E5] pb-2">
           Essential Information
         </h3>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div className="space-y-2">
-            <Label htmlFor="title">Title *</Label>
+            <Label htmlFor="title">Project title *</Label>
             <Input
               id="title"
               value={formData.title}
@@ -317,7 +317,7 @@ const AddPropertyForm = ({ onSuccess }: AddPropertyFormProps = {}) => {
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="category">Category *</Label>
+            <Label htmlFor="category">Project type *</Label>
             <Select value={formData.category} onValueChange={(value) => handleChange("category", value)} required>
               <SelectTrigger disabled={isSubmitting} className="rounded-md">
                 <SelectValue placeholder="Select project category" />
@@ -332,7 +332,7 @@ const AddPropertyForm = ({ onSuccess }: AddPropertyFormProps = {}) => {
           </div>
 
           <div className="space-y-2 md:col-span-2">
-            <Label htmlFor="location">Location *</Label>
+              <Label htmlFor="location">Location *</Label>
             <Input
               id="location"
               value={formData.location}
@@ -349,21 +349,21 @@ const AddPropertyForm = ({ onSuccess }: AddPropertyFormProps = {}) => {
         </div>
       </div>
 
-      {/* Additional Details - Optional fields */}
+      {/* Project Facts & Figures */}
       <div className="space-y-4">
         <h3 className="text-lg font-semibold text-[#1A1A1A] border-b border-[#E5E5E5] pb-2">
-          Additional Details (Optional)
+          Facts &amp; Figures (Optional)
         </h3>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div className="space-y-2">
-            <Label htmlFor="price">Price (KSh)</Label>
+            <Label htmlFor="price">Appointment year</Label>
             <Input
               id="price"
               type="number"
               value={formData.price}
               onChange={(e) => handleChange("price", e.target.value)}
               disabled={isSubmitting}
-              placeholder="Enter price in KSh"
+              placeholder="e.g. 2017"
               className="rounded-md"
             />
           </div>
@@ -376,33 +376,33 @@ const AddPropertyForm = ({ onSuccess }: AddPropertyFormProps = {}) => {
               value={formData.area}
               onChange={(e) => handleChange("area", e.target.value)}
               disabled={isSubmitting}
-              placeholder="Property area in square metres"
+              placeholder="Project area in square metres"
               className="rounded-md"
             />
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="bedrooms">Bedrooms</Label>
+            <Label htmlFor="bedrooms">Completion year</Label>
             <Input
               id="bedrooms"
               type="number"
               value={formData.bedrooms}
               onChange={(e) => handleChange("bedrooms", e.target.value)}
               disabled={isSubmitting}
-              placeholder="Number of bedrooms"
+              placeholder="e.g. 2039"
               className="rounded-md"
             />
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="bathrooms">Bathrooms</Label>
+            <Label htmlFor="bathrooms">Capacity (people)</Label>
             <Input
               id="bathrooms"
               type="number"
               value={formData.bathrooms}
               onChange={(e) => handleChange("bathrooms", e.target.value)}
               disabled={isSubmitting}
-              placeholder="Number of bathrooms"
+              placeholder="e.g. 280000"
               className="rounded-md"
             />
           </div>
@@ -415,9 +415,9 @@ const AddPropertyForm = ({ onSuccess }: AddPropertyFormProps = {}) => {
           Images
         </h3>
         <div className="space-y-2">
-          <Label>Property Images *</Label>
+          <Label>Project images *</Label>
           <p className="text-sm text-muted-foreground">
-            Upload images from your computer or enter image URLs. The first image will be displayed on the project card.
+            Upload images from your computer. The first image will be displayed on the project card.
           </p>
         
         {/* Multiple Image Upload Button */}

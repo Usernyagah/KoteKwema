@@ -7,7 +7,7 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
-import { Bed, Bath, Ruler, MapPin, ChevronLeft, ChevronRight } from "lucide-react";
+import { Ruler, MapPin, ChevronLeft, ChevronRight } from "lucide-react";
 
 interface Property {
   id: string;
@@ -162,48 +162,37 @@ const PropertyDetailsDialog = ({ property, isOpen, onClose }: PropertyDetailsDia
             </div>
           )}
 
-          {/* Property Details */}
+          {/* Project Details */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {/* Left Column - Key Information */}
+            {/* Left Column - Facts & Figures */}
             <div className="space-y-6">
-              {/* Price */}
-              {property.price && (
-                <div className="flex items-center gap-2">
-                  <div>
-                    <p className="text-sm text-[#666666]">Price</p>
-                    <p className="text-2xl font-bold text-[#1A1A1A]">
-                      KSh {property.price.toLocaleString()}
-                    </p>
-                  </div>
-                </div>
-              )}
-
-              {/* Property Features */}
-              {(property.bedrooms || property.bathrooms || property.area) && (
+              {(property.price || property.bedrooms || property.bathrooms || property.area) && (
                 <div className="space-y-3">
-                  <h4 className="text-lg font-semibold text-[#1A1A1A]">Property Features</h4>
-                  <div className="space-y-2">
-                    {property.bedrooms && (
-                      <div className="flex items-center gap-3 text-[#666666]">
-                        <Bed className="h-5 w-5" />
-                        <span className="text-base">
-                          {property.bedrooms} Bedroom{property.bedrooms > 1 ? "s" : ""}
-                        </span>
-                      </div>
+                  <h4 className="text-lg font-semibold text-[#1A1A1A]">Facts &amp; Figures</h4>
+                  <div className="space-y-1 text-[#666666] text-sm">
+                    {property.price && (
+                      <p>
+                        <span className="font-semibold text-[#1A1A1A]">Appointment year: </span>
+                        {property.price}
+                      </p>
                     )}
-                    {property.bathrooms && (
-                      <div className="flex items-center gap-3 text-[#666666]">
-                        <Bath className="h-5 w-5" />
-                        <span className="text-base">
-                          {property.bathrooms} Bathroom{property.bathrooms > 1 ? "s" : ""}
-                        </span>
-                      </div>
+                    {property.bedrooms && (
+                      <p>
+                        <span className="font-semibold text-[#1A1A1A]">Completion year: </span>
+                        {property.bedrooms}
+                      </p>
                     )}
                     {property.area && (
-                      <div className="flex items-center gap-3 text-[#666666]">
-                        <Ruler className="h-5 w-5" />
-                        <span className="text-base">{property.area.toLocaleString()} m²</span>
-                      </div>
+                      <p>
+                        <span className="font-semibold text-[#1A1A1A]">Area: </span>
+                        {property.area.toLocaleString()} m²
+                      </p>
+                    )}
+                    {property.bathrooms && (
+                      <p>
+                        <span className="font-semibold text-[#1A1A1A]">Capacity: </span>
+                        {property.bathrooms.toLocaleString()}
+                      </p>
                     )}
                   </div>
                 </div>
