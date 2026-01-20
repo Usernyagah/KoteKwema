@@ -186,7 +186,7 @@ const PropertiesList = ({
   if (isLoading) {
     return (
       <div className="text-center py-8">
-        <p className="text-muted-foreground">Loading properties...</p>
+        <p className="text-muted-foreground">Loading projects...</p>
       </div>
     );
   }
@@ -203,7 +203,7 @@ const PropertiesList = ({
     return (
       <div className="text-center py-8">
         <p className="text-muted-foreground">
-          {searchQuery ? `No properties found matching "${searchQuery}".` : "No properties found."}
+          {searchQuery ? `No projects found matching "${searchQuery}".` : "No projects found."}
         </p>
       </div>
     );

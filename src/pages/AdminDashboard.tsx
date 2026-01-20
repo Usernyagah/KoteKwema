@@ -79,11 +79,11 @@ const AdminDashboard = () => {
       </div>
 
       <div className="container mx-auto px-4 py-8">
-        <Tabs defaultValue="properties" className="space-y-6">
+        <Tabs defaultValue="projects" className="space-y-6">
           <TabsList className="grid w-full grid-cols-3">
-            <TabsTrigger value="properties">
+            <TabsTrigger value="projects">
               <Building2 className="mr-2 h-4 w-4" />
-              Properties
+              Projects
             </TabsTrigger>
             <TabsTrigger value="jobs">
               <Briefcase className="mr-2 h-4 w-4" />
@@ -95,11 +95,11 @@ const AdminDashboard = () => {
             </TabsTrigger>
           </TabsList>
 
-          <TabsContent value="properties">
+          <TabsContent value="projects">
             <Card>
               <CardHeader>
-                <CardTitle>Properties Management</CardTitle>
-                <CardDescription>View, add, edit, and delete properties</CardDescription>
+                <CardTitle>Projects Management</CardTitle>
+                <CardDescription>View, add, edit, and delete projects</CardDescription>
               </CardHeader>
               <CardContent>
                 <PropertiesManagement />

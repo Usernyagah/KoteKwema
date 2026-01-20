@@ -107,14 +107,14 @@ const PropertiesManagement = () => {
   };
 
   if (isLoading) {
-    return <div className="text-center py-8">Loading properties...</div>;
+    return <div className="text-center py-8">Loading projects...</div>;
   }
 
   return (
     <div className="space-y-4">
       <div className="flex justify-between items-center">
         <p className="text-sm text-muted-foreground">
-          Total properties: <span className="font-semibold">{properties.length}</span>
+          Total projects: <span className="font-semibold">{properties.length}</span>
         </p>
         <Dialog open={isAddDialogOpen} onOpenChange={setIsAddDialogOpen}>
           <DialogTrigger asChild>
@@ -122,8 +122,8 @@ const PropertiesManagement = () => {
           </DialogTrigger>
           <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto">
             <DialogHeader>
-              <DialogTitle>Add New Property</DialogTitle>
-              <DialogDescription>Add a new property to the database</DialogDescription>
+              <DialogTitle>Add New Project</DialogTitle>
+              <DialogDescription>Add a new project to the database</DialogDescription>
             </DialogHeader>
             <AddPropertyForm onSuccess={() => setIsAddDialogOpen(false)} />
           </DialogContent>
@@ -132,7 +132,7 @@ const PropertiesManagement = () => {
 
       {properties.length === 0 ? (
         <div className="text-center py-8 text-muted-foreground">
-          No properties yet. Click "Add New Property" to get started.
+          No projects yet. Click "Add New Project" to get started.
         </div>
       ) : (
         <div className="border rounded-lg">

@@ -89,7 +89,7 @@ const AddPropertyForm = ({ onSuccess }: AddPropertyFormProps = {}) => {
     try {
       // Upload to Cloudinary
       const result = await uploadImage(file, {
-        folder: "properties",
+        folder: "projects",
       });
 
       // Update state with URL
@@ -175,7 +175,7 @@ const AddPropertyForm = ({ onSuccess }: AddPropertyFormProps = {}) => {
       try {
         // Upload to Cloudinary
         const result = await uploadImage(file, {
-          folder: "properties",
+          folder: "projects",
         });
 
         // Update state with URL using functional update

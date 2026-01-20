@@ -19,7 +19,7 @@ interface ImageUploadProps {
 export default function ImageUpload({
   onUploadComplete,
   onUploadError,
-  folder = 'properties',
+  folder = 'projects',
   maxSize = 10,
   maxWidth,
   maxHeight,
