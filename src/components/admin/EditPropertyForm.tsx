@@ -73,23 +73,15 @@ const EditPropertyForm = ({ property, onSuccess }: EditPropertyFormProps) => {
   }, [formData.images.length]);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const handleChange = (field: keyof PropertyFormData, value: string | string[] | ((prev: string | string[]) => string | string[])) => {
+  const handleChange = (
+    field: keyof PropertyFormData,
+    value: string | string[] | ((prev: string | string[]) => string | string[])
+  ) => {
     setFormData((prev) => {
-      const newValue = typeof value === 'function' ? value(prev[field]) : value;
+      const current = prev[field];
+      const newValue = typeof value === "function" ? value(current) : value;
       return { ...prev, [field]: newValue };
     });
-  };
-
-  const handleImageChange = (index: number, value: string) => {
-    const newImages = [...formData.images];
-    newImages[index] = value;
-    handleChange("images", newImages);
-    
-    const newUploads = [...imageUploads];
-    if (newUploads[index]) {
-      newUploads[index] = { file: null, uploading: false, url: "" };
-      setImageUploads(newUploads);
-    }
   };
 
   const handleFileSelect = async (index: number, file: File | null) => {
@@ -512,17 +504,6 @@ const EditPropertyForm = ({ property, onSuccess }: EditPropertyFormProps) => {
                     <X className="h-4 w-4" />
                   </Button>
                 )}
-              </div>
-              <div className="space-y-1">
-                <Label className="text-xs">Or enter image URL:</Label>
-                <Input
-                  type="url"
-                  value={imageUrl}
-                  onChange={(e) => handleImageChange(index, e.target.value)}
-                  disabled={isSubmitting || imageUploads[index]?.uploading}
-                  placeholder="https://example.com/image.jpg"
-                  className="rounded-md"
-                />
               </div>
               {imageUrl && (
                 <div className="mt-2">
