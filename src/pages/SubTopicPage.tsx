@@ -414,7 +414,7 @@ const subtopicContent: Record<string, {
       },
       {
         title: "Contact Information",
-        content: "Phone: 0710746917 | Email: info@kotekwema.com | Address: Westlands, Nairobi, Kenya. For specific inquiries, please use our contact forms or reach out directly via email. We typically respond within 24-48 hours during business days."
+        content: "Phone: +254 710 746 917 | Email: info@kotekwema.com | Address: Westlands, Nairobi, Kenya. For specific inquiries, please use our contact forms or reach out directly via email. We typically respond within 24-48 hours during business days."
       },
       {
         title: "Visiting Hours",
