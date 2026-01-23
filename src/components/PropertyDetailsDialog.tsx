@@ -99,7 +99,7 @@ const PropertyDetailsDialog = ({ property, isOpen, onClose }: PropertyDetailsDia
                     (e.target as HTMLImageElement).src = "https://via.placeholder.com/1200x675?text=No+Image";
                   }}
                 />
-                
+
                 {/* Navigation Arrows */}
                 {images.length > 1 && (
                   <>
@@ -137,11 +137,10 @@ const PropertyDetailsDialog = ({ property, isOpen, onClose }: PropertyDetailsDia
                     <button
                       key={index}
                       onClick={() => goToImage(index)}
-                      className={`relative aspect-video overflow-hidden rounded-md border-2 transition-all ${
-                        index === currentImageIndex
+                      className={`relative aspect-video overflow-hidden rounded-md border-2 transition-all ${index === currentImageIndex
                           ? "border-[#1A1A1A] ring-2 ring-[#1A1A1A]"
                           : "border-transparent hover:border-gray-300"
-                      }`}
+                        }`}
                     >
                       <img
                         src={image}
@@ -207,6 +206,19 @@ const PropertyDetailsDialog = ({ property, isOpen, onClose }: PropertyDetailsDia
               </p>
             </div>
           </div>
+        </div>
+        {/* Location & PO Box */}
+        <div className="mt-6 space-y-4">
+          <h4 className="text-lg font-semibold text-[#1A1A1A]">Location</h4>
+          <p className="text-base text-[#4A4A4A]">Westlands Arcade</p>
+          <iframe
+            title="Westlands Arcade Map"
+            src="https://www.google.com/maps?q=Westlands%20Arcade&output=embed"
+            className="w-full h-64 rounded-lg border"
+            loading="lazy"
+          ></iframe>
+          <h4 className="text-lg font-semibold text-[#1A1A1A] mt-4">P.O. Box</h4>
+          <p className="text-base text-[#4A4A4A]">51625-00100</p>
         </div>
       </DialogContent>
     </Dialog>
