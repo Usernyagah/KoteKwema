@@ -26,12 +26,12 @@ interface PropertiesListProps {
   onTotalCountChange?: (count: number) => void; // Callback for total count
 }
 
-const PropertiesList = ({ 
-  category, 
+const PropertiesList = ({
+  category,
   locationFilter,
   searchQuery = "",
   sortBy = "date-desc",
-  onTotalCountChange 
+  onTotalCountChange
 }: PropertiesListProps) => {
   const [properties, setProperties] = useState<Property[]>([]);
   const [filteredProperties, setFilteredProperties] = useState<Property[]>([]);
@@ -50,7 +50,7 @@ const PropertiesList = ({
         let q;
         // Handle "all" category as showing all properties
         const actualCategory = category === "all" ? undefined : category;
-        
+
         if (actualCategory) {
           // Try with orderBy first, fallback to without if index is missing
           try {
@@ -61,7 +61,7 @@ const PropertiesList = ({
             );
             const querySnapshot = await getDocs(q);
             const propertiesData: Property[] = [];
-            
+
             querySnapshot.forEach((doc) => {
               const data = doc.data();
               propertiesData.push({
@@ -82,7 +82,7 @@ const PropertiesList = ({
               );
               const querySnapshot = await getDocs(q);
               const propertiesData: Property[] = [];
-              
+
               querySnapshot.forEach((doc) => {
                 const data = doc.data();
                 propertiesData.push({
@@ -108,7 +108,7 @@ const PropertiesList = ({
           q = query(collection(db, "properties"), orderBy("createdAt", "desc"));
           const querySnapshot = await getDocs(q);
           const propertiesData: Property[] = [];
-          
+
           querySnapshot.forEach((doc) => {
             const data = doc.data();
             propertiesData.push({
@@ -176,7 +176,7 @@ const PropertiesList = ({
     });
 
     setFilteredProperties(filtered);
-    
+
     // Notify parent of total count
     if (onTotalCountChange) {
       onTotalCountChange(filtered.length);
@@ -211,8 +211,8 @@ const PropertiesList = ({
 
   return (
     <div className="mt-8 md:mt-12">
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
-        {filteredProperties.map((property) => (
+      <div className="grid grid-cols-1 gap-6 md:gap-8">
+        {filteredProperties.slice(0, 3).map((property) => (
           <PropertyCard key={property.id} property={property} />
         ))}
       </div>
