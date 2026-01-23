@@ -1,4 +1,4 @@
-import { ArrowUp } from "lucide-react";
+import { ArrowUp, Phone } from "lucide-react";
 import { Link } from "react-router-dom";
 
 // Official X logo SVG component
@@ -90,8 +90,9 @@ const Footer = () => {
             </p>
 
             {/* Contact Number */}
-            <a href="tel:+254710746917" className="text-sm text-white hover:text-white/80 transition-colors duration-200 font-bold text-left md:text-right">
-              +254 710 746 917
+            <a href="tel:+254710746917" className="flex items-center gap-2 text-sm text-white hover:text-white/80 transition-colors duration-200 font-bold justify-start md:justify-end">
+              <Phone className="h-4 w-4" />
+              <span>+254 710 746 917</span>
             </a>
 
             {/* Copyright */}
