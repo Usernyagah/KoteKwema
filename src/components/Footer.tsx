@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 // Official X logo SVG component
 const XLogo = ({ className }: { className?: string }) => (
   <svg viewBox="0 0 24 24" className={className} fill="currentColor" aria-label="X">
-    <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+    <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
   </svg>
 );
 
@@ -63,8 +63,8 @@ const Footer = () => {
             <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:gap-6">
               {/* Social Media Icons */}
               <div className="flex gap-2">
-                <a 
-                  href="https://x.com/KoteKwema" 
+                <a
+                  href="https://x.com/KoteKwema"
                   className="w-10 h-10 rounded-full bg-[#333333] flex items-center justify-center hover:bg-[#404040] transition-colors"
                   target="_blank"
                   rel="noopener noreferrer"
@@ -83,6 +83,16 @@ const Footer = () => {
                 <ArrowUp className="h-4 w-4" />
               </button>
             </div>
+
+            {/* Address Info */}
+            <p className="text-sm text-white font-bold text-left md:text-right">
+              Westlands Arcade | P.O. Box: 51625-00100
+            </p>
+
+            {/* Contact Number */}
+            <a href="tel:+254710746917" className="text-sm text-white hover:text-white/80 transition-colors duration-200 font-bold text-left md:text-right">
+              +254 710 746 917
+            </a>
 
             {/* Copyright */}
             <p className="text-sm text-white font-bold text-left md:text-right">
