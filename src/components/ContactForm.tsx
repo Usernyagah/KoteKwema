@@ -78,9 +78,7 @@ const ContactForm = ({ formType, formId }: ContactFormProps) => {
       };
 
       // Save to Firebase
-      console.log("Saving submission to Firestore:", submissionData);
-      const docRef = await addDoc(collection(db, "contactSubmissions"), submissionData);
-      console.log("Submission saved with ID:", docRef.id);
+      await addDoc(collection(db, "contactSubmissions"), submissionData);
 
       // Optional: Keep the Formspree submission if you still want email notifications
       try {
