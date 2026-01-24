@@ -95,8 +95,7 @@ const ContactForm = ({ formType, formId }: ContactFormProps) => {
           }),
         });
       } catch (emailError) {
-        console.error("Failed to send email notification:", emailError);
-        // Continue even if email fails
+        // Continue even if email fails - submission is already saved to Firestore
       }
 
       toast({

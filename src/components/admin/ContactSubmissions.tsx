@@ -75,7 +75,6 @@ export default function ContactSubmissions() {
       setSubmissions(submissionsData);
       setLoading(false);
     }, (error) => {
-      console.error("Error fetching submissions:", error);
       toast({
         title: "Error fetching submissions",
         description: error.message,
@@ -94,7 +93,11 @@ export default function ContactSubmissions() {
         updatedAt: new Date()
       });
     } catch (error) {
-      console.error("Error updating status:", error);
+      toast({
+        title: "Error updating status",
+        description: "Failed to update submission status",
+        variant: "destructive",
+      });
     }
   };
 
