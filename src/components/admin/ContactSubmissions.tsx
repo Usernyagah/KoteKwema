@@ -101,7 +101,7 @@ export default function ContactSubmissions() {
           {submissions.length} submission{submissions.length !== 1 ? 's' : ''}
         </div>
       </div>
-      
+
       <div className="rounded-md border">
         <Table>
           <TableHeader>
@@ -160,10 +160,26 @@ export default function ContactSubmissions() {
                   </TableCell>
                   <TableCell className="max-w-xs">
                     <div className="line-clamp-2">{submission.message}</div>
-                    {submission.projectType && (
-                      <div className="text-sm text-gray-500 mt-1">
-                        Project: {submission.projectType}
-                        {submission.budget && ` • ${submission.budget}`}
+                    {(submission.projectType || submission.budget || submission.timeline) && (
+                      <div className="mt-3 space-y-1 text-xs text-gray-500 bg-gray-50 p-2 rounded border border-gray-100">
+                        {submission.projectType && (
+                          <div className="grid grid-cols-[60px_1fr] gap-2">
+                            <span className="font-medium text-gray-700 uppercase tracking-wider text-[10px]">Project</span>
+                            <span>{submission.projectType}</span>
+                          </div>
+                        )}
+                        {submission.budget && (
+                          <div className="grid grid-cols-[60px_1fr] gap-2">
+                            <span className="font-medium text-gray-700 uppercase tracking-wider text-[10px]">Budget</span>
+                            <span>{submission.budget}</span>
+                          </div>
+                        )}
+                        {submission.timeline && (
+                          <div className="grid grid-cols-[60px_1fr] gap-2">
+                            <span className="font-medium text-gray-700 uppercase tracking-wider text-[10px]">Timeline</span>
+                            <span>{submission.timeline}</span>
+                          </div>
+                        )}
                       </div>
                     )}
                   </TableCell>
@@ -176,21 +192,21 @@ export default function ContactSubmissions() {
                         </Button>
                       </DropdownMenuTrigger>
                       <DropdownMenuContent align="end">
-                        <DropdownMenuItem 
+                        <DropdownMenuItem
                           onClick={() => updateStatus(submission.id, 'contacted')}
                           className="flex items-center"
                         >
                           <Clock className="mr-2 h-4 w-4" />
                           Mark as Contacted
                         </DropdownMenuItem>
-                        <DropdownMenuItem 
+                        <DropdownMenuItem
                           onClick={() => updateStatus(submission.id, 'completed')}
                           className="flex items-center"
                         >
                           <Check className="mr-2 h-4 w-4" />
                           Mark as Completed
                         </DropdownMenuItem>
-                        <DropdownMenuItem 
+                        <DropdownMenuItem
                           onClick={() => updateStatus(submission.id, 'spam')}
                           className="flex items-center text-red-600"
                         >
