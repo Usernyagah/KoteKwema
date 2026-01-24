@@ -5,6 +5,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { toast } from "@/hooks/use-toast";
 import { db } from "@/lib/firebase";
 import { collection, addDoc, serverTimestamp } from "firebase/firestore";
+import { v4 as uuidv4 } from 'uuid';
 
 interface ContactFormProps {
   formType: "consultation" | "inquiry" | "project";
@@ -67,12 +68,17 @@ const ContactForm = ({ formType, formId }: ContactFormProps) => {
     setIsSubmitting(true);
 
     try {
-      // Save to Firebase
-      await addDoc(collection(db, "contactSubmissions"), {
+      const submissionData = {
         ...formData,
+        id: uuidv4(),
         formType,
+        status: 'new',
         createdAt: serverTimestamp(),
-      });
+        updatedAt: serverTimestamp(),
+      };
+
+      // Save to Firebase
+      await addDoc(collection(db, "contactSubmissions"), submissionData);
 
       // Optional: Keep the Formspree submission if you still want email notifications
       try {
