@@ -27,7 +27,7 @@ const ContactForm = ({ formType, formId }: ContactFormProps) => {
   // Formspree form IDs for different form types
   const getFormId = () => {
     if (formId) return formId;
-    
+
     // Return form ID based on form type
     switch (formType) {
       case "consultation":
@@ -78,7 +78,9 @@ const ContactForm = ({ formType, formId }: ContactFormProps) => {
       };
 
       // Save to Firebase
-      await addDoc(collection(db, "contactSubmissions"), submissionData);
+      console.log("Saving submission to Firestore:", submissionData);
+      const docRef = await addDoc(collection(db, "contactSubmissions"), submissionData);
+      console.log("Submission saved with ID:", docRef.id);
 
       // Optional: Keep the Formspree submission if you still want email notifications
       try {
@@ -104,7 +106,7 @@ const ContactForm = ({ formType, formId }: ContactFormProps) => {
         description:
           "Your message has been sent. We'll get back to you within 24-48 hours.",
       });
-      
+
       // Reset form
       setFormData({
         name: "",
@@ -251,8 +253,8 @@ const ContactForm = ({ formType, formId }: ContactFormProps) => {
             formType === "consultation"
               ? "Tell us about your project and what you'd like to discuss..."
               : formType === "project"
-              ? "Tell us about your project vision, requirements, and goals..."
-              : "How can we help you?"
+                ? "Tell us about your project vision, requirements, and goals..."
+                : "How can we help you?"
           }
         />
       </div>

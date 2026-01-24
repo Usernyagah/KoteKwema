@@ -22,7 +22,7 @@ interface Project {
   bathrooms?: number; // capacity
   team?: string[];
   consultants?: string[];
-  createdAt?: any;
+  createdAt?: unknown;
 }
 
 export default function ProjectDetailsPage() {
@@ -54,7 +54,7 @@ export default function ProjectDetailsPage() {
           setError("Project not found");
           return;
         }
-        const data = snap.data() as any;
+        const data = snap.data();
         const loaded: Project = {
           id: snap.id,
           title: data.title ?? "",

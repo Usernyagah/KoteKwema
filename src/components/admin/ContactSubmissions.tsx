@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { collection, query, orderBy, onSnapshot, doc, updateDoc } from "firebase/firestore";
 import { db } from "@/lib/firebase";
+import { toast } from "@/hooks/use-toast";
 import {
   Table,
   TableBody,
@@ -72,6 +73,14 @@ export default function ContactSubmissions() {
         } as ContactSubmission);
       });
       setSubmissions(submissionsData);
+      setLoading(false);
+    }, (error) => {
+      console.error("Error fetching submissions:", error);
+      toast({
+        title: "Error fetching submissions",
+        description: error.message,
+        variant: "destructive",
+      });
       setLoading(false);
     });
 
