@@ -7,10 +7,11 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { toast } from "@/hooks/use-toast";
 import { useNavigate } from "react-router-dom";
-import { Building2, Briefcase, Mail, LogOut } from "lucide-react";
+import { Building2, Briefcase, Mail, LogOut, MessageSquare } from "lucide-react";
 import PropertiesManagement from "@/components/admin/PropertiesManagement";
 import JobsManagement from "@/components/admin/JobsManagement";
 import EmailSubscriptions from "@/components/admin/EmailSubscriptions";
+import ContactSubmissions from "@/components/admin/ContactSubmissions";
 
 const AdminDashboard = () => {
   const [user, loading] = useAuthState(auth);
@@ -80,7 +81,7 @@ const AdminDashboard = () => {
 
       <div className="container mx-auto px-4 py-8">
         <Tabs defaultValue="projects" className="space-y-6">
-          <TabsList className="grid w-full grid-cols-3">
+          <TabsList className="grid w-full grid-cols-4">
             <TabsTrigger value="projects">
               <Building2 className="mr-2 h-4 w-4" />
               Projects
@@ -92,6 +93,10 @@ const AdminDashboard = () => {
             <TabsTrigger value="subscriptions">
               <Mail className="mr-2 h-4 w-4" />
               Email Subscriptions
+            </TabsTrigger>
+            <TabsTrigger value="contact">
+              <MessageSquare className="mr-2 h-4 w-4" />
+              Contact Submissions
             </TabsTrigger>
           </TabsList>
 
@@ -123,10 +128,26 @@ const AdminDashboard = () => {
             <Card>
               <CardHeader>
                 <CardTitle>Email Subscriptions</CardTitle>
-                <CardDescription>View and manage email subscriptions</CardDescription>
+                <CardDescription>
+                  Manage email newsletter subscriptions
+                </CardDescription>
               </CardHeader>
               <CardContent>
                 <EmailSubscriptions />
+              </CardContent>
+            </Card>
+          </TabsContent>
+
+          <TabsContent value="contact">
+            <Card>
+              <CardHeader>
+                <CardTitle>Contact Form Submissions</CardTitle>
+                <CardDescription>
+                  View and manage contact form submissions
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <ContactSubmissions />
               </CardContent>
             </Card>
           </TabsContent>

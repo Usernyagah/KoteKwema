@@ -3,6 +3,8 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { toast } from "@/hooks/use-toast";
+import { db } from "@/lib/firebase";
+import { collection, addDoc, serverTimestamp } from "firebase/firestore";
 
 interface ContactFormProps {
   formType: "consultation" | "inquiry" | "project";
@@ -65,38 +67,48 @@ const ContactForm = ({ formType, formId }: ContactFormProps) => {
     setIsSubmitting(true);
 
     try {
-      const response = await fetch(`https://formspree.io/f/${getFormId()}`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          ...formData,
-          _subject: getFormSubject(),
-          _format: "plain",
-          formType,
-        }),
+      // Save to Firebase
+      await addDoc(collection(db, "contactSubmissions"), {
+        ...formData,
+        formType,
+        createdAt: serverTimestamp(),
       });
 
-      if (response.ok) {
-        toast({
-          title: "Thank you!",
-          description:
-            "Your message has been sent. We'll get back to you within 24-48 hours.",
+      // Optional: Keep the Formspree submission if you still want email notifications
+      try {
+        await fetch(`https://formspree.io/f/${getFormId()}`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            ...formData,
+            _subject: getFormSubject(),
+            _format: "plain",
+            formType,
+          }),
         });
-        // Reset form
-        setFormData({
-          name: "",
-          email: "",
-          phone: "",
-          message: "",
-          projectType: "",
-          budget: "",
-          timeline: "",
-        });
-      } else {
-        throw new Error("Form submission failed");
+      } catch (emailError) {
+        console.error("Failed to send email notification:", emailError);
+        // Continue even if email fails
       }
+
+      toast({
+        title: "Thank you!",
+        description:
+          "Your message has been sent. We'll get back to you within 24-48 hours.",
+      });
+      
+      // Reset form
+      setFormData({
+        name: "",
+        email: "",
+        phone: "",
+        message: "",
+        projectType: "",
+        budget: "",
+        timeline: "",
+      });
     } catch (error) {
       toast({
         title: "Error",
