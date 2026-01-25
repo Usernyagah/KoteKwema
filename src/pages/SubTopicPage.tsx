@@ -6,6 +6,7 @@ import ContactForm from "@/components/ContactForm";
 import StructuredData from "@/components/StructuredData";
 import PropertiesList from "@/components/PropertiesList";
 import ProjectsFilter from "@/components/ProjectsFilter";
+import JobsList from "@/components/JobsList";
 import { useSEO } from "@/hooks/useSEO";
 import { trackPageView } from "@/utils/analytics";
 import heroImage from "@/assets/hero-architecture.jpg";
@@ -677,6 +678,14 @@ const SubTopicPage = () => {
                     <PropertiesList category={key === "mixed-use" ? "mixed-use" : key} />
                   </>
                 )}
+              </div>
+            )}
+
+            {/* Jobs from Firestore - For Careers/Open Positions page */}
+            {key === "positions" && (
+              <div className="mt-8 md:mt-12 border-t border-[#E5E5E5] pt-8 md:pt-12">
+                <h3 className="text-2xl md:text-3xl font-light text-black mb-8">Currently Available Roles</h3>
+                <JobsList />
               </div>
             )}
 
