@@ -1,10 +1,9 @@
 import { useState, useEffect } from "react";
-import { collection, query, where, getDocs, orderBy, onSnapshot } from "firebase/firestore";
+import { collection, query, where, orderBy, onSnapshot } from "firebase/firestore";
 import { db } from "@/lib/firebase";
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { MapPin, Clock, Briefcase, Mail, ArrowRight } from "lucide-react";
+import { MapPin, Clock, Briefcase, Mail, ArrowRight, ChevronRight } from "lucide-react";
 
 interface Job {
     id: string;
@@ -32,7 +31,6 @@ const JobsList = () => {
             return;
         }
 
-        // Using onSnapshot for real-time updates as per usual pattern in this project
         const q = query(
             collection(db, "jobVacancies"),
             where("isActive", "==", true),
@@ -54,9 +52,7 @@ const JobsList = () => {
                 setIsLoading(false);
             },
             (error: any) => {
-                // Fallback for missing index
                 if (error.code === "failed-precondition") {
-                    console.warn("Firestore index missing for jobs, fetching without orderBy");
                     const fallbackQuery = query(
                         collection(db, "jobVacancies"),
                         where("isActive", "==", true)
@@ -69,7 +65,6 @@ const JobsList = () => {
                             jobsData.push({ ...data, id: doc.id } as Job);
                         });
 
-                        // Sort manually
                         jobsData.sort((a, b) => {
                             const aTime = a.createdAt?.toMillis?.() || 0;
                             const bTime = b.createdAt?.toMillis?.() || 0;
@@ -93,103 +88,110 @@ const JobsList = () => {
 
     if (isLoading) {
         return (
-            <div className="text-center py-8">
-                <p className="text-muted-foreground italic">Checking for open positions...</p>
+            <div className="py-8">
+                <p className="text-lg text-[#1A1A1A] font-light italic">Refining opportunities...</p>
             </div>
         );
     }
 
     if (error) {
         return (
-            <div className="text-center py-8">
-                <p className="text-destructive font-light">{error}</p>
+            <div className="py-8">
+                <p className="text-lg text-destructive font-light">{error}</p>
             </div>
         );
     }
 
     if (jobs.length === 0) {
         return (
-            <div className="text-center py-12 p-8 border border-dashed border-[#E5E5E5] rounded-lg bg-[#F9F9F9]">
-                <Briefcase className="w-12 h-12 mx-auto text-[#CCCCCC] mb-4 font-light" />
-                <h3 className="text-xl font-light text-black mb-2">No Open Positions Currently</h3>
-                <p className="text-[#666666] font-light max-w-md mx-auto">
-                    We're not currently hiring for any specific roles, but we're always interested in meeting talented people.
-                    Feel free to send your portfolio to careers@kotekwema.com for future consideration.
+            <div className="py-12 border-t border-[#E5E5E5]">
+                <h3 className="text-xl md:text-2xl font-light text-black mb-4">No Open Positions Currently</h3>
+                <p className="text-base md:text-lg text-[#4A4A4A] font-light leading-relaxed max-w-2xl">
+                    While we don't have any specific roles open at the moment, we are always looking for exceptional talent to join our studio.
+                    Feel free to share your vision and portfolio with us for future consideration at{" "}
+                    <a href="mailto:careers@kotekwema.com" className="text-black font-medium hover:underline">careers@kotekwema.com</a>.
                 </p>
             </div>
         );
     }
 
     return (
-        <div className="grid grid-cols-1 gap-6">
+        <div className="space-y-16 md:space-y-24">
             {jobs.map((job) => (
-                <Card key={job.id} className="border border-[#E5E5E5] hover:border-black transition-colors duration-300">
-                    <CardHeader className="pb-4">
-                        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
-                            <div>
-                                <CardTitle className="text-xl md:text-2xl font-semibold mb-2">{job.title}</CardTitle>
-                                <div className="flex flex-wrap gap-3 text-sm text-[#666666]">
-                                    <div className="flex items-center gap-1.5">
-                                        <Briefcase className="w-4 h-4" />
-                                        <span className="capitalize">{job.department.replace("-", " ")}</span>
-                                    </div>
-                                    <div className="flex items-center gap-1.5">
-                                        <MapPin className="w-4 h-4" />
-                                        <span>{job.location}</span>
-                                    </div>
-                                    <div className="flex items-center gap-1.5">
-                                        <Clock className="w-4 h-4" />
-                                        <span className="capitalize">{job.type}</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <Badge variant="outline" className="w-fit border-[#E5E5E5] text-[#1A1A1A] font-light px-3 py-1">
-                                {job.type}
-                            </Badge>
-                        </div>
-                    </CardHeader>
-                    <CardContent className="space-y-6">
+                <div key={job.id} className="group animate-in fade-in slide-in-from-bottom-4 duration-700">
+                    {/* Header */}
+                    <div className="flex flex-col md:flex-row md:items-baseline justify-between gap-4 mb-8">
                         <div>
-                            <h4 className="text-sm font-semibold text-black uppercase tracking-wider mb-2">Description</h4>
-                            <p className="text-sm md:text-base text-[#4A4A4A] font-light leading-relaxed whitespace-pre-line">
-                                {job.description}
-                            </p>
+                            <h3 className="text-2xl md:text-3xl lg:text-4xl font-light text-black mb-4 group-hover:tracking-tight transition-all duration-500">
+                                {job.title}
+                            </h3>
+                            <div className="flex flex-wrap items-center gap-x-6 gap-y-2 text-sm md:text-base text-[#666666] font-light uppercase tracking-widest">
+                                <span className="flex items-center gap-2">
+                                    <Briefcase size={14} strokeWidth={1.5} />
+                                    {job.department.replace("-", " ")}
+                                </span>
+                                <span className="flex items-center gap-2">
+                                    <MapPin size={14} strokeWidth={1.5} />
+                                    {job.location}
+                                </span>
+                                <span className="flex items-center gap-2">
+                                    <Clock size={14} strokeWidth={1.5} />
+                                    {job.type}
+                                </span>
+                            </div>
                         </div>
 
-                        {job.requirements && (
-                            <div>
-                                <h4 className="text-sm font-semibold text-black uppercase tracking-wider mb-2">Requirements</h4>
-                                <p className="text-sm md:text-base text-[#4A4A4A] font-light leading-relaxed whitespace-pre-line">
-                                    {job.requirements}
+                        <div className="hidden md:block">
+                            <ChevronRight className="w-8 h-8 text-[#E5E5E5] group-hover:text-black group-hover:translate-x-2 transition-all duration-300" strokeWidth={1} />
+                        </div>
+                    </div>
+
+                    {/* Details */}
+                    <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 md:gap-12">
+                        <div className="lg:col-span-8 space-y-10">
+                            <div className="border-l-2 border-[#E5E5E5] pl-6 md:pl-8">
+                                <h4 className="text-xs font-semibold text-black uppercase tracking-[0.2em] mb-4">The Role</h4>
+                                <p className="text-base md:text-lg text-[#4A4A4A] font-light leading-relaxed whitespace-pre-line max-w-3xl">
+                                    {job.description}
                                 </p>
                             </div>
-                        )}
 
-                        <div className="pt-4 border-t border-[#F0F0F0] flex flex-col sm:flex-row items-center justify-between gap-4">
-                            <div className="text-sm text-[#666666]">
-                                Interested? Contact us at:{" "}
-                                <a href={`mailto:${job.applicationEmail}`} className="text-black font-medium hover:underline">
-                                    {job.applicationEmail}
-                                </a>
-                            </div>
-                            <div className="flex gap-3 w-full sm:w-auto">
-                                {job.applicationUrl ? (
-                                    <Button asChild className="w-full sm:w-auto bg-black text-white hover:bg-[#333333]">
-                                        <a href={job.applicationUrl} target="_blank" rel="noopener noreferrer">
-                                            Apply Online <ArrowRight className="ml-2 w-4 h-4" />
-                                        </a>
-                                    </Button>
-                                ) : (
-                                    <Button asChild className="w-full sm:w-auto bg-black text-white hover:bg-[#333333]">
+                            {job.requirements && (
+                                <div className="border-l-2 border-[#E5E5E5] pl-6 md:pl-8">
+                                    <h4 className="text-xs font-semibold text-black uppercase tracking-[0.2em] mb-4">Requirements</h4>
+                                    <p className="text-base md:text-lg text-[#4A4A4A] font-light leading-relaxed whitespace-pre-line max-w-3xl">
+                                        {job.requirements}
+                                    </p>
+                                </div>
+                            )}
+                        </div>
+
+                        <div className="lg:col-span-4 flex flex-col justify-end">
+                            <div className="bg-[#FAFAFA] p-8 space-y-6">
+                                <p className="text-xs font-semibold text-black uppercase tracking-widest">Apply Now</p>
+                                <p className="text-sm text-[#666666] font-light leading-relaxed">
+                                    To apply for this position, please send your portfolio and CV to our careers desk or follow the application link below.
+                                </p>
+                                <div className="space-y-3 pt-2">
+                                    {job.applicationUrl ? (
+                                        <Button asChild className="w-full bg-black text-white hover:bg-[#333333] rounded-none py-6 transition-all duration-300">
+                                            <a href={job.applicationUrl} target="_blank" rel="noopener noreferrer">
+                                                Application Portal <ArrowRight className="ml-2 w-4 h-4" />
+                                            </a>
+                                        </Button>
+                                    ) : null}
+                                    <Button asChild variant="outline" className="w-full border-black text-black hover:bg-black hover:text-white rounded-none py-6 transition-all duration-300">
                                         <a href={`mailto:${job.applicationEmail}?subject=Application for ${job.title}`}>
-                                            Apply via Email <Mail className="ml-2 w-4 h-4" />
+                                            Email Application <Mail className="ml-2 w-4 h-4" />
                                         </a>
                                     </Button>
-                                )}
+                                </div>
                             </div>
                         </div>
-                    </CardContent>
-                </Card>
+                    </div>
+
+                    <div className="mt-16 border-b border-[#E5E5E5] w-full" />
+                </div>
             ))}
         </div>
     );
