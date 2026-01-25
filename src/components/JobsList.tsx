@@ -37,6 +37,8 @@ const JobsList = () => {
             orderBy("createdAt", "desc")
         );
 
+        let unsubscribeFallback: (() => void) | null = null;
+
         const unsubscribe = onSnapshot(
             q,
             (snapshot) => {
@@ -58,7 +60,7 @@ const JobsList = () => {
                         where("isActive", "==", true)
                     );
 
-                    onSnapshot(fallbackQuery, (snapshot) => {
+                    unsubscribeFallback = onSnapshot(fallbackQuery, (snapshot) => {
                         const jobsData: Job[] = [];
                         snapshot.forEach((doc) => {
                             const data = doc.data();
@@ -83,7 +85,10 @@ const JobsList = () => {
             }
         );
 
-        return () => unsubscribe();
+        return () => {
+            unsubscribe();
+            if (unsubscribeFallback) unsubscribeFallback();
+        };
     }, []);
 
     if (isLoading) {

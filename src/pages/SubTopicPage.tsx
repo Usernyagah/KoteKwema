@@ -378,11 +378,6 @@ const subtopicContent: Record<string, {
     title: "Open Positions",
     breadcrumbs: ["Careers", "Open Positions"],
     description: "Current job openings at our studio. Explore opportunities to join our team of passionate architects, designers, and engineers.",
-    additionalContent: "We're always looking for talented individuals who share our passion for sustainable design and architectural excellence. Join our small but dedicated team that values creativity, collaboration, and making a positive impact through architecture.",
-    sections: [
-      { title: "Current Openings", content: "We occasionally have openings for talented architects and designers. If you're passionate about sustainable design and would like to join our team, please reach out with your portfolio and resume." },
-      { title: "How to Apply", content: "Submit your cover letter, resume, and portfolio (max 10 pages, PDF format under 10MB) to careers@kotekwema.com with the position title in the subject line." }
-    ]
   },
   life: {
     title: "Life at Kote Kwema",
@@ -601,17 +596,21 @@ const SubTopicPage = () => {
       <div className="px-4 md:px-6 lg:px-12 py-12 md:py-16 lg:py-24">
         <div className="max-w-4xl mx-auto">
           <div className="prose prose-lg max-w-none mb-8 md:mb-12">
-            <p className="text-base md:text-lg lg:text-xl text-[#1A1A1A] font-light leading-relaxed mb-6 md:mb-8">
-              {content.description}
-            </p>
-            {content.additionalContent && (
-              <p className="text-base md:text-lg lg:text-xl text-[#1A1A1A] font-light leading-relaxed mb-6 md:mb-8">
-                {content.additionalContent}
-              </p>
+            {key !== "positions" && (
+              <>
+                <p className="text-base md:text-lg lg:text-xl text-[#1A1A1A] font-light leading-relaxed mb-6 md:mb-8">
+                  {content.description}
+                </p>
+                {content.additionalContent && (
+                  <p className="text-base md:text-lg lg:text-xl text-[#1A1A1A] font-light leading-relaxed mb-6 md:mb-8">
+                    {content.additionalContent}
+                  </p>
+                )}
+              </>
             )}
 
             {/* Sections */}
-            {content.sections && content.sections.length > 0 && (
+            {key !== "positions" && content.sections && content.sections.length > 0 && (
               <div className="space-y-6 md:space-y-8 mt-8 md:mt-12">
                 {content.sections.map((section, index) => (
                   <div key={index} className="border-l-2 border-[#E5E5E5] pl-4 md:pl-6">
