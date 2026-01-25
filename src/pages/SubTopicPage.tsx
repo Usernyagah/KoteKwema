@@ -1,5 +1,7 @@
 import { useParams, useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
+import { collection, getDocs, query, orderBy } from "firebase/firestore";
+import { db } from "@/lib/firebase";
 import SubTopicPageLayout from "@/components/SubTopicPageLayout";
 import { Card, CardContent } from "@/components/ui/card";
 import ContactForm from "@/components/ContactForm";
@@ -513,6 +515,32 @@ const SubTopicPage = () => {
   const [filterLocation, setFilterLocation] = useState<string>("All locations");
   const [sortBy, setSortBy] = useState<string>("date-desc");
   const [totalCount, setTotalCount] = useState<number>(0);
+  const [dynamicTeamMembers, setDynamicTeamMembers] = useState<Person[]>([]);
+
+  // Fetch dynamic team members for people-related pages
+  useEffect(() => {
+    if (subtopic === "leadership" || subtopic === "architects") {
+      const fetchTeam = async () => {
+        try {
+          const q = query(collection(db, "teamMembers"), orderBy("order", "asc"));
+          const snapshot = await getDocs(q);
+          const members = snapshot.docs.map(doc => {
+            const data = doc.data();
+            return {
+              name: data.name,
+              role: data.role,
+              bio: data.bio || "",
+              image: data.imageUrl || "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&h=500&fit=crop&q=80"
+            };
+          });
+          setDynamicTeamMembers(members);
+        } catch (error) {
+          console.error("Error fetching team members:", error);
+        }
+      };
+      fetchTeam();
+    }
+  }, [subtopic]);
 
   // Scroll to top when component mounts or route changes
   useEffect(() => {
@@ -595,12 +623,13 @@ const SubTopicPage = () => {
               </div>
             )}
 
-            {/* People Cards - For Leadership page */}
-            {content.people && content.people.length > 0 && (
+            {/* People Cards - For Leadership/Architects pages */}
+            {(content.people || dynamicTeamMembers.length > 0) && (
               <div className="mt-8 md:mt-12">
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
-                  {content.people.map((person, index) => (
-                    <Card key={index} className="overflow-hidden border border-[#E5E5E5] bg-white hover:shadow-lg transition-shadow duration-300">
+                  {/* Combine hardcoded and dynamic members */}
+                  {[...(content.people || []), ...dynamicTeamMembers].map((person, index) => (
+                    <Card key={index} className="overflow-hidden border border-[#E5E5E5] bg-white hover:border-black transition-all duration-300 rounded-none shadow-none group">
                       <div className="aspect-[3/4] overflow-hidden">
                         <img
                           src={person.image}
@@ -610,8 +639,8 @@ const SubTopicPage = () => {
                         />
                       </div>
                       <CardContent className="p-4 md:p-6 bg-white">
-                        <h3 className="text-lg md:text-xl font-semibold text-[#1A1A1A] mb-2">{person.name}</h3>
-                        <p className="text-xs md:text-sm text-[#666666] font-medium mb-3 md:mb-4">{person.role}</p>
+                        <h3 className="text-lg md:text-xl font-semibold text-[#1A1A1A] mb-2 group-hover:text-black transition-colors">{person.name}</h3>
+                        <p className="text-xs md:text-sm text-[#666666] font-light uppercase tracking-widest mb-3 md:mb-4">{person.role}</p>
                         <p className="text-xs md:text-sm text-[#4A4A4A] font-light leading-relaxed">{person.bio}</p>
                       </CardContent>
                     </Card>
