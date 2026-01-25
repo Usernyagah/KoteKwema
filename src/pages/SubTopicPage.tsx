@@ -9,6 +9,7 @@ import StructuredData from "@/components/StructuredData";
 import PropertiesList from "@/components/PropertiesList";
 import ProjectsFilter from "@/components/ProjectsFilter";
 import JobsList from "@/components/JobsList";
+import NewsList from "@/components/NewsList";
 import { useSEO } from "@/hooks/useSEO";
 import { trackPageView } from "@/utils/analytics";
 import heroImage from "@/assets/hero-architecture.jpg";
@@ -715,6 +716,16 @@ const SubTopicPage = () => {
               <div className="mt-8 md:mt-12 border-t border-[#E5E5E5] pt-8 md:pt-12">
                 <h3 className="text-2xl md:text-3xl font-light text-black mb-8">Currently Available Roles</h3>
                 <JobsList />
+              </div>
+            )}
+
+            {/* News from Firestore - For News pages */}
+            {(key === "announcements" || key === "news-awards") && (
+              <div className="mt-8 md:mt-12 border-t border-[#E5E5E5] pt-8 md:pt-12">
+                <h3 className="text-2xl md:text-3xl font-light text-black mb-8">
+                  {key === "announcements" ? "Latest Announcements" : "Recent Awards & Recognition"}
+                </h3>
+                <NewsList subtopic={key} />
               </div>
             )}
 
