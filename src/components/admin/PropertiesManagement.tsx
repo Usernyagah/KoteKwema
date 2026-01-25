@@ -37,7 +37,7 @@ const PropertiesManagement = () => {
     }
 
     const q = query(collection(db, "properties"), orderBy("createdAt", "desc"));
-    
+
     const unsubscribe = onSnapshot(
       q,
       (snapshot) => {
@@ -45,8 +45,8 @@ const PropertiesManagement = () => {
         snapshot.forEach((doc) => {
           const data = doc.data();
           props.push({
-            id: doc.id,
             ...data,
+            id: doc.id,
             images: data.images || [],
           } as Property);
         });
@@ -193,8 +193,8 @@ const PropertiesManagement = () => {
               <DialogTitle>Edit Property</DialogTitle>
               <DialogDescription>Update property information</DialogDescription>
             </DialogHeader>
-            <EditPropertyForm 
-              property={editingProperty} 
+            <EditPropertyForm
+              property={editingProperty}
               onSuccess={handleEditClose}
             />
           </DialogContent>

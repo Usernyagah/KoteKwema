@@ -114,8 +114,8 @@ const NewsManagement = () => {
             querySnapshot.forEach((doc) => {
                 const data = doc.data();
                 articles.push({
-                    id: doc.id,
                     ...data,
+                    id: doc.id,
                     createdAt: data.createdAt?.toDate(),
                     updatedAt: data.updatedAt?.toDate(),
                     publishedDate: data.publishedDate?.toDate(),

@@ -70,7 +70,6 @@ const ContactForm = ({ formType, formId }: ContactFormProps) => {
     try {
       const submissionData = {
         ...formData,
-        id: uuidv4(),
         formType,
         status: 'new',
         createdAt: serverTimestamp(),

@@ -94,7 +94,8 @@ const TeamManagement = () => {
             const querySnapshot = await getDocs(collection(db, "teamMembers"));
             const members: TeamMember[] = [];
             querySnapshot.forEach((doc) => {
-                members.push({ id: doc.id, ...doc.data() } as TeamMember);
+                const data = doc.data();
+                members.push({ ...data, id: doc.id } as TeamMember);
             });
             // Sort by order field, then by name
             members.sort((a, b) => {

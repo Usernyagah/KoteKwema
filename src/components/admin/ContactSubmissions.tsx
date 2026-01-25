@@ -65,11 +65,12 @@ export default function ContactSubmissions() {
     const unsubscribe = onSnapshot(q, (querySnapshot) => {
       const submissionsData: ContactSubmission[] = [];
       querySnapshot.forEach((doc) => {
+        const data = doc.data();
         submissionsData.push({
+          ...data,
           id: doc.id,
-          ...doc.data(),
-          createdAt: doc.data().createdAt?.toDate(),
-          updatedAt: doc.data().updatedAt?.toDate()
+          createdAt: data.createdAt?.toDate(),
+          updatedAt: data.updatedAt?.toDate()
         } as ContactSubmission);
       });
       setSubmissions(submissionsData);
