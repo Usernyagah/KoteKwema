@@ -53,10 +53,38 @@ const JobsList = () => {
                 setJobs(jobsData);
                 setIsLoading(false);
             },
-            (error) => {
-                console.error("Error fetching jobs:", error);
-                setError("Failed to load job vacancies");
-                setIsLoading(false);
+            (error: any) => {
+                // Fallback for missing index
+                if (error.code === "failed-precondition") {
+                    console.warn("Firestore index missing for jobs, fetching without orderBy");
+                    const fallbackQuery = query(
+                        collection(db, "jobVacancies"),
+                        where("isActive", "==", true)
+                    );
+
+                    onSnapshot(fallbackQuery, (snapshot) => {
+                        const jobsData: Job[] = [];
+                        snapshot.forEach((doc) => {
+                            const data = doc.data();
+                            jobsData.push({ ...data, id: doc.id } as Job);
+                        });
+
+                        // Sort manually
+                        jobsData.sort((a, b) => {
+                            const aTime = a.createdAt?.toMillis?.() || 0;
+                            const bTime = b.createdAt?.toMillis?.() || 0;
+                            return bTime - aTime;
+                        });
+
+                        setJobs(jobsData);
+                        setIsLoading(false);
+                        setError(null);
+                    });
+                } else {
+                    console.error("Error fetching jobs:", error);
+                    setError("Failed to load job vacancies");
+                    setIsLoading(false);
+                }
             }
         );
 
