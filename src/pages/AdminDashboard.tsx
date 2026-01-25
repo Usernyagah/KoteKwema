@@ -7,11 +7,13 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { toast } from "@/hooks/use-toast";
 import { useNavigate } from "react-router-dom";
-import { Building2, Briefcase, Mail, LogOut, MessageSquare } from "lucide-react";
+import { Building2, Briefcase, Mail, LogOut, MessageSquare, Users, Newspaper } from "lucide-react";
 import PropertiesManagement from "@/components/admin/PropertiesManagement";
 import JobsManagement from "@/components/admin/JobsManagement";
 import EmailSubscriptions from "@/components/admin/EmailSubscriptions";
 import ContactSubmissions from "@/components/admin/ContactSubmissions";
+import TeamManagement from "@/components/admin/TeamManagement";
+import NewsManagement from "@/components/admin/NewsManagement";
 
 const AdminDashboard = () => {
   const [user, loading] = useAuthState(auth);
@@ -81,7 +83,7 @@ const AdminDashboard = () => {
 
       <div className="container mx-auto px-4 py-8">
         <Tabs defaultValue="projects" className="space-y-6">
-          <TabsList className="grid w-full grid-cols-4">
+          <TabsList className="grid w-full grid-cols-6">
             <TabsTrigger value="projects">
               <Building2 className="mr-2 h-4 w-4" />
               Projects
@@ -89,6 +91,14 @@ const AdminDashboard = () => {
             <TabsTrigger value="jobs">
               <Briefcase className="mr-2 h-4 w-4" />
               Job Vacancies
+            </TabsTrigger>
+            <TabsTrigger value="team">
+              <Users className="mr-2 h-4 w-4" />
+              Team Members
+            </TabsTrigger>
+            <TabsTrigger value="news">
+              <Newspaper className="mr-2 h-4 w-4" />
+              News
             </TabsTrigger>
             <TabsTrigger value="subscriptions">
               <Mail className="mr-2 h-4 w-4" />
@@ -120,6 +130,34 @@ const AdminDashboard = () => {
               </CardHeader>
               <CardContent>
                 <JobsManagement />
+              </CardContent>
+            </Card>
+          </TabsContent>
+
+          <TabsContent value="team">
+            <Card>
+              <CardHeader>
+                <CardTitle>Team Members Management</CardTitle>
+                <CardDescription>
+                  Add, edit, and remove team members
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <TeamManagement />
+              </CardContent>
+            </Card>
+          </TabsContent>
+
+          <TabsContent value="news">
+            <Card>
+              <CardHeader>
+                <CardTitle>News Management</CardTitle>
+                <CardDescription>
+                  Add, edit, and publish news articles
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <NewsManagement />
               </CardContent>
             </Card>
           </TabsContent>
