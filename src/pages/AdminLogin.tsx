@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useAuthState } from "react-firebase-hooks/auth";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "@/lib/firebase";
 import { Button } from "@/components/ui/button";
@@ -10,14 +11,21 @@ import { toast } from "@/hooks/use-toast";
 import { useNavigate } from "react-router-dom";
 
 const AdminLogin = () => {
+  const [user, loading] = useAuthState(auth);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
 
+  useEffect(() => {
+    if (user && !loading) {
+      navigate("/admin");
+    }
+  }, [user, loading, navigate]);
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     if (!auth) {
       toast({
         title: "Firebase not configured",

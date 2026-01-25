@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { toast } from "@/hooks/use-toast";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { Building2, Briefcase, Mail, LogOut, MessageSquare, Users, Newspaper } from "lucide-react";
 import PropertiesManagement from "@/components/admin/PropertiesManagement";
 import JobsManagement from "@/components/admin/JobsManagement";
@@ -18,6 +18,12 @@ import NewsManagement from "@/components/admin/NewsManagement";
 const AdminDashboard = () => {
   const [user, loading] = useAuthState(auth);
   const navigate = useNavigate();
+  const [searchParams, setSearchParams] = useSearchParams();
+  const activeTab = searchParams.get("tab") || "projects";
+
+  const handleTabChange = (value: string) => {
+    setSearchParams({ tab: value });
+  };
 
   useEffect(() => {
     if (!auth) {
@@ -82,7 +88,7 @@ const AdminDashboard = () => {
       </div>
 
       <div className="container mx-auto px-4 py-8">
-        <Tabs defaultValue="projects" className="space-y-6">
+        <Tabs value={activeTab} onValueChange={handleTabChange} className="space-y-6">
           <TabsList className="grid w-full grid-cols-6">
             <TabsTrigger value="projects">
               <Building2 className="mr-2 h-4 w-4" />
