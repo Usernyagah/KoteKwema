@@ -16,7 +16,6 @@ interface JobFormData {
   description: string;
   requirements: string;
   applicationEmail: string;
-  applicationUrl: string;
 }
 
 interface AddJobFormProps {
@@ -32,7 +31,6 @@ const AddJobForm = ({ onSuccess }: AddJobFormProps = {}) => {
     description: "",
     requirements: "",
     applicationEmail: "",
-    applicationUrl: "",
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -42,7 +40,7 @@ const AddJobForm = ({ onSuccess }: AddJobFormProps = {}) => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     if (!db) {
       toast({
         title: "Error",
@@ -75,7 +73,6 @@ const AddJobForm = ({ onSuccess }: AddJobFormProps = {}) => {
         description: "",
         requirements: "",
         applicationEmail: "",
-        applicationUrl: "",
       });
 
       // Call onSuccess callback if provided
@@ -167,17 +164,7 @@ const AddJobForm = ({ onSuccess }: AddJobFormProps = {}) => {
           </p>
         </div>
 
-        <div className="space-y-2">
-          <Label htmlFor="applicationUrl">Application URL</Label>
-          <Input
-            id="applicationUrl"
-            type="url"
-            value={formData.applicationUrl}
-            onChange={(e) => handleChange("applicationUrl", e.target.value)}
-            disabled={isSubmitting}
-            placeholder="https://example.com/apply"
-          />
-        </div>
+
       </div>
 
       <div className="space-y-2">

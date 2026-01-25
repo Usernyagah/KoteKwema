@@ -18,7 +18,6 @@ interface Job {
   description: string;
   requirements: string;
   applicationEmail: string;
-  applicationUrl: string;
   isActive: boolean;
 }
 
@@ -30,7 +29,6 @@ interface JobFormData {
   description: string;
   requirements: string;
   applicationEmail: string;
-  applicationUrl: string;
   isActive: boolean;
 }
 
@@ -48,7 +46,6 @@ const EditJobForm = ({ job, onSuccess }: EditJobFormProps) => {
     description: job.description || "",
     requirements: job.requirements || "",
     applicationEmail: job.applicationEmail || "",
-    applicationUrl: job.applicationUrl || "",
     isActive: job.isActive !== undefined ? job.isActive : true,
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -59,7 +56,7 @@ const EditJobForm = ({ job, onSuccess }: EditJobFormProps) => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     if (!db) {
       toast({
         title: "Error",
@@ -165,17 +162,7 @@ const EditJobForm = ({ job, onSuccess }: EditJobFormProps) => {
           />
         </div>
 
-        <div className="space-y-2">
-          <Label htmlFor="applicationUrl">Application URL</Label>
-          <Input
-            id="applicationUrl"
-            type="url"
-            value={formData.applicationUrl}
-            onChange={(e) => handleChange("applicationUrl", e.target.value)}
-            disabled={isSubmitting}
-            placeholder="https://example.com/apply"
-          />
-        </div>
+
 
         <div className="space-y-2 flex items-center gap-2">
           <Switch

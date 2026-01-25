@@ -172,14 +172,7 @@ const JobsList = () => {
                                 <p className="text-sm text-[#666666] font-light leading-relaxed">
                                     To apply for this position, please send your portfolio and CV to our careers desk or follow the application link below.
                                 </p>
-                                <div className="space-y-3 pt-2">
-                                    {job.applicationUrl ? (
-                                        <Button asChild className="w-full bg-black text-white hover:bg-[#333333] rounded-none py-6 transition-all duration-300">
-                                            <a href={job.applicationUrl} target="_blank" rel="noopener noreferrer">
-                                                Application Portal <ArrowRight className="ml-2 w-4 h-4" />
-                                            </a>
-                                        </Button>
-                                    ) : null}
+                                <div className="pt-2">
                                     <Button asChild variant="outline" className="w-full border-black text-black hover:bg-black hover:text-white rounded-none py-6 transition-all duration-300">
                                         <a href={`mailto:${job.applicationEmail}?subject=Application for ${job.title}`}>
                                             Email Application <Mail className="ml-2 w-4 h-4" />
