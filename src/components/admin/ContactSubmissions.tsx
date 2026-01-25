@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { collection, query, orderBy, onSnapshot, doc, updateDoc } from "firebase/firestore";
+import { collection, query, orderBy, onSnapshot, doc, updateDoc, deleteDoc } from "firebase/firestore";
 import { db } from "@/lib/firebase";
 import { toast } from "@/hooks/use-toast";
 import {
@@ -19,7 +19,18 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { MoreHorizontal, Check, X, Clock } from "lucide-react";
+import { MoreHorizontal, Check, X, Clock, Trash2 } from "lucide-react";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
 
 type Status = 'new' | 'contacted' | 'completed' | 'spam';
 
@@ -97,6 +108,22 @@ export default function ContactSubmissions() {
       toast({
         title: "Error updating status",
         description: "Failed to update submission status",
+        variant: "destructive",
+      });
+    }
+  };
+
+  const deleteSubmission = async (id: string) => {
+    try {
+      await deleteDoc(doc(db, "contactSubmissions", id));
+      toast({
+        title: "Success",
+        description: "Submission deleted successfully",
+      });
+    } catch (error) {
+      toast({
+        title: "Error deleting submission",
+        description: "Failed to delete submission",
         variant: "destructive",
       });
     }
@@ -226,6 +253,38 @@ export default function ContactSubmissions() {
                           <X className="mr-2 h-4 w-4" />
                           Mark as Spam
                         </DropdownMenuItem>
+
+                        <div className="border-t my-1" />
+
+                        <AlertDialog>
+                          <AlertDialogTrigger asChild>
+                            <DropdownMenuItem
+                              onSelect={(e) => e.preventDefault()}
+                              className="flex items-center text-red-600 focus:text-red-700 font-medium"
+                            >
+                              <Trash2 className="mr-2 h-4 w-4" />
+                              Delete Submission
+                            </DropdownMenuItem>
+                          </AlertDialogTrigger>
+                          <AlertDialogContent>
+                            <AlertDialogHeader>
+                              <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+                              <AlertDialogDescription>
+                                This action cannot be undone. This will permanently delete the submission
+                                from {submission.name}.
+                              </AlertDialogDescription>
+                            </AlertDialogHeader>
+                            <AlertDialogFooter>
+                              <AlertDialogCancel>Cancel</AlertDialogCancel>
+                              <AlertDialogAction
+                                onClick={() => deleteSubmission(submission.id)}
+                                className="bg-red-600 hover:bg-red-700"
+                              >
+                                Delete
+                              </AlertDialogAction>
+                            </AlertDialogFooter>
+                          </AlertDialogContent>
+                        </AlertDialog>
                       </DropdownMenuContent>
                     </DropdownMenu>
                   </TableCell>
