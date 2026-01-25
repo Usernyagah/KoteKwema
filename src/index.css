@@ -104,7 +104,7 @@ All colors MUST be HSL.
   }
 
   body {
-    @apply bg-background text-white font-bold;
+    @apply bg-background text-foreground;
   }
 }
 
