@@ -7,13 +7,14 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { toast } from "@/hooks/use-toast";
 import { useNavigate, useSearchParams } from "react-router-dom";
-import { Building2, Briefcase, Mail, LogOut, MessageSquare, Users, Newspaper } from "lucide-react";
+import { Building2, Briefcase, Mail, LogOut, MessageSquare, Users, Newspaper, Settings as SettingsIcon } from "lucide-react";
 import PropertiesManagement from "@/components/admin/PropertiesManagement";
 import JobsManagement from "@/components/admin/JobsManagement";
 import EmailSubscriptions from "@/components/admin/EmailSubscriptions";
 import ContactSubmissions from "@/components/admin/ContactSubmissions";
 import TeamManagement from "@/components/admin/TeamManagement";
 import NewsManagement from "@/components/admin/NewsManagement";
+import Settings from "@/components/admin/Settings";
 
 const AdminDashboard = () => {
   const [user, loading] = useAuthState(auth);
@@ -89,7 +90,7 @@ const AdminDashboard = () => {
 
       <div className="container mx-auto px-4 py-8">
         <Tabs value={activeTab} onValueChange={handleTabChange} className="space-y-6">
-          <TabsList className="grid w-full grid-cols-6">
+          <TabsList className="grid w-full grid-cols-7">
             <TabsTrigger value="projects">
               <Building2 className="mr-2 h-4 w-4" />
               Projects
@@ -113,6 +114,10 @@ const AdminDashboard = () => {
             <TabsTrigger value="contact">
               <MessageSquare className="mr-2 h-4 w-4" />
               Contact Submissions
+            </TabsTrigger>
+            <TabsTrigger value="settings">
+              <SettingsIcon className="mr-2 h-4 w-4" />
+              Settings
             </TabsTrigger>
           </TabsList>
 
@@ -194,6 +199,10 @@ const AdminDashboard = () => {
                 <ContactSubmissions />
               </CardContent>
             </Card>
+          </TabsContent>
+
+          <TabsContent value="settings">
+            <Settings />
           </TabsContent>
         </Tabs>
       </div>
