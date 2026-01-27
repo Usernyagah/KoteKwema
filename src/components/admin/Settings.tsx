@@ -8,7 +8,7 @@ import { Switch } from "@/components/ui/switch";
 import { toast } from "@/hooks/use-toast";
 
 const Settings = () => {
-    const [siteName, setSiteName] = useState("Foster Clone");
+    const [siteName, setSiteName] = useState("Kote Kwema");
     const [maintenanceMode, setMaintenanceMode] = useState(false);
     const [notifications, setNotifications] = useState(true);
 
