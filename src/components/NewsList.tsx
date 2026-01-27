@@ -43,7 +43,6 @@ const NewsList = ({ subtopic }: NewsListProps) => {
 
         const q = query(
             collection(db, "news"),
-            where("published", "==", true),
             orderBy("createdAt", "desc")
         );
 
@@ -51,15 +50,27 @@ const NewsList = ({ subtopic }: NewsListProps) => {
             const articlesData: NewsArticle[] = [];
             snapshot.forEach((doc) => {
                 const data = doc.data();
-                const category = data.category || "";
 
-                // Client-side filtering because Firestore 'in' query has limits 
-                // and we want flexible matching
-                const matchesCategory = categories.some(cat =>
-                    category.toLowerCase().includes(cat.toLowerCase())
-                );
+                // Filter by published status client-side to avoid index requirements
+                if (data.published !== true) return;
 
-                if (matchesCategory || subtopic === "all") {
+                const category = (data.category || "").toLowerCase();
+
+                // If on announcements page, show everything that isn't specifically an "award"
+                // OR show items that match general announcement keywords
+                // This ensures "General" or uncategorized news still appears.
+                let matchesCategory = false;
+                if (subtopic === "announcements") {
+                    const awardKeywords = ["award", "recognition", "honor", "competition"];
+                    const isAward = awardKeywords.some(kw => category.includes(kw));
+                    matchesCategory = !isAward || categories.some(cat => category.includes(cat.toLowerCase()));
+                } else {
+                    matchesCategory = categories.some(cat =>
+                        category.includes(cat.toLowerCase())
+                    );
+                }
+
+                if (matchesCategory || subtopic === "all" || !subtopic) {
                     articlesData.push({
                         ...data,
                         id: doc.id,
