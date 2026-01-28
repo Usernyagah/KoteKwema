@@ -21,7 +21,7 @@ export const useSEO = ({
     const baseTitle = 'Kote Kwema - Award-Winning Architecture Firm in Nairobi';
     const baseDescription = 'Award-winning architecture firm creating innovative and sustainable designs across residential, commercial, and cultural spaces in Nairobi, Kenya.';
     const baseUrl = 'https://kotekwema.com';
-    const baseImage = 'https://kotekwema.com/logo.jpg';
+    const baseImage = 'https://kotekwema.com/favicon/android-chrome-512x512.png';
 
     // Update title
     if (title) {
