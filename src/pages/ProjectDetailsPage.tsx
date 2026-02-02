@@ -149,9 +149,10 @@ export default function ProjectDetailsPage() {
                 </p>
               </div>
 
-              {/* Image slider */}
+              {/* Image Gallery */}
               {images.length > 0 && (
-                <div className="space-y-3">
+                <div className="space-y-4">
+                  {/* Main Image */}
                   <div className="relative aspect-video overflow-hidden rounded-lg bg-gray-100 group">
                     <img
                       src={images[slideIndex]}
@@ -187,9 +188,32 @@ export default function ProjectDetailsPage() {
                     )}
                   </div>
 
-                  <div className="text-sm text-[#666666]">
-                    Slide {Math.min(slideIndex + 1, images.length)} of {images.length}
-                  </div>
+                  {/* Thumbnails */}
+                  {images.length > 1 && (
+                    <div className="grid grid-cols-4 sm:grid-cols-5 md:grid-cols-6 gap-2 md:gap-4">
+                      {images.map((img, idx) => (
+                        <button
+                          key={idx}
+                          type="button"
+                          onClick={() => setSlideIndex(idx)}
+                          className={`relative aspect-video overflow-hidden rounded-md transition-all ${idx === slideIndex
+                              ? "ring-2 ring-black ring-offset-2"
+                              : "hover:opacity-80"
+                            }`}
+                        >
+                          <img
+                            src={img}
+                            alt={`Thumbnail ${idx + 1}`}
+                            className="w-full h-full object-cover"
+                            onError={(e) => {
+                              (e.target as HTMLImageElement).src =
+                                "https://via.placeholder.com/1200x675?text=No+Image";
+                            }}
+                          />
+                        </button>
+                      ))}
+                    </div>
+                  )}
                 </div>
               )}
 
