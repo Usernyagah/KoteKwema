@@ -152,7 +152,7 @@ export default function ProjectDetailsPage() {
               {/* Image slider */}
               {images.length > 0 && (
                 <div className="space-y-3">
-                  <div className="relative aspect-video overflow-hidden rounded-lg bg-gray-100">
+                  <div className="relative aspect-video overflow-hidden rounded-lg bg-gray-100 group">
                     <img
                       src={images[slideIndex]}
                       alt={`${project.title} - Slide ${slideIndex + 1}`}
@@ -167,21 +167,21 @@ export default function ProjectDetailsPage() {
                       <>
                         <Button
                           type="button"
-                          variant="outline"
+                          variant="ghost"
                           size="icon"
-                          className="absolute left-4 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white"
+                          className="absolute left-4 top-1/2 -translate-y-1/2 bg-transparent hover:bg-transparent text-white hover:text-gray-200 opacity-0 group-hover:opacity-100 transition-opacity"
                           onClick={goPrev}
                         >
-                          <ChevronLeft className="h-5 w-5" />
+                          <ChevronLeft className="h-8 w-8" />
                         </Button>
                         <Button
                           type="button"
-                          variant="outline"
+                          variant="ghost"
                           size="icon"
-                          className="absolute right-4 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white"
+                          className="absolute right-4 top-1/2 -translate-y-1/2 bg-transparent hover:bg-transparent text-white hover:text-gray-200 opacity-0 group-hover:opacity-100 transition-opacity"
                           onClick={goNext}
                         >
-                          <ChevronRight className="h-5 w-5" />
+                          <ChevronRight className="h-8 w-8" />
                         </Button>
                       </>
                     )}

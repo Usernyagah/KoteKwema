@@ -104,20 +104,20 @@ const PropertyDetailsDialog = ({ property, isOpen, onClose }: PropertyDetailsDia
                 {images.length > 1 && (
                   <>
                     <Button
-                      variant="outline"
+                      variant="ghost"
                       size="icon"
-                      className="absolute left-4 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white opacity-0 group-hover:opacity-100 transition-opacity"
+                      className="absolute left-4 top-1/2 -translate-y-1/2 bg-transparent hover:bg-transparent text-white hover:text-gray-200 opacity-0 group-hover:opacity-100 transition-opacity"
                       onClick={goToPrevious}
                     >
-                      <ChevronLeft className="h-5 w-5" />
+                      <ChevronLeft className="h-8 w-8" />
                     </Button>
                     <Button
-                      variant="outline"
+                      variant="ghost"
                       size="icon"
-                      className="absolute right-4 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white opacity-0 group-hover:opacity-100 transition-opacity"
+                      className="absolute right-4 top-1/2 -translate-y-1/2 bg-transparent hover:bg-transparent text-white hover:text-gray-200 opacity-0 group-hover:opacity-100 transition-opacity"
                       onClick={goToNext}
                     >
-                      <ChevronRight className="h-5 w-5" />
+                      <ChevronRight className="h-8 w-8" />
                     </Button>
                   </>
                 )}
