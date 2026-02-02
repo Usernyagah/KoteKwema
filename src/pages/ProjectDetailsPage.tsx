@@ -190,15 +190,15 @@ export default function ProjectDetailsPage() {
 
                   {/* Thumbnails */}
                   {images.length > 1 && (
-                    <div className="grid grid-cols-4 sm:grid-cols-5 md:grid-cols-6 gap-2 md:gap-4">
+                    <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-2 md:gap-4">
                       {images.map((img, idx) => (
                         <button
                           key={idx}
                           type="button"
                           onClick={() => setSlideIndex(idx)}
                           className={`relative aspect-video overflow-hidden rounded-md transition-all ${idx === slideIndex
-                              ? "ring-2 ring-black ring-offset-2"
-                              : "hover:opacity-80"
+                            ? "ring-2 ring-black ring-offset-2"
+                            : "hover:opacity-80"
                             }`}
                         >
                           <img
