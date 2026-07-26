@@ -212,7 +212,7 @@ const PropertiesList = ({
   return (
     <div className="mt-8 md:mt-12">
       <div className="grid grid-cols-1 gap-6 md:gap-8">
-        {filteredProperties.slice(0, 3).map((property) => (
+        {filteredProperties.map((property) => (
           <PropertyCard key={property.id} property={property} />
         ))}
       </div>
