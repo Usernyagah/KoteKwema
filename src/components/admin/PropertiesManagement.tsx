@@ -142,7 +142,7 @@ const PropertiesManagement = () => {
                 <TableHead>Title</TableHead>
                 <TableHead>Category</TableHead>
                 <TableHead>Location</TableHead>
-                <TableHead>Price</TableHead>
+                <TableHead>Year</TableHead>
                 <TableHead>Images</TableHead>
                 <TableHead className="text-right">Actions</TableHead>
               </TableRow>
@@ -154,7 +154,7 @@ const PropertiesManagement = () => {
                   <TableCell className="capitalize">{property.category}</TableCell>
                   <TableCell>{property.location}</TableCell>
                   <TableCell>
-                    {property.price ? `KSh ${property.price.toLocaleString()}` : "-"}
+                    {property.price || "-"}
                   </TableCell>
                   <TableCell>
                     {property.images?.length || 0} image{property.images?.length !== 1 ? "s" : ""}
